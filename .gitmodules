@@ -1,0 +1,6 @@
+[submodule "iris-webgateway-example"]
+	path = iris-webgateway-example
+	url = https://github.com/caretdev/iris-webgateway-example.git
+[submodule "apache-ssl"]
+	path = apache-ssl
+	url = https://github.com/IRISMeister/apache-ssl.git

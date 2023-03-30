@@ -1,0 +1,700 @@
+**OAuth2-3 2023-03-29 09:47:54.012160497 ns=%SYS routine=%CSP.REST.1 job=1067 sessionid=G3aFVHvMCv
+[%CSP.REST]
+AccessCheck
+
+**OAuth2Server-3 2023-03-29 09:47:54.018147073 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:OnPreHTTP]
+
+**OAuth2Server-3 2023-03-29 09:47:54.018223135 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:OnPreHTTP]CSP Request
+data="Content-Type: , Secure: 1, Method: GET"
+data("Cookie","Username")="SuperUser"
+data("Cookie","state-D9061EF4-C373-11ED-B510-0242C0A82811")="SYSADM%3A1%2C7"
+data("Header","HTTP_ACCEPT")="text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+data("Header","HTTP_ACCEPT_ENCODING")="gzip, deflate, br"
+data("Header","HTTP_ACCEPT_LANGUAGE")="ja,en-US;q=0.9,en;q=0.8"
+data("Header","HTTP_COOKIE")="Username=SuperUser; state-D9061EF4-C373-11ED-B510-0242C0A82811=SYSADM%3A1%2C7; CSPSESSIONID-SP-443-UP-irisclient-csp-user-=00f003070000yniFuQr9SrLHFib7V8p8tsjciHnn8ZwRN_6kBo"
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_REFERER")="https://webgw.localdomain/irisclient/csp/user/MyApp.Login.cls"
+data("Header","HTTP_SEC_CH_UA")="""Google Chrome"";v=""111"", ""Not(A:Brand"";v=""8"", ""Chromium"";v=""111"""
+data("Header","HTTP_SEC_CH_UA_MOBILE")="?0"
+data("Header","HTTP_SEC_CH_UA_PLATFORM")="""Windows"""
+data("Header","HTTP_SEC_FETCH_DEST")="document"
+data("Header","HTTP_SEC_FETCH_MODE")="navigate"
+data("Header","HTTP_SEC_FETCH_SITE")="same-origin"
+data("Header","HTTP_SEC_FETCH_USER")="?1"
+data("Header","HTTP_UPGRADE_INSECURE_REQUESTS")=1
+data("Header","HTTP_USER_AGENT")="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+data("client_id",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("code_challenge",1)="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("code_challenge_method",1)="S256"
+data("nonce",1)="eTjTZXenHYAhOtQRyyheSwF6134"
+data("redirect_uri",1)="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("response_type",1)="code"
+data("scope",1)="openid profile scope1"
+data("state",1)="fXVBKshxHuJx2oamp67kRrraly4"
+
+**OAuth2Server-3 2023-03-29 09:47:54.018381784 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:OnPreHTTP]
+client_id=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE
+
+**OAuth2Server-3 2023-03-29 09:47:54.018450058 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:ProcessRequest]
+ClientId=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE
+
+**OAuth2Server-3 2023-03-29 09:47:54.018457777 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:GetAuthenticateDomain]
+
+**OAuth2Server-3 2023-03-29 09:47:54.018481742 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:InitializeRequestToken]
+ClientId=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE
+
+**OAuth2Server-3 2023-03-29 09:47:54.018487953 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:GetQueryParameters]
+
+**OAuth2Server-3 2023-03-29 09:47:54.018504227 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:GetQueryParameters]Array request parameters (err=)
+data("client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("code_challenge")="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("code_challenge_method")="S256"
+data("nonce")="eTjTZXenHYAhOtQRyyheSwF6134"
+data("redirect_uri")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("response_type")="code"
+data("scope")="openid profile scope1"
+data("state")="fXVBKshxHuJx2oamp67kRrraly4"
+
+**OAuth2Server-3 2023-03-29 09:47:54.022905337 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:InitializeRequestToken]
+redirect=https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls
+
+**OAuth2Server-3 2023-03-29 09:47:54.022951024 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:InitializeRequestToken]
+redirect(1)=https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls
+
+**OAuth2Server-3 2023-03-29 09:47:54.024040259 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:BeforeAuthenticate]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager, AuthenticateClass=%ZOAuth2.Server.MyAuthenticate
+
+**OAuth2Server-3 2023-03-29 09:47:54.024120737 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:DelegatedAuthentication]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager
+
+**OAuth2Server-3 2023-03-29 09:47:54.024184752 ns=%SYS routine=OAuth2.Server.Configuration.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Configuration:GetLanguageList]
+deenen-gben-usesfritjakonlpt-brruukzh-cn
+
+**OAuth2Server-3 2023-03-29 09:47:54.024203643 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.SupportedClaims]
+
+**OAuth2Server-3 2023-03-29 09:47:54.024240679 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:DirectLogin]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager
+
+**OAuth2Server-3 2023-03-29 09:47:54.024251231 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:ProcessRequest]
+Will display login page
+
+**OAuth2Server-3 2023-03-29 09:47:54.024258555 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:GetUser]
+inSession=1
+
+**OAuth2Server-3 2023-03-29 09:47:54.149900376 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:GetUser]
+username=, scope=
+
+**OAuth2Server-3 2023-03-29 09:47:54.14996387 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:RedirectToSelf]
+url=authorize?AuthorizationCode=mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w&stage=login:1
+
+**OAuth2Server-3 2023-03-29 09:47:54.150448452 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=G3aFVHvMCv
+ProcessRequest: Access Token
+data("AccessToken")=""
+data("AccessTokenExpires")=""
+data("Aud",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("AuthTime")=""
+data("AuthorizationCode")="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("AuthorizationCodeExpires")=""
+data("ClientId")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("GrantType")="A"
+data("IDToken")=""
+data("Issuer")="https://webgw.localdomain/irisauth/authserver/oauth2"
+data("RedirectURL")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RefreshToken")=""
+data("RequestProperties","client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("RequestProperties","code_challenge")="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("RequestProperties","code_challenge_method")="S256"
+data("RequestProperties","nonce")="eTjTZXenHYAhOtQRyyheSwF6134"
+data("RequestProperties","redirect_uri")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RequestProperties","response_type")="code"
+data("RequestProperties","scope")="openid profile scope1"
+data("RequestProperties","state")="fXVBKshxHuJx2oamp67kRrraly4"
+data("ResponseMode")="query"
+data("ResponseType")="code"
+data("Scope")="openid profile scope1"
+data("ScopeArray","openid")="OpenID Connect"
+data("ScopeArray","profile")="User default profile information"
+data("ScopeArray","scope1")="first scope"
+data("ServerProperties","client_name")="USER_CLIENT_APP"
+data("ServerProperties","client_uri")="https://webgw.localdomain/"
+data("ServerProperties","logo_uri")="https://webgw.localdomain/logo.png"
+data("ServerProperties","policy_uri")="https://webgw.localdomain/policy.html"
+data("ServerProperties","tos_uri")="https://webgw.localdomain/service.html"
+data("Stage")="display"
+data("State")="fXVBKshxHuJx2oamp67kRrraly4"
+data("UserinfoClaims","birthdate")=""
+data("UserinfoClaims","family_name")=""
+data("UserinfoClaims","gender")=""
+data("UserinfoClaims","given_name")=""
+data("UserinfoClaims","locale")=""
+data("UserinfoClaims","middle_name")=""
+data("UserinfoClaims","name")=""
+data("UserinfoClaims","nickname")=""
+data("UserinfoClaims","picture")=""
+data("UserinfoClaims","preferred_username")=""
+data("UserinfoClaims","profile")=""
+data("UserinfoClaims","updated_at")=""
+data("UserinfoClaims","website")=""
+data("UserinfoClaims","zoneinfo")=""
+data("Username")=""
+
+**OAuth2-3 2023-03-29 09:47:54.151088778 ns=%SYS routine=%CSP.REST.1 job=1067 sessionid=G3aFVHvMCv
+[%CSP.REST]
+AccessCheck
+
+**OAuth2Server-3 2023-03-29 09:47:54.151241516 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:OnPreHTTP]
+
+**OAuth2Server-3 2023-03-29 09:47:54.151300066 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:OnPreHTTP]CSP Request
+data="Content-Type: , Secure: 1, Method: GET"
+data("AuthorizationCode",1)="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("Cookie","Username")="SuperUser"
+data("Cookie","state-D9061EF4-C373-11ED-B510-0242C0A82811")="SYSADM%3A1%2C7"
+data("Header","HTTP_ACCEPT")="text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+data("Header","HTTP_ACCEPT_ENCODING")="gzip, deflate, br"
+data("Header","HTTP_ACCEPT_LANGUAGE")="ja,en-US;q=0.9,en;q=0.8"
+data("Header","HTTP_COOKIE")="Username=SuperUser; state-D9061EF4-C373-11ED-B510-0242C0A82811=SYSADM%3A1%2C7; CSPSESSIONID-SP-443-UP-irisclient-csp-user-=00f003070000yniFuQr9SrLHFib7V8p8tsjciHnn8ZwRN_6kBo"
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_REFERER")="https://webgw.localdomain/irisclient/csp/user/MyApp.Login.cls"
+data("Header","HTTP_SEC_CH_UA")="""Google Chrome"";v=""111"", ""Not(A:Brand"";v=""8"", ""Chromium"";v=""111"""
+data("Header","HTTP_SEC_CH_UA_MOBILE")="?0"
+data("Header","HTTP_SEC_CH_UA_PLATFORM")="""Windows"""
+data("Header","HTTP_SEC_FETCH_DEST")="document"
+data("Header","HTTP_SEC_FETCH_MODE")="navigate"
+data("Header","HTTP_SEC_FETCH_SITE")="same-origin"
+data("Header","HTTP_SEC_FETCH_USER")="?1"
+data("Header","HTTP_UPGRADE_INSECURE_REQUESTS")=1
+data("Header","HTTP_USER_AGENT")="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+data("client_id",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("code_challenge",1)="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("code_challenge_method",1)="S256"
+data("nonce",1)="eTjTZXenHYAhOtQRyyheSwF6134"
+data("redirect_uri",1)="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("response_type",1)="code"
+data("scope",1)="openid profile scope1"
+data("stage",1)="login:1"
+data("state",1)="fXVBKshxHuJx2oamp67kRrraly4"
+
+**OAuth2Server-3 2023-03-29 09:47:54.151398606 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:OnPreHTTP]
+AuthorizationCode=mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w
+
+**OAuth2Server-3 2023-03-29 09:47:54.151493983 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:ProcessFormResponse]
+ClientId=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE, stage=display
+
+**OAuth2Server-3 2023-03-29 09:47:54.151706683 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:OnPage]
+stage=login:1
+
+**OAuth2Server-3 2023-03-29 09:47:54.151720989 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=G3aFVHvMCv
+[OAuth2.Server.Auth:DisplayLogin]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager
+
+**OAuth2-3 2023-03-29 09:47:58.41533571 ns=%SYS routine=%CSP.REST.1 job=1067 sessionid=VnR2wBQ9SQ
+[%CSP.REST]
+AccessCheck
+
+**OAuth2Server-3 2023-03-29 09:47:58.41556074 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:OnPreHTTP]
+
+**OAuth2Server-3 2023-03-29 09:47:58.415635491 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:OnPreHTTP]CSP Request
+data="Content-Type: application/x-www-form-urlencoded, Secure: 1, Method: POST"
+data("AuthorizationCode",1)="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("Cookie","Username")="SuperUser"
+data("Cookie","state-D9061EF4-C373-11ED-B510-0242C0A82811")="SYSADM%3A1%2C7"
+data("Header","HTTP_ACCEPT")="text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+data("Header","HTTP_ACCEPT_ENCODING")="gzip, deflate, br"
+data("Header","HTTP_ACCEPT_LANGUAGE")="ja,en-US;q=0.9,en;q=0.8"
+data("Header","HTTP_CACHE_CONTROL")="max-age=0"
+data("Header","HTTP_CONTENT_LENGTH")=184
+data("Header","HTTP_COOKIE")="Username=SuperUser; state-D9061EF4-C373-11ED-B510-0242C0A82811=SYSADM%3A1%2C7; CSPSESSIONID-SP-443-UP-irisclient-csp-user-=00f003070000yniFuQr9SrLHFib7V8p8tsjciHnn8ZwRN_6kBo"
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_ORIGIN")="https://webgw.localdomain"
+data("Header","HTTP_REFERER")="https://webgw.localdomain/irisauth/authserver/oauth2/authorize?response_type=code&client_id=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE&redirect_uri=https%3A//webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls&scope=openid%20profile%20scope1&state=fXVBKshxHuJx2oamp67kRrraly4&nonce=eTjTZXenHYAhOtQRyyheSwF6134&code_challenge=F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0&code_challenge_method=S256"
+data("Header","HTTP_SEC_CH_UA")="""Google Chrome"";v=""111"", ""Not(A:Brand"";v=""8"", ""Chromium"";v=""111"""
+data("Header","HTTP_SEC_CH_UA_MOBILE")="?0"
+data("Header","HTTP_SEC_CH_UA_PLATFORM")="""Windows"""
+data("Header","HTTP_SEC_FETCH_DEST")="document"
+data("Header","HTTP_SEC_FETCH_MODE")="navigate"
+data("Header","HTTP_SEC_FETCH_SITE")="same-origin"
+data("Header","HTTP_SEC_FETCH_USER")="?1"
+data("Header","HTTP_UPGRADE_INSECURE_REQUESTS")=1
+data("Header","HTTP_USER_AGENT")="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+data("Login",1)="サインイン"
+data("Password",1)="*****"
+data("Username",1)="test"
+data("client_id",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("code_challenge",1)="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("code_challenge_method",1)="S256"
+data("nonce",1)="eTjTZXenHYAhOtQRyyheSwF6134"
+data("redirect_uri",1)="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("response_type",1)="code"
+data("scope",1)="openid profile scope1"
+data("state",1)="fXVBKshxHuJx2oamp67kRrraly4"
+
+**OAuth2Server-3 2023-03-29 09:47:58.415794673 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:OnPreHTTP]
+AuthorizationCode=mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w
+
+**OAuth2Server-3 2023-03-29 09:47:58.415964546 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:ProcessFormResponse]
+ClientId=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE, stage=login:1
+
+**OAuth2Server-3 2023-03-29 09:47:58.415977754 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:ValidateUser]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager, username=test
+
+**OAuth2Server-3 2023-03-29 09:47:58.422470441 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:OnPage]
+stage=permission
+
+**OAuth2Server-3 2023-03-29 09:47:58.42248246 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:DisplayPermissions]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager
+
+**OAuth2Server-3 2023-03-29 09:47:58.422488942 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:GetUser]
+inSession=1
+
+**OAuth2Server-3 2023-03-29 09:47:58.422591083 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VnR2wBQ9SQ
+[OAuth2.Server.Auth:GetUser]
+username=, scope=
+
+**OAuth2-3 2023-03-29 09:47:59.371689293 ns=%SYS routine=%CSP.REST.1 job=1067 sessionid=SBw2ZMpMCp
+[%CSP.REST]
+AccessCheck
+
+**OAuth2Server-3 2023-03-29 09:47:59.371844886 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:OnPreHTTP]
+
+**OAuth2Server-3 2023-03-29 09:47:59.371883401 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:OnPreHTTP]CSP Request
+data="Content-Type: , Secure: 1, Method: GET"
+data("Accept",1)="許可"
+data("AuthorizationCode",1)="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("Cookie","Username")="SuperUser"
+data("Cookie","state-D9061EF4-C373-11ED-B510-0242C0A82811")="SYSADM%3A1%2C7"
+data("Header","HTTP_ACCEPT")="text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+data("Header","HTTP_ACCEPT_ENCODING")="gzip, deflate, br"
+data("Header","HTTP_ACCEPT_LANGUAGE")="ja,en-US;q=0.9,en;q=0.8"
+data("Header","HTTP_COOKIE")="Username=SuperUser; state-D9061EF4-C373-11ED-B510-0242C0A82811=SYSADM%3A1%2C7; CSPSESSIONID-SP-443-UP-irisclient-csp-user-=00f003070000yniFuQr9SrLHFib7V8p8tsjciHnn8ZwRN_6kBo"
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_REFERER")="https://webgw.localdomain/irisauth/authserver/oauth2/authorize?response_type=code&client_id=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE&redirect_uri=https%3A//webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls&scope=openid%20profile%20scope1&state=fXVBKshxHuJx2oamp67kRrraly4&nonce=eTjTZXenHYAhOtQRyyheSwF6134&code_challenge=F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0&code_challenge_method=S256"
+data("Header","HTTP_SEC_CH_UA")="""Google Chrome"";v=""111"", ""Not(A:Brand"";v=""8"", ""Chromium"";v=""111"""
+data("Header","HTTP_SEC_CH_UA_MOBILE")="?0"
+data("Header","HTTP_SEC_CH_UA_PLATFORM")="""Windows"""
+data("Header","HTTP_SEC_FETCH_DEST")="document"
+data("Header","HTTP_SEC_FETCH_MODE")="navigate"
+data("Header","HTTP_SEC_FETCH_SITE")="same-origin"
+data("Header","HTTP_SEC_FETCH_USER")="?1"
+data("Header","HTTP_UPGRADE_INSECURE_REQUESTS")=1
+data("Header","HTTP_USER_AGENT")="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
+
+**OAuth2Server-3 2023-03-29 09:47:59.37198396 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:OnPreHTTP]
+AuthorizationCode=mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w
+
+**OAuth2Server-3 2023-03-29 09:47:59.372066964 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:ProcessFormResponse]
+ClientId=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE, stage=permission
+
+**OAuth2Server-3 2023-03-29 09:47:59.372079998 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:AfterAuthenticate]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager, AuthenticateClass=%ZOAuth2.Server.MyAuthenticate
+
+**OAuth2Server-3 2023-03-29 09:47:59.37215728 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:GetUser]
+inSession=1
+
+**OAuth2Server-3 2023-03-29 09:47:59.372436068 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:GetUser]
+username=, scope=
+
+**OAuth2Server-3 2023-03-29 09:47:59.372449288 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:Login]
+username=test, scope=openid profile scope1, interval=86400
+
+**OAuth2Server-3 2023-03-29 09:47:59.372720422 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:ProcessFormResponse]
+GetUser auth_time=1680083279, username=, token.Username=test
+
+**OAuth2Server-3 2023-03-29 09:47:59.372730797 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:PrepareResponse]
+
+**OAuth2Server-3 2023-03-29 09:47:59.372860851 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:RedirectResponse]
+grant_type=A
+
+**OAuth2Server-3 2023-03-29 09:47:59.383339407 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=SBw2ZMpMCp
+[OAuth2.Server.Auth:SendResponse]
+url=https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls?code=mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w&state=fXVBKshxHuJx2oamp67kRrraly4
+
+**OAuth2-3 2023-03-29 09:47:59.45050238 ns=%SYS routine=%CSP.REST.1 job=1067 sessionid=VP1aVXk9Sk
+[%CSP.REST]
+AccessCheck
+
+**OAuth2Server-3 2023-03-29 09:47:59.450577372 ns=%SYS routine=OAuth2.Server.Token.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Token:Process]
+
+**OAuth2Server-3 2023-03-29 09:47:59.450604827 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Token:Process]CSP Request
+data="Content-Type: application/x-www-form-urlencoded, Secure: 1, Method: POST, Authorization: Basic SG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERTpmR3NSOTNtUmFwQWlOdG51OExtVVVPTVRLZGdiUXR6VjI3QmF6MEVuWFBsLXU0TlVydWVaWUc3bDktSXM0aWhSSGtVb1BOdGI4SmNQTVJsMFdxb3BtUQ=="
+data("Header","HTTP_ACCEPT")="application/json"
+data("Header","HTTP_ACCEPT_ENCODING")="gzip"
+data("Header","HTTP_AUTHORIZATION")="Basic SG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERTpmR3NSOTNtUmFwQWlOdG51OExtVVVPTVRLZGdiUXR6VjI3QmF6MEVuWFBsLXU0TlVydWVaWUc3bDktSXM0aWhSSGtVb1BOdGI4SmNQTVJsMFdxb3BtUQ=="
+data("Header","HTTP_CONTENT_LENGTH")=334
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_USER_AGENT")="Mozilla/4.0 (compatible; InterSystems IRIS;)"
+data("client_id",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("code",1)="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("code_verifier",1)="DNGVMg8z1TBLjIqel8XCWIDPrqBMAYWAd2-iGkVk398"
+data("grant_type",1)="authorization_code"
+data("redirect_uri",1)="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+
+**OAuth2Server-3 2023-03-29 09:47:59.45069918 ns=%SYS routine=OAuth2.Server.Token.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Token:ProcessAuthorizationCode]
+
+**OAuth2Server-3 2023-03-29 09:47:59.450706334 ns=%SYS routine=OAuth2.Server.Token.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Token:Authorize]
+secretRequired=0
+
+**OAuth2Server-3 2023-03-29 09:47:59.450719913 ns=%SYS routine=OAuth2.Server.Token.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Token:Authorize]
+header ClientId=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE, ClientSecret=*****
+
+**OAuth2Server-3 2023-03-29 09:47:59.450820334 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Auth:GenerateAccessToken]
+namespace=%SYS, roles=%DB_IRISSYS,%Manager,$roles=%All
+
+**OAuth2Server-3 2023-03-29 09:47:59.450901719 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Auth:GenerateAccessToken]
+$roles=%Manager,%DB_IRISSYS
+
+**OAuth2Server-3 2023-03-29 09:47:59.450977906 ns=%SYS routine=%OAuth2.Server.JWT.1 job=1067 sessionid=VP1aVXk9Sk
+[%OAuth2.Server.JWT:GenerateAccessToken]
+
+**OAuth2Server-3 2023-03-29 09:47:59.451073453 ns=%SYS routine=%OAuth2.Server.JWT.1 job=1067 sessionid=VP1aVXk9Sk
+[%OAuth2.Server.JWT:CreateJWT]
+Signing alg=RS512
+
+**OAuth2Server-3 2023-03-29 09:47:59.453854629 ns=%SYS routine=%OAuth2.Server.JWT.1 job=1067 sessionid=VP1aVXk9Sk
+[%OAuth2.Server.JWT:CreateJWT]
+JWT=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw
+
+**OAuth2Server-3 2023-03-29 09:47:59.453883912 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Auth:GenerateAccessToken]
+accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw
+
+**OAuth2Server-3 2023-03-29 09:47:59.45391283 ns=%SYS routine=OAuth2.Server.OpenID.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.OpenID:CreateIDToken]
+
+**OAuth2Server-3 2023-03-29 09:47:59.453975106 ns=%SYS routine=OAuth2.Server.OpenID.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.OpenID:Hash]
+sigalg=RS512
+
+**OAuth2Server-3 2023-03-29 09:47:59.454037159 ns=%SYS routine=%OAuth2.Server.JWT.1 job=1067 sessionid=VP1aVXk9Sk
+[%OAuth2.Server.JWT:CreateJWT]
+Signing alg=RS512
+
+**OAuth2Server-3 2023-03-29 09:47:59.455769824 ns=%SYS routine=%OAuth2.Server.JWT.1 job=1067 sessionid=VP1aVXk9Sk
+[%OAuth2.Server.JWT:CreateJWT]
+JWT=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJpc3MiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyIiwic3ViIjoidGVzdCIsImV4cCI6MTY4MDA4Njg3OSwiYXV0aF90aW1lIjoxNjgwMDgzMjc5LCJpYXQiOjE2ODAwODMyNzksIm5vbmNlIjoiZVRqVFpYZW5IWUFoT3RRUnl5aGVTd0Y2MTM0IiwiYXRfaGFzaCI6Ik12Nkdqek1zcldISEk0Q3FuUnYtQTRFLWl0VU1lOGppTUtlLUpaQ2RHd1EiLCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJhenAiOiJIbnM1cGdGcUZJWEtRR3QyNVlaNFFfa1pEWUZiN01ZYWEtTzJ6Z1FBN0RFIiwic2lkIjoiSHBWdUszWkRKZEFZOU9sY0NEbjJSXzU4NldRejg0Qk1mNmZBRWl3RnZzVSJ9.nedptxVuOVGL2Ld7TDY3A7a7jCE9jYlfrZ430H8t-I9WcQkKeMX20anvLnMpduKm9kr1W-yuNfWoxQJUmUCyBsPgy34b2KC7o6SM3jQxMceT_hnTrLT0c2E9wV8nml_oQ4od18d_tLjWZ7S8KbwaaWn-NiNG8g3UOwq52ZSGOua-3-Y7ECCJY86HiyE3fBwtH2PeGQ6rGOWcEAnlXNpgvujERGpvpk9A_D75LLm8haOEcg1NYVElrAbsZKlQ4lFWxjMq0fgq50VbNJ4ZF3Up5Nh9xdZz8J_qCM5-F7A4G1QRwHuqb8WpNvkJHsUtNKJBca6ILQk6HWYDKAJP8fXawQ
+
+**OAuth2Server-3 2023-03-29 09:47:59.455785251 ns=%SYS routine=OAuth2.Server.Auth.1 job=1067 sessionid=VP1aVXk9Sk
+[OAuth2.Server.Auth:GenerateAccessToken]
+IDToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJpc3MiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyIiwic3ViIjoidGVzdCIsImV4cCI6MTY4MDA4Njg3OSwiYXV0aF90aW1lIjoxNjgwMDgzMjc5LCJpYXQiOjE2ODAwODMyNzksIm5vbmNlIjoiZVRqVFpYZW5IWUFoT3RRUnl5aGVTd0Y2MTM0IiwiYXRfaGFzaCI6Ik12Nkdqek1zcldISEk0Q3FuUnYtQTRFLWl0VU1lOGppTUtlLUpaQ2RHd1EiLCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJhenAiOiJIbnM1cGdGcUZJWEtRR3QyNVlaNFFfa1pEWUZiN01ZYWEtTzJ6Z1FBN0RFIiwic2lkIjoiSHBWdUszWkRKZEFZOU9sY0NEbjJSXzU4NldRejg0Qk1mNmZBRWl3RnZzVSJ9.nedptxVuOVGL2Ld7TDY3A7a7jCE9jYlfrZ430H8t-I9WcQkKeMX20anvLnMpduKm9kr1W-yuNfWoxQJUmUCyBsPgy34b2KC7o6SM3jQxMceT_hnTrLT0c2E9wV8nml_oQ4od18d_tLjWZ7S8KbwaaWn-NiNG8g3UOwq52ZSGOua-3-Y7ECCJY86HiyE3fBwtH2PeGQ6rGOWcEAnlXNpgvujERGpvpk9A_D75LLm8haOEcg1NYVElrAbsZKlQ4lFWxjMq0fgq50VbNJ4ZF3Up5Nh9xdZz8J_qCM5-F7A4G1QRwHuqb8WpNvkJHsUtNKJBca6ILQk6HWYDKAJP8fXawQ
+
+**OAuth2Server-3 2023-03-29 09:47:59.456046228 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=VP1aVXk9Sk
+ProcessAuthorizationCode: Access Token
+data("AccessToken")="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("AccessTokenExpires")=1680086879
+data("Aud",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("AuthTime")=1680083279
+data("AuthorizationCode")="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("AuthorizationCodeExpires")=1680083339
+data("ClaimValues","aud")=$lb("string",$lb("https://webgw.localdomain/irisrsc/csp/myrsc","https://webgw.localdomain/irisrsc2/csp/myrsc","Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"))
+data("ClaimValues","auth_time")=$lb("number",1680083279)
+data("ClaimValues","customer_id")=$lb("string","RSC-00001")
+data("ClaimValues","email")=$lb("string","test@examples.com")
+data("ClaimValues","email_verified")=$lb("boolean",0)
+data("ClaimValues","exp")=$lb("number",1680086879)
+data("ClaimValues","iat")=$lb("number",1680083279)
+data("ClaimValues","iss")=$lb("string","https://webgw.localdomain/irisauth/authserver/oauth2")
+data("ClaimValues","name")=$lb("string","テスト太郎")
+data("ClaimValues","phone_number")=$lb("string","01234567")
+data("ClaimValues","phone_number_verified")=$lb("boolean",0)
+data("ClaimValues","preferred_username")=$lb("string","test")
+data("ClaimValues","scope")=$lb("string","openid profile scope1")
+data("ClaimValues","sid")=$lb("string","HpVuK3ZDJdAY9OlcCDn2R_586WQz84BMf6fAEiwFvsU")
+data("ClaimValues","sub")=$lb("string","test")
+data("ClaimValues","updated_at")=$lb("number",1680067538)
+data("ClientId")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("CustomProperties","client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("CustomProperties","roles")=""
+data("GrantType")="A"
+data("IDToken")="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJpc3MiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyIiwic3ViIjoidGVzdCIsImV4cCI6MTY4MDA4Njg3OSwiYXV0aF90aW1lIjoxNjgwMDgzMjc5LCJpYXQiOjE2ODAwODMyNzksIm5vbmNlIjoiZVRqVFpYZW5IWUFoT3RRUnl5aGVTd0Y2MTM0IiwiYXRfaGFzaCI6Ik12Nkdqek1zcldISEk0Q3FuUnYtQTRFLWl0VU1lOGppTUtlLUpaQ2RHd1EiLCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJhenAiOiJIbnM1cGdGcUZJWEtRR3QyNVlaNFFfa1pEWUZiN01ZYWEtTzJ6Z1FBN0RFIiwic2lkIjoiSHBWdUszWkRKZEFZOU9sY0NEbjJSXzU4NldRejg0Qk1mNmZBRWl3RnZzVSJ9.nedptxVuOVGL2Ld7TDY3A7a7jCE9jYlfrZ430H8t-I9WcQkKeMX20anvLnMpduKm9kr1W-yuNfWoxQJUmUCyBsPgy34b2KC7o6SM3jQxMceT_hnTrLT0c2E9wV8nml_oQ4od18d_tLjWZ7S8KbwaaWn-NiNG8g3UOwq52ZSGOua-3-Y7ECCJY86HiyE3fBwtH2PeGQ6rGOWcEAnlXNpgvujERGpvpk9A_D75LLm8haOEcg1NYVElrAbsZKlQ4lFWxjMq0fgq50VbNJ4ZF3Up5Nh9xdZz8J_qCM5-F7A4G1QRwHuqb8WpNvkJHsUtNKJBca6ILQk6HWYDKAJP8fXawQ"
+data("Issuer")="https://webgw.localdomain/irisauth/authserver/oauth2"
+data("JWTClaims","customer_id")=""
+data("JWTClaims","email")=""
+data("JWTClaims","phone_number")=""
+data("RedirectURL")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RefreshToken")="eHDHabnaH767T_USlMRn_y3sJ6OkQFdvl1976gvyG-Y"
+data("RequestProperties","client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("RequestProperties","code_challenge")="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("RequestProperties","code_challenge_method")="S256"
+data("RequestProperties","nonce")="eTjTZXenHYAhOtQRyyheSwF6134"
+data("RequestProperties","redirect_uri")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RequestProperties","response_type")="code"
+data("RequestProperties","scope")="openid profile scope1"
+data("RequestProperties","state")="fXVBKshxHuJx2oamp67kRrraly4"
+data("ResponseMode")="query"
+data("ResponseProperties","accountno")=12345
+data("ResponseType")="code"
+data("Scope")="openid profile scope1"
+data("ScopeArray","openid")="OpenID Connect"
+data("ScopeArray","profile")="User default profile information"
+data("ScopeArray","scope1")="first scope"
+data("ServerProperties","client_name")="USER_CLIENT_APP"
+data("ServerProperties","client_uri")="https://webgw.localdomain/"
+data("ServerProperties","logo_uri")="https://webgw.localdomain/logo.png"
+data("ServerProperties","policy_uri")="https://webgw.localdomain/policy.html"
+data("ServerProperties","tos_uri")="https://webgw.localdomain/service.html"
+data("Stage")=""
+data("State")="fXVBKshxHuJx2oamp67kRrraly4"
+data("UserinfoClaims","birthdate")=""
+data("UserinfoClaims","family_name")=""
+data("UserinfoClaims","gender")=""
+data("UserinfoClaims","given_name")=""
+data("UserinfoClaims","locale")=""
+data("UserinfoClaims","middle_name")=""
+data("UserinfoClaims","name")=""
+data("UserinfoClaims","nickname")=""
+data("UserinfoClaims","picture")=""
+data("UserinfoClaims","preferred_username")=""
+data("UserinfoClaims","profile")=""
+data("UserinfoClaims","updated_at")=""
+data("UserinfoClaims","website")=""
+data("UserinfoClaims","zoneinfo")=""
+data("Username")="test"
+
+**OAuth2-3 2023-03-29 09:47:59.620727509 ns=%SYS routine=%CSP.REST.1 job=1067 sessionid=YjEXF019S1
+[%CSP.REST]
+AccessCheck
+
+**OAuth2Server-3 2023-03-29 09:47:59.621311195 ns=%SYS routine=OAuth2.Server.Introspection.1 job=1067 sessionid=YjEXF019S1
+[OAuth2.Server.Introspection:ProcessIntrospection]
+
+**OAuth2Server-3 2023-03-29 09:47:59.621344106 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=YjEXF019S1
+[OAuth2.Server.Introspection:Process]CSP Request
+data="Content-Type: application/x-www-form-urlencoded, Secure: 1, Method: POST, Authorization: Basic SG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERTpmR3NSOTNtUmFwQWlOdG51OExtVVVPTVRLZGdiUXR6VjI3QmF6MEVuWFBsLXU0TlVydWVaWUc3bDktSXM0aWhSSGtVb1BOdGI4SmNQTVJsMFdxb3BtUQ=="
+data("Header","HTTP_ACCEPT_ENCODING")="gzip"
+data("Header","HTTP_AUTHORIZATION")="Basic SG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERTpmR3NSOTNtUmFwQWlOdG51OExtVVVPTVRLZGdiUXR6VjI3QmF6MEVuWFBsLXU0TlVydWVaWUc3bDktSXM0aWhSSGtVb1BOdGI4SmNQTVJsMFdxb3BtUQ=="
+data("Header","HTTP_CONTENT_LENGTH")=1039
+data("Header","HTTP_CONTENT_TYPE")="application/x-www-form-urlencoded"
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_USER_AGENT")="Mozilla/4.0 (compatible; InterSystems IRIS;)"
+data("token",1)="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("token_type_hint",1)="access_token"
+
+**OAuth2Server-3 2023-03-29 09:47:59.621453748 ns=%SYS routine=OAuth2.Server.Token.1 job=1067 sessionid=YjEXF019S1
+[OAuth2.Server.Token:Authorize]
+secretRequired=1
+
+**OAuth2Server-3 2023-03-29 09:47:59.621469959 ns=%SYS routine=OAuth2.Server.Token.1 job=1067 sessionid=YjEXF019S1
+[OAuth2.Server.Token:Authorize]
+header ClientId=Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE, ClientSecret=*****
+
+**OAuth2Server-3 2023-03-29 09:47:59.647656255 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=YjEXF019S1
+[OAuth2.Server.Introspection:FindToken]: Access Token
+data("AccessToken")="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("AccessTokenExpires")=1680086879
+data("Aud",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("AuthTime")=1680083279
+data("AuthorizationCode")="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("AuthorizationCodeExpires")=0
+data("ClaimValues","aud")=$lb("string",$lb("https://webgw.localdomain/irisrsc/csp/myrsc","https://webgw.localdomain/irisrsc2/csp/myrsc","Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"))
+data("ClaimValues","auth_time")=$lb("number",1680083279)
+data("ClaimValues","customer_id")=$lb("string","RSC-00001")
+data("ClaimValues","email")=$lb("string","test@examples.com")
+data("ClaimValues","email_verified")=$lb("boolean",0)
+data("ClaimValues","exp")=$lb("number",1680086879)
+data("ClaimValues","iat")=$lb("number",1680083279)
+data("ClaimValues","iss")=$lb("string","https://webgw.localdomain/irisauth/authserver/oauth2")
+data("ClaimValues","name")=$lb("string","テスト太郎")
+data("ClaimValues","phone_number")=$lb("string","01234567")
+data("ClaimValues","phone_number_verified")=$lb("boolean",0)
+data("ClaimValues","preferred_username")=$lb("string","test")
+data("ClaimValues","scope")=$lb("string","openid profile scope1")
+data("ClaimValues","sid")=$lb("string","HpVuK3ZDJdAY9OlcCDn2R_586WQz84BMf6fAEiwFvsU")
+data("ClaimValues","sub")=$lb("string","test")
+data("ClaimValues","updated_at")=$lb("number",1680067538)
+data("ClientId")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("CustomProperties","client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("CustomProperties","roles")=""
+data("GrantType")="A"
+data("IDToken")="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJpc3MiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyIiwic3ViIjoidGVzdCIsImV4cCI6MTY4MDA4Njg3OSwiYXV0aF90aW1lIjoxNjgwMDgzMjc5LCJpYXQiOjE2ODAwODMyNzksIm5vbmNlIjoiZVRqVFpYZW5IWUFoT3RRUnl5aGVTd0Y2MTM0IiwiYXRfaGFzaCI6Ik12Nkdqek1zcldISEk0Q3FuUnYtQTRFLWl0VU1lOGppTUtlLUpaQ2RHd1EiLCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJhenAiOiJIbnM1cGdGcUZJWEtRR3QyNVlaNFFfa1pEWUZiN01ZYWEtTzJ6Z1FBN0RFIiwic2lkIjoiSHBWdUszWkRKZEFZOU9sY0NEbjJSXzU4NldRejg0Qk1mNmZBRWl3RnZzVSJ9.nedptxVuOVGL2Ld7TDY3A7a7jCE9jYlfrZ430H8t-I9WcQkKeMX20anvLnMpduKm9kr1W-yuNfWoxQJUmUCyBsPgy34b2KC7o6SM3jQxMceT_hnTrLT0c2E9wV8nml_oQ4od18d_tLjWZ7S8KbwaaWn-NiNG8g3UOwq52ZSGOua-3-Y7ECCJY86HiyE3fBwtH2PeGQ6rGOWcEAnlXNpgvujERGpvpk9A_D75LLm8haOEcg1NYVElrAbsZKlQ4lFWxjMq0fgq50VbNJ4ZF3Up5Nh9xdZz8J_qCM5-F7A4G1QRwHuqb8WpNvkJHsUtNKJBca6ILQk6HWYDKAJP8fXawQ"
+data("Issuer")="https://webgw.localdomain/irisauth/authserver/oauth2"
+data("JWTClaims","customer_id")=""
+data("JWTClaims","email")=""
+data("JWTClaims","phone_number")=""
+data("RedirectURL")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RefreshToken")="eHDHabnaH767T_USlMRn_y3sJ6OkQFdvl1976gvyG-Y"
+data("RequestProperties","client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("RequestProperties","code_challenge")="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("RequestProperties","code_challenge_method")="S256"
+data("RequestProperties","nonce")="eTjTZXenHYAhOtQRyyheSwF6134"
+data("RequestProperties","redirect_uri")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RequestProperties","response_type")="code"
+data("RequestProperties","scope")="openid profile scope1"
+data("RequestProperties","state")="fXVBKshxHuJx2oamp67kRrraly4"
+data("ResponseMode")="query"
+data("ResponseProperties","accountno")=12345
+data("ResponseType")="code"
+data("Scope")="openid profile scope1"
+data("ScopeArray","openid")="OpenID Connect"
+data("ScopeArray","profile")="User default profile information"
+data("ScopeArray","scope1")="first scope"
+data("ServerProperties","client_name")="USER_CLIENT_APP"
+data("ServerProperties","client_uri")="https://webgw.localdomain/"
+data("ServerProperties","logo_uri")="https://webgw.localdomain/logo.png"
+data("ServerProperties","policy_uri")="https://webgw.localdomain/policy.html"
+data("ServerProperties","tos_uri")="https://webgw.localdomain/service.html"
+data("Stage")=""
+data("State")="fXVBKshxHuJx2oamp67kRrraly4"
+data("UserinfoClaims","birthdate")=""
+data("UserinfoClaims","family_name")=""
+data("UserinfoClaims","gender")=""
+data("UserinfoClaims","given_name")=""
+data("UserinfoClaims","locale")=""
+data("UserinfoClaims","middle_name")=""
+data("UserinfoClaims","name")=""
+data("UserinfoClaims","nickname")=""
+data("UserinfoClaims","picture")=""
+data("UserinfoClaims","preferred_username")=""
+data("UserinfoClaims","profile")=""
+data("UserinfoClaims","updated_at")=""
+data("UserinfoClaims","website")=""
+data("UserinfoClaims","zoneinfo")=""
+data("Username")="test"
+
+**OAuth2-3 2023-03-29 09:47:59.654812093 ns=%SYS routine=%CSP.REST.1 job=1067 sessionid=YDF9sbpA4p
+[%CSP.REST]
+AccessCheck
+
+**OAuth2Server-3 2023-03-29 09:47:59.65495667 ns=%SYS routine=OAuth2.Server.Userinfo.1 job=1067 sessionid=YDF9sbpA4p
+[OAuth2.Server.Userinfo:Process]
+
+**OAuth2Server-3 2023-03-29 09:47:59.654976447 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=YDF9sbpA4p
+[OAuth2.Server.Userinfo:Process]CSP Request
+data="Content-Type: , Secure: 1, Method: GET, Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("Header","HTTP_ACCEPT_ENCODING")="gzip"
+data("Header","HTTP_AUTHORIZATION")="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_USER_AGENT")="Mozilla/4.0 (compatible; InterSystems IRIS;)"
+
+**OAuth2-3 2023-03-29 09:47:59.655580281 ns=%SYS routine=%SYS.OAuth2.AccessToken.1 job=1067 sessionid=YDF9sbpA4p
+[%SYS.OAuth2.AccessToken:GetAccessTokenFromRequest]
+
+**OAuth2-3 2023-03-29 09:47:59.655604209 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=YDF9sbpA4p
+[%SYS.OAuth2.AccessToken:GetAccessTokenFromRequest]CSP Request
+data="Content-Type: , Secure: 1, Method: GET, Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("Header","HTTP_ACCEPT_ENCODING")="gzip"
+data("Header","HTTP_AUTHORIZATION")="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("Header","HTTP_HOST")="webgw.localdomain"
+data("Header","HTTP_USER_AGENT")="Mozilla/4.0 (compatible; InterSystems IRIS;)"
+
+**OAuth2Server-3 2023-03-29 09:47:59.656023922 ns=%SYS routine=%OAuth2.Utils.1 job=1067 sessionid=YDF9sbpA4p
+[OAuth2.Server.Userinfo:Process]: Access Token
+data("AccessToken")="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJqdGkiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyLmdfNTNwMUJxTU9hT1BOVWRGa3V6R1ZkRGlEWSIsImlzcyI6Imh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc2F1dGgvYXV0aHNlcnZlci9vYXV0aDIiLCJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjgwMDg2ODc5LCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIHNjb3BlMSIsImlhdCI6MTY4MDA4MzI3OSwiY3VzdG9tZXJfaWQiOiJSU0MtMDAwMDEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZXMuY29tIiwicGhvbmVfbnVtYmVyIjoiMDEyMzQ1NjcifQ.MmaaHOCrh7l_20wga2hMedLMViOwyIAii1rjnLHpwwFAVAIyf3iT0m1ZbEDrtYC9FNXiyXo4aKa3kT-eOWt0erOc6cgg1BfGM3TqxRr9BS4knuQ8VYQztOd54kQ_Wxt2Ibj9NtRDgPxXItsyThNs_g4wHs4jC-IhFE_FTpNFy2nlmqCJnFa5Rj4-hUCwFA-T3f21BD49wQu7CALkPT9lA0R_meezliRCnGDCpQsd6KqJKE19DzcqRKyW31DvRVfom5kQQYUu-28nu1-cfqd9CRMKgISyjht_9pFD3jLR4BofGWv7Idxy7zX-30cRSba1-hBrKoJxyh91b01vADagaw"
+data("AccessTokenExpires")=1680086879
+data("Aud",1)="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("AuthTime")=1680083279
+data("AuthorizationCode")="mOQM3sGrOHGq6EYv2D2OjXdR7UGJDPuNSsp7003PMs7ZtWl-4dyvPHDBosvOe2qjm3xcu6JGHmm3SnjxLIWI5w"
+data("AuthorizationCodeExpires")=0
+data("ClaimValues","aud")=$lb("string",$lb("https://webgw.localdomain/irisrsc/csp/myrsc","https://webgw.localdomain/irisrsc2/csp/myrsc","Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"))
+data("ClaimValues","auth_time")=$lb("number",1680083279)
+data("ClaimValues","customer_id")=$lb("string","RSC-00001")
+data("ClaimValues","email")=$lb("string","test@examples.com")
+data("ClaimValues","email_verified")=$lb("boolean",0)
+data("ClaimValues","exp")=$lb("number",1680086879)
+data("ClaimValues","iat")=$lb("number",1680083279)
+data("ClaimValues","iss")=$lb("string","https://webgw.localdomain/irisauth/authserver/oauth2")
+data("ClaimValues","name")=$lb("string","テスト太郎")
+data("ClaimValues","phone_number")=$lb("string","01234567")
+data("ClaimValues","phone_number_verified")=$lb("boolean",0)
+data("ClaimValues","preferred_username")=$lb("string","test")
+data("ClaimValues","scope")=$lb("string","openid profile scope1")
+data("ClaimValues","sid")=$lb("string","HpVuK3ZDJdAY9OlcCDn2R_586WQz84BMf6fAEiwFvsU")
+data("ClaimValues","sub")=$lb("string","test")
+data("ClaimValues","updated_at")=$lb("number",1680067538)
+data("ClientId")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("CustomProperties","client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("CustomProperties","roles")=""
+data("GrantType")="A"
+data("IDToken")="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiIsImtpZCI6IjMifQ.eyJpc3MiOiJodHRwczovL3dlYmd3LmxvY2FsZG9tYWluL2lyaXNhdXRoL2F1dGhzZXJ2ZXIvb2F1dGgyIiwic3ViIjoidGVzdCIsImV4cCI6MTY4MDA4Njg3OSwiYXV0aF90aW1lIjoxNjgwMDgzMjc5LCJpYXQiOjE2ODAwODMyNzksIm5vbmNlIjoiZVRqVFpYZW5IWUFoT3RRUnl5aGVTd0Y2MTM0IiwiYXRfaGFzaCI6Ik12Nkdqek1zcldISEk0Q3FuUnYtQTRFLWl0VU1lOGppTUtlLUpaQ2RHd1EiLCJhdWQiOlsiaHR0cHM6Ly93ZWJndy5sb2NhbGRvbWFpbi9pcmlzcnNjL2NzcC9teXJzYyIsImh0dHBzOi8vd2ViZ3cubG9jYWxkb21haW4vaXJpc3JzYzIvY3NwL215cnNjIiwiSG5zNXBnRnFGSVhLUUd0MjVZWjRRX2taRFlGYjdNWWFhLU8yemdRQTdERSJdLCJhenAiOiJIbnM1cGdGcUZJWEtRR3QyNVlaNFFfa1pEWUZiN01ZYWEtTzJ6Z1FBN0RFIiwic2lkIjoiSHBWdUszWkRKZEFZOU9sY0NEbjJSXzU4NldRejg0Qk1mNmZBRWl3RnZzVSJ9.nedptxVuOVGL2Ld7TDY3A7a7jCE9jYlfrZ430H8t-I9WcQkKeMX20anvLnMpduKm9kr1W-yuNfWoxQJUmUCyBsPgy34b2KC7o6SM3jQxMceT_hnTrLT0c2E9wV8nml_oQ4od18d_tLjWZ7S8KbwaaWn-NiNG8g3UOwq52ZSGOua-3-Y7ECCJY86HiyE3fBwtH2PeGQ6rGOWcEAnlXNpgvujERGpvpk9A_D75LLm8haOEcg1NYVElrAbsZKlQ4lFWxjMq0fgq50VbNJ4ZF3Up5Nh9xdZz8J_qCM5-F7A4G1QRwHuqb8WpNvkJHsUtNKJBca6ILQk6HWYDKAJP8fXawQ"
+data("Issuer")="https://webgw.localdomain/irisauth/authserver/oauth2"
+data("JWTClaims","customer_id")=""
+data("JWTClaims","email")=""
+data("JWTClaims","phone_number")=""
+data("RedirectURL")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RefreshToken")="eHDHabnaH767T_USlMRn_y3sJ6OkQFdvl1976gvyG-Y"
+data("RequestProperties","client_id")="Hns5pgFqFIXKQGt25YZ4Q_kZDYFb7MYaa-O2zgQA7DE"
+data("RequestProperties","code_challenge")="F-00Ng79TQW0TC4e_ZER5wnwn3JZ0hnEa7tuXoS2fP0"
+data("RequestProperties","code_challenge_method")="S256"
+data("RequestProperties","nonce")="eTjTZXenHYAhOtQRyyheSwF6134"
+data("RequestProperties","redirect_uri")="https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls"
+data("RequestProperties","response_type")="code"
+data("RequestProperties","scope")="openid profile scope1"
+data("RequestProperties","state")="fXVBKshxHuJx2oamp67kRrraly4"
+data("ResponseMode")="query"
+data("ResponseProperties","accountno")=12345
+data("ResponseType")="code"
+data("Scope")="openid profile scope1"
+data("ScopeArray","openid")="OpenID Connect"
+data("ScopeArray","profile")="User default profile information"
+data("ScopeArray","scope1")="first scope"
+data("ServerProperties","client_name")="USER_CLIENT_APP"
+data("ServerProperties","client_uri")="https://webgw.localdomain/"
+data("ServerProperties","logo_uri")="https://webgw.localdomain/logo.png"
+data("ServerProperties","policy_uri")="https://webgw.localdomain/policy.html"
+data("ServerProperties","tos_uri")="https://webgw.localdomain/service.html"
+data("Stage")=""
+data("State")="fXVBKshxHuJx2oamp67kRrraly4"
+data("UserinfoClaims","birthdate")=""
+data("UserinfoClaims","family_name")=""
+data("UserinfoClaims","gender")=""
+data("UserinfoClaims","given_name")=""
+data("UserinfoClaims","locale")=""
+data("UserinfoClaims","middle_name")=""
+data("UserinfoClaims","name")=""
+data("UserinfoClaims","nickname")=""
+data("UserinfoClaims","picture")=""
+data("UserinfoClaims","preferred_username")=""
+data("UserinfoClaims","profile")=""
+data("UserinfoClaims","updated_at")=""
+data("UserinfoClaims","website")=""
+data("UserinfoClaims","zoneinfo")=""
+data("Username")="test"
+
