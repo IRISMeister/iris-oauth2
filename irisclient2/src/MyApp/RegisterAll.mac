@@ -1,0 +1,10 @@
+ROUTINE MyApp.RegisterAll
+Register() public {
+
+    Try {
+        Do Register^MyApp.RegisterUtil("USER_CLIENT_APP2","https://webgw.localdomain/irisclient2/csp/user/MyApp.Logout.cls",$LB("https://webgw.localdomain/irisclient2/csp/user/MyApp.AppMain.cls"))
+    } Catch(e) {
+        Set tSC=e.AsStatus()
+        zw tSC
+    }
+}

@@ -1,0 +1,10 @@
+[Startup]
+PasswordHash=d8191b3c433ed48c7cd60cb7a4b1bfd3068b38db,t6jhs1sc
+SystemMode=TEST
+
+[config]
+globals=0,0,32,0,0,0
+routines=32
+
+[SQL]
+SaveMAC=1

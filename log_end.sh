@@ -1,0 +1,1 @@
+docker compose exec irisauth iris session iris "set^API.Util(0)"

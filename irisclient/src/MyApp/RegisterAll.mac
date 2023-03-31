@@ -1,0 +1,21 @@
+ROUTINE MyApp.RegisterAll
+Register() public {
+
+    Try {
+        #; App in namespace USER
+        #; CSP App
+        Do Register^MyApp.RegisterUtil("USER_CLIENT_APP","https://webgw.localdomain/irisclient/csp/user/MyApp.Logout.cls",$LB("https://webgw.localdomain/irisclient/csp/user/MyApp.Login.cls"))
+        #; BFF For Angular client
+        Do Register^MyApp.RegisterUtil("BFF_BFF_APP","https://webgw.localdomain/myapp/#/logout-bff",$LB("https://webgw.localdomain/myapp/#/home","http://webgw.localdomain:4200/myapp/#/home"))
+
+        #; App in namespace USER2
+        #; CSP App
+        Do Register^MyApp.RegisterUtil("USER2_CLIENT_APP","https://webgw.localdomain/irisclient/csp/user2/MyApp.Logout.cls",$LB("https://webgw.localdomain/irisclient/csp/user2/MyApp.Login.cls"))
+        #; BFF For Angular client
+        Do Register^MyApp.RegisterUtil("BFF2_BFF_APP","https://webgw.localdomain/myapp2/#/logout-bff",$LB("https://webgw.localdomain/myapp2/#/home","http://webgw.localdomain:4200/myapp2/#/home"))
+
+    } Catch(e) {
+        Set tSC=e.AsStatus()
+        zw tSC
+    }
+}

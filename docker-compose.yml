@@ -1,0 +1,106 @@
+version: '3.7'
+
+services: 
+  irisauth:
+    build: 
+      context: ./irisauth
+      args:
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.218.0
+        COMMIT_ID: ${COMMIT_ID}
+    hostname: irisauth
+    ports:
+    - 52873:52773
+    - 1972:1972
+    command: --ISCAgent false --monitorCPF false
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    volumes:
+    - .:/ISC    
+
+  irisrsc:
+    build: 
+      context: ./irisrsc
+      args:
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.218.0
+        COMMIT_ID: ${COMMIT_ID}
+    hostname: irisrsc
+    ports:
+    - 52874:52773
+    command: --ISCAgent false --monitorCPF false
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    volumes:
+    - .:/ISC    
+
+  irisrsc2:
+    build: 
+      context: ./irisrsc
+      args:
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.218.0
+        COMMIT_ID: ${COMMIT_ID}
+    hostname: irisrsc2
+    ports:
+    - 52875:52773
+    command: --ISCAgent false --monitorCPF false
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    volumes:
+    - .:/ISC    
+    # https://webgw.localdomain/iris-on-fhir/launch.html?iss=https://webgw.localdomain/fhir/r4
+    #- $PWD/irisrsc/iris-on-fhir/src/csp:/usr/irissys/csp/user
+
+  irisclient:
+    build: 
+      context: ./irisclient
+      args:
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.218.0
+        COMMIT_ID: ${COMMIT_ID}
+    hostname: irisclient
+    ports:
+    - 52876:52773
+    command: --ISCAgent false --monitorCPF false
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    volumes:
+    - .:/ISC    
+
+  irisclient2:
+    build: 
+      context: ./irisclient2
+      args:
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.218.0
+        COMMIT_ID: ${COMMIT_ID}
+    hostname: irisclient2
+    ports:
+    - 52877:52773
+    command: --ISCAgent false --monitorCPF false
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    volumes:
+    - .:/ISC    
+
+  webgw:
+    build: 
+      context: ./iris-webgateway-example
+    init: true
+    hostname: webgw.localdomain
+    ports:
+      - 80:80
+      - 443:443
+    environment: 
+      TZ: JST-9
+      SERVER_PORT: 1972
+    volumes:
+    - $PWD/htdocs:/usr/local/apache2/htdocs/ 
+    - $PWD/apache-conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    - $PWD/apache-conf/extra/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf
+    - $PWD/ssl/web/server.crt:/usr/local/apache2/conf/server.crt
+    - $PWD/ssl/web/server.key:/usr/local/apache2/conf/server.key
+    - $PWD/ssl/web/caint.crt:/usr/local/apache2/conf/server-ca.crt
+    - $PWD/webgateway.conf:/opt/webgateway/apache/webgateway.conf
+

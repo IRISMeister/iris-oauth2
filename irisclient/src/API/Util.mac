@@ -1,0 +1,27 @@
+ROUTINE API.Util
+set(level=5) public {
+ new $namespace
+ set $namespace="%sys"
+ kill ^%ISCLOG
+ kill ^ISCLOG
+ set ^%ISCLOG=level
+ set ^%ISCLOG("Category","OAuth2")=level
+ set ^%ISCLOG("Category","OAuth2Server")=level
+ quit
+}
+
+ ; USER>!cat /var/tmp/oauth2_auth_server.log
+display() public {
+ new $namespace
+ set $namespace="%sys"
+ do ##class(%OAuth2.Utils).DisplayLog("/var/tmp/oauth2_auth_server.log")
+ w "Do !cat /var/tmp/oauth2_auth_server.log",!
+ quit
+}
+
+clear() public {
+ new $namespace
+ set $namespace="%sys"
+ kill ^ISCLOG
+ quit
+}

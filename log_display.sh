@@ -1,0 +1,1 @@
+docker compose exec irisauth bash -c 'iris session iris "display^API.Util" ; cat /var/tmp/oauth2_auth_server.log'

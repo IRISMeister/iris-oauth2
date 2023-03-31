@@ -1,0 +1,56 @@
+{
+    "intersystems.servers": {   
+        "irisauth": {
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port": 52873
+            },
+            "username": "SuperUser"
+        },
+        "irisrsc":{
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port":52874
+            },
+            "username": "SuperUser"
+        },
+        "irisrsc2":{
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port":52875
+            },
+            "username": "SuperUser"
+        },
+        "irisclient":{
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port":52876
+            },
+            "username": "SuperUser"
+        },
+        "irisclient2":{
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port":52877
+            },
+            "username": "SuperUser"
+        }
+
+    },
+    "objectscript.conn": {
+        "server": "irisauth",
+        "ns": "%SYS",
+        "active": true
+    },
+
+    "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  }
+}

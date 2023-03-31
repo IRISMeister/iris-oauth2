@@ -1,0 +1,32 @@
+ROUTINE API.Register
+#include common
+Register() public {
+    #; OpenID Connect Discovery and Dynamic Client Registration
+    new $namespace
+    set $namespace="%sys"
+
+    #; Avoid duplication
+    Set ApplicationName=$$$APP
+    if $ISOBJECT(##class(OAuth2.Client).Open(ApplicationName)) {
+        Write ApplicationName_" is already registered. Skipping it.",!
+        Return 
+    }
+
+    #dim server as OAuth2.ServerDefinition=""
+    Set issuerEndpoint="https://webgw.localdomain/irisauth/authserver/oauth2"
+    Set sslConfiguration="resserver"
+    Set tSC=##class(%SYS.OAuth2.Registration).Discover(issuerEndpoint,sslConfiguration,.server)
+    Set tSC=server.%Save()
+
+    Set c=##class(OAuth2.Client).%New()
+    Set c.ApplicationName=ApplicationName
+    Set c.Description="demo resource server"
+    Set c.SSLConfiguration="resserver"
+    Set c.ClientType="resource"
+    Set c.ServerDefinition=server
+    Set c.Metadata."client_name" = "RESSERVER_Client"
+    Set c.Metadata."response_types" = $lb("code","id_token","id_token token","token") ; this one is not reflected to auth server...
+    Set tSC=c.%Save()
+
+    Set tSC=##class(%SYS.OAuth2.Registration).RegisterClient(c.ApplicationName)
+}
