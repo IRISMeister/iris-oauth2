@@ -4,6 +4,8 @@ Include common
 Class API.REST Extends %CSP.REST
 {
 
+Parameter AUD = "https://webgw.localdomain/irisrsc/csp/myrsc";
+
 Parameter CHARSET = "utf-8";
 
 XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
@@ -39,14 +41,11 @@ ClassMethod GetDeals(pType As %String) As %Status
 	#dim %response as %CSP.Response
 	#dim e as %Exception.AbstractException
 	set %response.ContentType="application/json"
-	#;How to add cookie 
-	#;Do %response.SetCookie("CookieTest",%session.SessionId,,"/",,,1) ; httponly
 	
 	#dim tSC as %Status = $$$OK
 	try {
 		set reason=..#HTTP500INTERNALSERVERERROR
 		if pType="private" {
-			/* common check */
 			// extract access token
 			set accessToken=##class(%SYS.OAuth2.AccessToken).GetAccessTokenFromRequest(.tSC)
 			$$$ThrowOnError(tSC)
@@ -56,26 +55,23 @@ ClassMethod GetDeals(pType As %String) As %Status
 			}
 
 			// validate signed access token (JWT)
-			if '(##class(%SYS.OAuth2.Validation).ValidateJWT($$$APP,accessToken,,,.jsonObjectJWT,.securityParameters,.tSC)) {
+			if '(##class(%SYS.OAuth2.Validation).ValidateJWT($$$APP,accessToken,,..#AUD,.jsonObjectJWT,.securityParameters,.tSC)) {
 				set reason=..#HTTP401UNAUTHORIZED
 				$$$ThrowOnError(tSC)
 			}
 
-			Set audmatch=0
-			Set iterator=jsonObjectJWT.aud.%GetIterator()
-			While iterator.%GetNext(.key,.value) {
-				If (value="https://webgw.localdomain/irisrsc/csp/myrsc") { Set audmatch=1 Quit }
-			}
-			If audmatch=0 {
+			// 署名の有無の確認
+			Set sigalg=$G(securityParameters("sigalg"))
+			if sigalg="" { 
 				set reason=..#HTTP401UNAUTHORIZED
-				throw ##class(%Exception.General).%New("NoAccessToken","5001","GetDeals")
+				$$$ThrowOnError(tSC)				
 			}
 
 			// check whether the request is asking for proper scope for this service
-			if '((jsonObjectJWT.scope["scope1")||(jsonObjectJWT.scope["scope2")) set reason=..#HTTP404NOTFOUND throw
+			if '(jsonObjectJWT.scope_" "["scope1 ") { set reason=..#HTTP404NOTFOUND throw }
 
-#if 0
 			// irisauthへの通信を伴うGetIntrospection()実行は、opaqueなトークンであれば必須だがJWTの場合は任意。
+#if 0
 			$$$THROWONERROR(tSC,##class(%SYS.OAuth2.AccessToken).GetIntrospection($$$APP,accessToken,.jsonObjectAT))
 			/* service specific check */
 
@@ -84,7 +80,7 @@ ClassMethod GetDeals(pType As %String) As %Status
 			Set audmatch=0
 			Set iterator=jsonObjectAT.aud.%GetIterator()
 			While iterator.%GetNext(.key,.value) {
-				If (value="https://webgw.localdomain/irisrsc/csp/myrsc") { Set audmatch=1 Quit }
+				If (value=..#AUD) { Set audmatch=1 Quit }
 			}
 			If audmatch=0 {
 				set reason=..#HTTP401UNAUTHORIZED
@@ -92,15 +88,16 @@ ClassMethod GetDeals(pType As %String) As %Status
 			}
 
 			// check whether the request is asking for proper scope for this service
-			if '((jsonObjectJWT.scope["scope1")||(jsonObjectJWT.scope["scope2")) set reason=..#HTTP404NOTFOUND throw
+			if '(jsonObjectJWT.scope_" "["scope1 ") { set reason=..#HTTP404NOTFOUND throw }
 #endif
 		}
 		Else {
+			Set sigalg=""
 			Set jsonObjectJWT={}
 		}
 
 		Set exp=jsonObjectJWT.exp
-        Set info={"HostName":(##class(%SYSTEM.INetInfo).LocalHostName()),"UserName":($USERNAME),"sub":(jsonObjectJWT.sub),"aud":(jsonObjectJWT.aud),"Status":"OK","TimeStamp":($ZDATETIME($H)),"exp":(exp_"("_$ZDATETIME($ZDATETIMEH(exp,-2),3)_")")}
+        Set info={"HostName":(##class(%SYSTEM.INetInfo).LocalHostName()),"UserName":($USERNAME),"sub":(jsonObjectJWT.sub),"aud":(jsonObjectJWT.aud),"sigalg":(sigalg),"Status":"OK","TimeStamp":($ZDATETIME($H)),"exp":(exp_"("_$ZDATETIME($ZDATETIMEH(exp,-2),3)_")")}
 		Set info.debug=jsonObjectJWT
 		write info.%ToJSON()
 	} catch (e) {

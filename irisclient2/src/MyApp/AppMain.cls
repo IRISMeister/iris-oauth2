@@ -9,7 +9,7 @@ Parameter OAUTH2ROOT2 = "https://webgw.localdomain/irisrsc2/csp/myrsc";
 
 Parameter SSLCONFIG = "client";
 
-Parameter SCOPES = "openid profile scope2";
+Parameter SCOPES = "openid profile scope1";
 
 Parameter host = "irisclient2";
 
