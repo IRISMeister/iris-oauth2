@@ -79,7 +79,7 @@ ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
   if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,,scope,.accessToken,.idtoken,.responseProperties,.error) {
     set %response.ServerSideRedirect="MyApp.AppMain.cls"
   }
-  quit 1
+  Return $$$OK
 }
 
 }
