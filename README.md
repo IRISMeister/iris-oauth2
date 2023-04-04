@@ -94,7 +94,7 @@ Client: Docker Engine - Community
   ./first-run.sh
   ```
 
-  この時点で下記をLinuxで実行し、OpenIDプロバイダーのメタデータを取得できる事を確認してください。[こちら](docs/openid-configuration.json)のような出力が得られるはずです。
+  この時点で下記をLinuxで実行し、OpenIDプロバイダーのメタデータを取得できる事を確認してください。[こちら](https://github.com/IRISMeister/iris-oauth2/blob/main/docs/openid-configuration.json)のような出力が得られるはずです。
   ```bash
   curl http://localhost/irisauth/authserver/oauth2/.well-known/openid-configuration
   ```
