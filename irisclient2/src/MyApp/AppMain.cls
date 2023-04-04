@@ -42,7 +42,7 @@ h4 { color:#2080E0 ;}
         #; lougout
         #;
         Set ns=$ZCVT($NAMESPACE,"L") Set fclouri="https://webgw.localdomain/irisclient2/csp/"_ns_"/MyApp.AppMain.cls"
-        Set url=##class(%ZSYS.OAuth2.Authorization).GetLogoutEndpoint($$$APP,fclouri)
+        Set url=##class(%SYS.OAuth2.Authorization).GetLogoutEndpoint($$$APP,fclouri)
         #; このURLは、WebGWのpathを考慮していない。本例では/irisclient（もしくは/irisclient2）が必要なので追加する。
         Set url=$REPLACE(url,"/csp/sys/","/"_..#host_"/csp/sys/")
 
