@@ -125,7 +125,7 @@ ClassMethod setup(ByRef tVars) As %Status
     #;
     Set c=##class(OAuth2.Server.Client).%New()
     Set c.ClientCredentials = ""
-    Set c.ClientType = "public"
+    Set c.ClientType = "confidential"
     Set c.DefaultScope = ""
     Set c.Description = "curl + RO password test"
     Set c.LaunchURL = ""
