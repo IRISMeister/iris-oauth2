@@ -1,4 +1,4 @@
-# IRISだけでoAuth2/OpenID Connect環境を実現する
+# IRISだけでoAuth2/OpenID ConnectのSSO/SLO環境を実現する
 
 本記事は、あくまで執筆者の見解であり、インターシステムズの公式なドキュメントではありません。
 
@@ -7,6 +7,7 @@ IRISのoAuth2機能関連の情報発信は既に多数ありますが、本稿�
 - 設定の見通しを良くするために、役割ごとにサーバを分ける
 - 目に見えない動作を確認する
 - クライアント実装(PythonやAngular,CSPアプリケーション等)と合わせて理解する
+- シングルサインオン/シングルログアウトを実現する
 
 ということを主眼においています。
 
@@ -658,7 +659,7 @@ $ docker compose exec irisauth iris session iris -U%SYS "##class(%SYSTEM.SQL).Sh
 
 SELECT PrivateJWKS,PublicJWKS FROM OAuth2_Server.Configuration
 ```
-PrivateJWKSの内容だけを見やすいように整形すると[こちら](PrivateJWKS.json)のようになります。
+PrivateJWKSの内容だけを見やすいように整形すると[こちら](https://github.com/IRISMeister/iris-oauth2/blob/main/docs/PrivateJWKS.json)のようになります。
 
 実際にアクセストークンを https://jwt.io/ で確認してみます。ヘッダにはkidというクレームが含まれます。これはトークンの署名に使用されたキーのIDです。
 ```
