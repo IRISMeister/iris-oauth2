@@ -21,7 +21,7 @@ oAuth2クライアントアプリケーション(OICD用語ではRP。以下RP�
 ## Webアプリケーション(非SPA)  
 従来型のWebアプリケーション、Confidential Clientの例です。
 
-```
+```text
                       login/logout
       +-----------------------------------------------------+
       |                                                     | 
@@ -58,7 +58,7 @@ IRISに限りませんが、SSOで得たユーザ情報(subクレーム)を、RP
 ## SPA  
 Angularで動作する、Public Clientの例です。
 
-```
+```text
                       login/logout
       +-----------------------------------------+
       |                                         | 
@@ -91,7 +91,7 @@ IRISはOpenID Connect Session Management 1.0を[サポート](https://docs.inter
 ## SPA+BFF  
 Angularに[BFF(Backend For Frontend)](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#section-6.2)を追加することで、Confidential Client化する例です。
 
-```
+```text
                       login/logout
       +-----------------------------------------------------+
       |                                                     | 
@@ -137,7 +137,7 @@ Do %response.SetCookie(..#SESSIONCOOKIE,sessionid,,..#COOKIEPATH,,..#SECURECOOKI
 これはアプリケーションとは呼べないです。  
 認可コードフローを利用する、デバッグ、実験用途のpythonクライアントです。Confidential Clientとして登録しています。 ブラウザで実行すると、リダイレクトの連鎖の中で見落としてしまう内容を捕捉するために使用しました。
 
-```
+```text
 python +--> ブラウザ -----Apache--------> 認可サーバ
        |    (ユーザセッション)     (ユーザセッション)
        +---Apache---> リソースサーバ
@@ -150,7 +150,7 @@ python +--> ブラウザ -----Apache--------> 認可サーバ
 
 > リソースオーナー・パスワード・クレデンシャルズの使用は[禁止される](https://datatracker.ietf.org/doc/id/draft-ietf-oauth-security-topics-16.html#name-resource-owner-password-cre)ようです。
 
-```
+```text
 curl --Apache--+--> 認可サーバ
                +--> リソースサーバ
 ```
@@ -176,7 +176,7 @@ IRISベースのRP(CSPベースのWebアプリケーション、SPA+BFFのBFFサ
 
 ## ログイン時
 
-##class(%SYS.OAuth2.Authorization).GetAuthorizationCodeEndpoint()は、認可サーバへのログインを実行するためのURLを返却します。ユーザがこのURLをクリックすることで、認可コードフローが開始します。
+\#\#class(%SYS.OAuth2.Authorization).GetAuthorizationCodeEndpoint()は、認可サーバへのログインを実行するためのURLを返却します。ユーザがこのURLをクリックすることで、認可コードフローが開始します。
 
 使用例は[MyApp.Login.cls](https://github.com/IRISMeister/iris-oauth2/blob/main/irisclient/src/MyApp/Login.cls)を参照ください。
 
@@ -229,7 +229,7 @@ CLIENT_APP      S1YXEXP9SP      1677551976      code    openid profile scope1 sc
 
 ## 認証済みか否かの確認
 
-##class(%SYS.OAuth2.AccessToken).IsAuthorized()はRPが認証済みかどうかを確認するAPIです。  
+\#\#class(%SYS.OAuth2.AccessToken).IsAuthorized()はRPが認証済みかどうかを確認するAPIです。  
 
 > 認可コードフローのリダイレクト先であるOAuth2.Response.clsはRPが認証済みかどうかを確認するための情報元をRPに格納します
 
@@ -256,7 +256,7 @@ ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
 
 ## IDトークンの有効性の確認(Validation)
 
-##class(%SYS.OAuth2.Validation).ValidateIDToken()はIDトークンの有効性を確認します。
+\#\#class(%SYS.OAuth2.Validation).ValidateIDToken()はIDトークンの有効性を確認します。
 
 どのような確認を行うかは、[OIDC](https://openid.net/specs/openid-connect-core-1_0.html#IDTokenValidation)
 で定められています。
@@ -283,7 +283,7 @@ set valid=##class(%SYS.OAuth2.Validation).ValidateIDToken(
         }
 ```
 
-##class(%SYS.OAuth2.AccessToken).GetIntrospection()は認可サーバにアクセストークンの有効性を問い合わせます。
+\#\#class(%SYS.OAuth2.AccessToken).GetIntrospection()は認可サーバにアクセストークンの有効性を問い合わせます。
 
 > 都度、認可サーバへのトラフィックが発生するため、opaqueのアクセストークンの場合は必須ですが、JWTの場合は任意とされています
 
@@ -294,7 +294,7 @@ set sc=##class(%SYS.OAuth2.AccessToken).GetIntrospection($$$APP,accessToken,.jso
 ```
 ## ログアウト時
 
-##class(%SYS.OAuth2.Authorization).GetLogoutEndpoint()は、SLO(シングルログアウト)を実行するためのURLを返却します。ユーザがこのURLをクリックすることで、RP Initiatedのフロントチャネルログアウトが開始します。
+\#\#class(%SYS.OAuth2.Authorization).GetLogoutEndpoint()は、SLO(シングルログアウト)を実行するためのURLを返却します。ユーザがこのURLをクリックすることで、RP Initiatedのフロントチャネルログアウトが開始します。
 
 ```objectscript
 Set ns=$ZCVT($NAMESPACE,"L") Set fclouri="https://webgw.localdomain/irisclient/csp/"_ns_"/MyApp.Login.cls"
@@ -308,12 +308,13 @@ https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.PostLogoutRedirect.cl
 ```
 
 このURLをGETすると、さらに認可サーバのlogoutエンドポイントへのURLにリダイレクトされます。[RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html#RPLogout)のためのエンドポイントです。
+
 ```
  https://webgw.localdomain/irisauth/authserver/oauth2/logout
   ?id_token_hint=eyJ0eXAiO.....
   &post_logout_redirect_uri=https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.PostLogoutRedirect.cls
   &state=Pc73yDQFouYO1Y-a0PioOI3qRtw
- ```
+```
 
 RPのリダイレクト先を指定するpost_logout_redirect_uriクエリパラメータ値がOAuth2.PostLogoutRedirect.clsになっていますが、これはIRISベースのRP専用のランディングページになっていて、RPがするべきこと(RPに保存されているトークンの除去等)を行ってくれます。
 
@@ -321,7 +322,7 @@ RPのリダイレクト先を指定するpost_logout_redirect_uriクエリパラ
 
 ## トークンの失効処理(Revocation)
 
-##class(%SYS.OAuth2.AccessToken).RevokeToken()は指定したトークンを失効させます。
+\#\#class(%SYS.OAuth2.AccessToken).RevokeToken()は指定したトークンを失効させます。
 
 ユーザセッション使用時に、単独のアクセストークンのみを失効させることで、特定のアプリケーション単独のログアウトを実現します。ログイン時はSSOのメリットを受けつつ、ログアウトは個別に行いたい場合に使用できます。
 
@@ -373,11 +374,16 @@ C:\git\python-oauth2-client   <= git clone https://github.com/IRISMeister/python
 こちらはIRISサーバで完結するので、単独の起動方法はありません。サーバ用のコンテナ起動時に自動起動します。
 
 ### アクセス方法
+
+---------
+
 |名称|エンドポイント|
 |:--|:--|
 |WebApp 1a|[/irisclient/csp/user/MyApp.Login.cls](https://webgw.localdomain/irisclient/csp/user/MyApp.Login.cls)|
 |WebApp 1b|[/irisclient/csp/user2/MyApp.Login.cls](https://webgw.localdomain/irisclient/csp/user2/MyApp.Login.cls)|
 |WebApp 2|[/irisclient2/csp/user/MyApp.AppMain.cls](https://webgw.localdomain/irisclient2/csp/user/MyApp.AppMain.cls)|
+
+---------
 
 操作については、サーバ編を参照ください。
 
@@ -445,29 +451,9 @@ typescript                      4.9.5
     ✔ Browser application bundle generation complete.
     ✔ Copying assets complete.
     ✔ Index html generation complete.
-
-    Initial Chunk Files           | Names         |  Raw Size | Estimated Transfer Size
-    main.9f7a4806ffe98c12.js      | main          | 274.18 kB |                73.52 kB
-    polyfills.7fb0dfb3f30b940a.js | polyfills     |  33.05 kB |                10.66 kB
-    runtime.daa22c5b7aa24823.js   | runtime       |   1.13 kB |               623 bytes
-    styles.ef46db3751d8e999.css   | styles        |   0 bytes |                       -
-
-                                  | Initial Total | 308.37 kB |                84.79 kB
-
-    Build at: 2023-04-05T07:23:50.421Z - Hash: fb36924294d41a89 - Time: 6827ms
-    deploying to iris-oauth2
-    ✔ Browser application bundle generation complete.
-    ✔ Copying assets complete.
-    ✔ Index html generation complete.
-
-    Initial Chunk Files           | Names         |  Raw Size | Estimated Transfer Size
-    main.3e4515b38c645667.js      | main          | 274.18 kB |                73.63 kB
-    polyfills.7fb0dfb3f30b940a.js | polyfills     |  33.05 kB |                10.66 kB
-    runtime.daa22c5b7aa24823.js   | runtime       |   1.13 kB |               623 bytes
-    styles.ef46db3751d8e999.css   | styles        |   0 bytes |                       -
-
-                                  | Initial Total | 308.37 kB |                84.90 kB
-
+          ・
+          ・
+          ・
     Build at: 2023-04-05T07:23:58.705Z - Hash: 67aabdbbe8ad0bfa - Time: 6796ms
     deploying to iris-oauth2
     done
@@ -485,10 +471,14 @@ typescript                      4.9.5
 
 ### アクセス方法
 
+---------
+
 |名称|エンドポイント|
 |:--|:--|
 |SPAアプリケーション|[/myapp](https://webgw.localdomain/myapp/)|
 |SPAアプリケーション|[/myapp2](https://webgw.localdomain/myapp2/)|
+
+---------
 
 両者は、client_idが異なる(つまり別のRPとみなす)だけ内容は同じです。下記のような「最高にクール」な画面が表示されます。
 
