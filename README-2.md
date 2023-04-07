@@ -2,6 +2,8 @@
 「[IRISだけでoAuth2/OpenID ConnectのSSO/SLO環境を実現する/サーバ編](https://jp.community.intersystems.com/node/539046)」
 のクライアントアプリケーション編です。サーバ編の構成が既に稼働していることを前提にしています。
 
+<span style="color: red; ">既にサーバ編でgit clone実行された方(ありがとうございます)、若干の変更がありますのでgit pullと./build.shの実行をお願いします。</span>
+
 oAuth2クライアントアプリケーション(OICD用語ではRP。以下RPと称します)の形態として、5種類用意しています。
 
 ---------
@@ -70,7 +72,7 @@ Angularで動作する、Public Clientの例です。
                            +-------------> リソースサーバ
 ```
 
-ng(AngularのCLI)でビルドを行い、ビルド成果物作成されたwebpackをapacheに配布します。
+ng(AngularのCLI)でビルドを行い、ビルド成果物(webpack)をapacheに配布します。
 SPAが直接アクセストークンを入手、使用しますので、セキュアな環境が必要な場合、その漏洩対策が必要とされています。
 
 > その対策が大変なので、BFFという仕組みが提案されています
@@ -236,6 +238,7 @@ CLIENT_APP      S1YXEXP9SP      1677551976      code    openid profile scope1 sc
 > 認可コードフローのリダイレクト先であるOAuth2.Response.clsはRPが認証済みかどうかを確認するための情報元をRPに格納します
 
 2つの事を行ってくれます。  
+
 - その情報の状態によってRPが既に認証済みかどうかの確認を行います
 
 - 認証済みである場合、アクセストークン、IDトークンなどを返却します
@@ -285,9 +288,11 @@ set valid=##class(%SYS.OAuth2.Validation).ValidateIDToken(
         }
 ```
 
+## Introspection
+
 \#\#class(%SYS.OAuth2.AccessToken).GetIntrospection()は認可サーバにアクセストークンの有効性を問い合わせます。
 
-> 都度、認可サーバへのトラフィックが発生するため、opaqueのアクセストークンの場合は必須ですが、JWTの場合は任意とされています
+> 認可サーバへのトラフィックが発生するため、opaqueのアクセストークンの場合は必須ですが、JWTの場合は任意とされています
 
 [MyApp.AppMain.cls](https://github.com/IRISMeister/iris-oauth2/blob/main/irisclient/src/MyApp/AppMain.cls)で使用されています。
 
@@ -365,6 +370,7 @@ Linux
 
 Windows
 C:\git\python-oauth2-client   <= git clone https://github.com/IRISMeister/python-oauth2-client.git
+C:\git\angular-oauth2-client  <= ngビルドをWindowsで動かすのであれば
 ```
 以下、(任意)は$HOME/gitとしています。
 
@@ -598,9 +604,11 @@ urllib.error.URLError: <urlopen error [WinError 10061] 対象のコンピュー�
 ```
 サーバ環境が起動していない、あるいは到達できない場合に発生します。
 
-ブラウザに「Unexpected request - client_id」が表示される場合、credentials.jsonが正しくコピーされていません。
-
->こういうエラーが発生すると、DOSがControl-Cを受け付けない状態で止まってしまいます。私はDOS窓ごと終了させていますが、あまり良い方法ではないかもしれません。
+```
+Unexpected request - client_id
+```
+ブラウザに上記の内容が表示される場合、credentials.jsonが正しくコピーされていません。  
+このエラーが発生すると、DOSがControl-Cを受け付けない状態で止まってしまいます。その場合、ブラウザで別タブを開いて http://localhost:8080/ を開いてください(何も表示されません)。これでpythonコードが完了するはずです。
 
 ```
   File "F:\ISJ\WorkAtHome\git\python-oauth2\httpserverhandler.py", line 32, in get_access_token_from_url
