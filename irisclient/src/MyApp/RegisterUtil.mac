@@ -38,7 +38,7 @@ Register(AppName,fclouri,postlorediruris) public {
         Set c.Metadata."client_uri" = "https://webgw.localdomain/"
         Set c.Metadata."tos_uri" = "https://webgw.localdomain/service.html"
         Set c.Metadata."policy_uri" = "https://webgw.localdomain/policy.html"
-        Set c.Metadata."logo_uri" = "https://webgw.localdomain/logo.png"
+        Set c.Metadata."logo_uri" = "https://webgw.localdomain/intersystems.png"
         Set c.Metadata."response_types" = $lb("code")
         Set c.Metadata."token_endpoint_auth_method" = "client_secret_basic"
         Set c.Metadata."token_endpoint_auth_signing_alg" = "RS512"

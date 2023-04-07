@@ -38,7 +38,7 @@ oAuth2/OIDC(OpenID Connect)の利用シーンは多種多様です。
 
 IRISには、Confidential Clientである、従来型のWebアプリケーション(フォームをSubmitして、画面を都度再描画するタイプのWebアプリケーション)用のoAuth2関連のAPI群が用意されています。
 
-そこで、Webアプリケーション(CSP)を選択することも考えられますが、クライアント編では、よりセキュアとされるSPA+BFF(Backend For Frontend)の構成を実現するにあたり、Wepアプリケーション用APIをそのまま活用する方法をご紹介する予定です。
+そこで、Webアプリケーション(CSP)を選択することも考えられますが、クライアント編では、よりセキュアとされるSPA+BFF(Backend For Frontend)の構成を実現するにあたり、Webアプリケーション用APIをそのまま活用する方法をご紹介する予定です。
 
 > 以下、サーバ編の動作確認には、CSPアプリケーションを使用しています。これは、新規開発にCSP(サーバページ)を使用しましょう、という事ではなく、BFF実現のために必要となる機能を理解するためです。BFFについては、クライアント編で触れます。BFFについては、[こちら](https://dev.to/damikun/web-app-security-understanding-the-meaning-of-the-bff-pattern-i85)の説明がわかりやすかったです。
 

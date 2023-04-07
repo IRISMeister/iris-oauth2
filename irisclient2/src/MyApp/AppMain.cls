@@ -3,9 +3,9 @@ Include MyApp.common
 Class MyApp.AppMain Extends %CSP.Page
 {
 
-Parameter OAUTH2ROOT = "https://webgw.localdomain/irisrsc/csp/myrsc";
+Parameter RSCURL1 = "https://webgw.localdomain/irisrsc/csp/myrsc";
 
-Parameter OAUTH2ROOT2 = "https://webgw.localdomain/irisrsc2/csp/myrsc";
+Parameter RSCURL2 = "https://webgw.localdomain/irisrsc2/csp/myrsc";
 
 Parameter SSLCONFIG = "client";
 
@@ -34,9 +34,6 @@ h4 { color:#2080E0 ;}
     // Check if we have an access token from oauth2 server
     set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,,..#SCOPES,.accessToken,.idtoken,.responseProperties,.error)
     
-    // Continue with further checks if an access token exists.
-    // Below are all possible tests and may not be needed in all cases.
-    // The JSON object which is returned for each test is just displayed.
     if isAuthorized {
         #;
         #; lougout
@@ -46,7 +43,7 @@ h4 { color:#2080E0 ;}
         #; このURLは、WebGWのpathを考慮していない。本例では/irisclient（もしくは/irisclient2）が必要なので追加する。
         Set url=$REPLACE(url,"/csp/sys/","/"_..#host_"/csp/sys/")
 
-        Write "<a href="_url_">ログアウト(SSO)</a>",!
+        Write "<a href="_url_">ログアウト</a>",!
 
         &html<
         <table border="1">
@@ -67,6 +64,9 @@ h4 { color:#2080E0 ;}
             <td>%session.Data("COUNTER")</td><td>#(tmp)#</td>
         </tr>
         <tr>
+            <td>$NAMESPACE</td><td>#($NAMESPACE)#</td>
+        </tr>
+        <tr>
             <td>$USERNAME</td><td>#($USERNAME)#</td>
         </tr>
         <tr>
@@ -75,25 +75,15 @@ h4 { color:#2080E0 ;}
         </table>
         >
 
-        // Validate and get the details from the access token, if it is a JWT.
-        set valid=##class(%SYS.OAuth2.Validation).ValidateJWT($$$APP,accessToken,..#SCOPES,,.jsonObject,.securityParameters,.sc)
-
         set formatter = ##class(%JSON.Formatter).%New()
-        if $$$ISOK(sc) {
-            write "Access token="
-            w "<pre>" Do formatter.Format(jsonObject) w "</pre>",!
-            write "<br>",!
-        } else {
-            write "JWT Error="_..EscapeHTML($system.Status.GetErrorText(sc))_"<br>",!    
-        }
-        write "<br>",!
-
         if idtoken'="" {
             // Validate and display the IDToken -- see OpenID Connect Core specification.
             set valid=##class(%SYS.OAuth2.Validation).ValidateIDToken(
                 $$$APP,
                 idtoken,
-                accessToken,,,
+                accessToken,
+                ..#SCOPES,
+                ..#RSCURL1,  // RSCURL2の存在チェックはしていないので注意
                 .jsonObject,
                 .securityParameters,
                 .sc)
@@ -109,6 +99,12 @@ h4 { color:#2080E0 ;}
         }
         write "<br>",!
     
+        // 署名の有無の確認
+        Set isSigned=$Data(securityParameters("sigalg"))#2
+        if 'isSigned="" { 
+            write "署名されていません !<br>",!
+        }
+
         // Optionally, Call the introspection endpoint and display result -- see RFC 7662.
         set sc=##class(%SYS.OAuth2.AccessToken).GetIntrospection($$$APP,accessToken,.jsonObject)
         if $$$ISOK(sc) {
@@ -120,9 +116,6 @@ h4 { color:#2080E0 ;}
         }
         write "<br>",!
         
-
-        // not needed for the application logic, but provides information about user that we can pass to Delegated authentication
-    
         // Call the userinfo endpoint and display the result -- see OpenID Connect Core specification.
         set sc=##class(%SYS.OAuth2.AccessToken).GetUserinfo(
             $$$APP,
@@ -150,7 +143,7 @@ h4 { color:#2080E0 ;}
             ..#SSLCONFIG,
             $$$APP)
         if $$$ISOK(sc) {
-            Set url=..#OAUTH2ROOT_"/private" w "URL:"_url_"</BR>",!
+            Set url=..#RSCURL1_"/private" w "URL:"_url_"</BR>",!
             set sc=httpRequest.Get(url)
         }
         if $$$ISOK(sc) {
@@ -176,7 +169,7 @@ h4 { color:#2080E0 ;}
             ..#SSLCONFIG,
             $$$APP)
         if $$$ISOK(sc) {
-            Set url=..#OAUTH2ROOT2_"/private" w "URL:"_url_"</BR>",!
+            Set url=..#RSCURL2_"/private" w "URL:"_url_"</BR>",!
             set sc=httpRequest.Get(url)
         }
         if $$$ISOK(sc) {
@@ -202,13 +195,6 @@ h4 { color:#2080E0 ;}
 
 ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
 {
-#if 0
-    If $USERNAME="OAuth2" {
-        Do %session.Logout() 
-        Set %session.EndSession=1
-        Set %response.Redirect="MyApp.AppMain.cls"
-    }
-#endif
     Return $$$OK
 }
 

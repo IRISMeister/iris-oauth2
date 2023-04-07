@@ -109,7 +109,7 @@ ClassMethod setup(ByRef tVars) As %Status
     Set c.Metadata."token_endpoint_auth_signing_alg" = "RS512"
     Set c.Metadata."access_token_signed_response_alg" = "RS512"
     Set c.Metadata."id_token_signed_response_alg" = "RS512"
-    Set c.Metadata."frontchannel_logout_uri" = "https://localhost:8080/fclogout"
+    Set c.Metadata."frontchannel_logout_uri" = "http://localhost:8080/fclogout"  // dummy
     Set c.Name = "python"
     Do c.RedirectURL.SetAt("http://localhost:8080/","1") ; this is where python client's webserver is listeing to.
     Set tSC=c.%Save()
@@ -156,6 +156,10 @@ ClassMethod setup(ByRef tVars) As %Status
     Set c.LaunchURL = ""
     Set c.Metadata."grant_types" = $lb("authorization_code","jwt_authorization","refresh_token")
     Set c.Metadata."response_types" = $lb("code")
+    Set c.Metadata."client_uri" = "https://webgw.localdomain/"
+    Set c.Metadata."tos_uri" = origin_"service.html"
+    Set c.Metadata."policy_uri" = origin_"policy.html"
+    Set c.Metadata."logo_uri" = origin_"angular.png"
     Set c.Metadata."token_endpoint_auth_method" = "client_secret_post"
     Set c.Metadata."token_endpoint_auth_signing_alg" = "RS512"
     Set c.Metadata."access_token_signed_response_alg" = "RS512"
@@ -179,11 +183,12 @@ ClassMethod setup(ByRef tVars) As %Status
     Set authUri=origin_"irisauth/authserver/oauth2/authorize"
     Set logoutUri=origin_"irisauth/authserver/oauth2/logout"
     Set tokenUri=origin_"irisauth/authserver/oauth2/token"
+    Set userinfoUri=origin_"irisauth/authserver/oauth2/userinfo"
     Set redirectUri=origin_"myapp/#/callback"
-    Set scope="openid scope1"
+    Set scope="openid profile scope1"
     Set resourceServerUri=origin_"irisrsc/csp/myrsc/private"
     Set resourceServer2Uri=origin_"irisrsc2/csp/myrsc/private"
-    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
+    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
     Set rsc={"resourceServerUri":(resourceServerUri),"resourceServer2Uri":(resourceServer2Uri)}
 
     #; ++このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく++
@@ -203,7 +208,7 @@ ClassMethod setup(ByRef tVars) As %Status
 
     #; for debug (ng serve)
     Set redirectUri=dbgorigin_"myapp/#/callback"
-    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":"http://webgw.localdomain:4200/myapp/#/logout","post_logout_redirect_uri":"http://webgw.localdomain:4200/myapp/#/home"}
+    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":"http://webgw.localdomain:4200/myapp/#/logout","post_logout_redirect_uri":"http://webgw.localdomain:4200/myapp/#/home"}
     Set bff={"BFFServer":"/irisclient/csp/bffapi","redirectUri":"http://webgw.localdomain:4200/myapp/#/callback-bff"}
     Set j1={"production":"false","auth":(auth),"rsc":(rsc),"iam":(iam),"bff":(bff)}
     Set file=home_"environment.ts" o file:"nws" u file
@@ -246,11 +251,12 @@ ClassMethod setup(ByRef tVars) As %Status
     Set authUri=origin_"irisauth/authserver/oauth2/authorize"
     Set logoutUri=origin_"irisauth/authserver/oauth2/logout"
     Set tokenUri=origin_"irisauth/authserver/oauth2/token"
+    Set userinfoUri=origin_"irisauth/authserver/oauth2/userinfo"
     Set redirectUri=origin_"myapp2/#/callback"
-    Set scope="openid scope1"
+    Set scope="openid profile scope1"
     Set resourceServerUri=origin_"irisrsc/csp/myrsc/private"
     Set resourceServer2Uri=origin_"irisrsc2/csp/myrsc/private"
-    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
+    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
     Set rsc={"resourceServerUri":(resourceServerUri),"resourceServer2Uri":(resourceServer2Uri)}
 
     #; ++このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく++
@@ -289,15 +295,17 @@ ClassMethod setup(ByRef tVars) As %Status
 
     #; Add sample users
 
-    Set tSC=##class(Security.Users).Create("test",,"test","テスト太郎",,,,0,1,"sample user",,"01234567",,,1,1)
-    kill prop Set tSC=##class(Security.Users).Get("test",.prop)
-    Set prop("EmailAddress")="test@examples.com"
-    Set tSC=##class(Security.Users).Modify("test",.prop)
+    Set username="test"
+    Set tSC=##class(Security.Users).Create(username,,username,"テスト太郎",,,,0,1,"sample user",,"01234567",,,1,1)
+    kill prop Set tSC=##class(Security.Users).Get(username,.prop)
+    Set prop("EmailAddress")=username_"@examples.com"
+    Set tSC=##class(Security.Users).Modify(username,.prop)
 
-    Set tSC=##class(Security.Users).Create("demo",,"demo","デモ次郎",,,,0,1,"sample user",,"01234999",,,1,1)
-    kill prop Set tSC=##class(Security.Users).Get("test",.prop)
-    Set prop("EmailAddress")="demo@examples.com"
-    Set tSC=##class(Security.Users).Modify("demo",.prop)
+    Set username="demo"
+    Set tSC=##class(Security.Users).Create(username,,username,"デモ次郎",,,,0,1,"sample user",,"01234999",,,1,1)
+    kill prop Set tSC=##class(Security.Users).Get(username,.prop)
+    Set prop("EmailAddress")=username_"@examples.com"
+    Set tSC=##class(Security.Users).Modify(username,.prop)
 
     Set $NAMESPACE=oldns
 

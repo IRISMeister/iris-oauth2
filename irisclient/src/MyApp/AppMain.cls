@@ -104,6 +104,12 @@ h4 { color:#2080E0 ;}
             write "No IDToken returned"_"<br>",!
         }
         write "<br>",!
+
+        // 署名の有無の確認
+        Set isSigned=$Data(securityParameters("sigalg"))#2
+        if 'isSigned="" { 
+            write "署名されていません !<br>",!
+        }
     
         // Optionally, Call the introspection endpoint and display result -- see RFC 7662.
         set sc=##class(%SYS.OAuth2.AccessToken).GetIntrospection($$$APP,accessToken,.jsonObject)
@@ -115,10 +121,7 @@ h4 { color:#2080E0 ;}
             write "Introspection Error="_..EscapeHTML($system.Status.GetErrorText(sc))_"<br>",!    
         }
         write "<br>",!
-        
-
-        // not needed for the application logic, but provides information about user that we can pass to Delegated authentication
-    
+            
         // Call the userinfo endpoint and display the result -- see OpenID Connect Core specification.
         set sc=##class(%SYS.OAuth2.AccessToken).GetUserinfo(
             $$$APP,

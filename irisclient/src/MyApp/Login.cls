@@ -77,7 +77,7 @@ ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
   #dim %response as %CSP.Response
   set scope="openid profile "_..#SCOPES
   if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,,scope,.accessToken,.idtoken,.responseProperties,.error) {
-    set %response.ServerSideRedirect="MyApp.AppMain.cls"
+    set %response.Redirect="MyApp.AppMain.cls"
   }
   Return $$$OK
 }
