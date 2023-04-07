@@ -490,12 +490,12 @@ typescript                      4.9.5
 
 両者は、client_idが異なる(つまり別のRPとみなす)だけ内容は同じです。下記のような「最高にクール」な画面が表示されます。
 
-![](docs/images/spa1.png)
+![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/images/spa1.png)
 
 「BFF接続テスト」を押すとBFFとの疎通確認を行い、成功の場合IRISバージョンを画面表示します。
 
 「SPAでログイン」を押すと、SPAのみで認証を行います。下記のような画面が表示されれば成功です。適当にボタンを押して(処理内容はボタンが示す通りです)動作確認してください。  
-![](docs/images/spa2.png)
+![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/images/spa2.png)
 
 ### 修正・デバッグ
 
@@ -529,7 +529,7 @@ SPA(Angular)と同時に起動されます。
 SPA(Angular)と同じです。
 
 「SPA+BFFでログイン」を押すと、SPA+BFFで認証を行います。下記のような画面が表示されれば成功です。SPAとほぼ同じですが、こちらにはBFFサーバの情報表示とトークンの取り消し機能が追加されています。    
-![](docs/images/spa3.png)
+![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/images/spa3.png)
 
 ## Python
 ### 導入手順
