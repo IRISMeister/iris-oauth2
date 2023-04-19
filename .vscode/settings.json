@@ -39,6 +39,14 @@
                 "port":52877
             },
             "username": "SuperUser"
+        },
+        "irisclient3":{
+            "webServer": {
+                "scheme": "http",
+                "host": "localhost",
+                "port":52878
+            },
+            "username": "SuperUser"
         }
 
     },

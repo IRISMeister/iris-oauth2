@@ -1,5 +1,6 @@
 ROUTINE MyApp.RegisterUtil
 #include %occStatus
+#include MyApp.common
 Register(AppName,fclouri,postlorediruris) public {
     new $namespace
     set $namespace="%sys"
@@ -30,7 +31,7 @@ Register(AppName,fclouri,postlorediruris) public {
         Set endpoint=##class(OAuth2.Endpoint).%New()
         Set endpoint.Host = "webgw.localdomain"
         Set endpoint.Port = ""
-        Set endpoint.Prefix = "irisclient2"
+        Set endpoint.Prefix = $$$HOSTNAME
         Set endpoint.UseSSL = 1    
         Set c.RedirectionEndpoint=endpoint
         Set c.Metadata."grant_types" = $lb("authorization_code","jwt_authorization","refresh_token")

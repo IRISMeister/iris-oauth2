@@ -1,21 +1,67 @@
 ROUTINE MyApp.RegisterAll
+#include MyApp.common
 Register() public {
 
     Try {
-        #; App in namespace USER
-        #; CSP App
-        Do Register^MyApp.RegisterUtil("USER_CLIENT_APP","https://webgw.localdomain/irisclient/csp/user/MyApp.Logout.cls",$LB("https://webgw.localdomain/irisclient/csp/user/MyApp.Login.cls"))
-        #; BFF For Angular client
-        Do Register^MyApp.RegisterUtil("BFF_BFF_APP","https://webgw.localdomain/myapp/#/logout-bff",$LB("https://webgw.localdomain/myapp/#/home","http://webgw.localdomain:4200/myapp/#/home"))
 
-        #; App in namespace USER2
-        #; CSP App
-        Do Register^MyApp.RegisterUtil("USER2_CLIENT_APP","https://webgw.localdomain/irisclient/csp/user2/MyApp.Logout.cls",$LB("https://webgw.localdomain/irisclient/csp/user2/MyApp.Login.cls"))
-        #; BFF For Angular client
-        Do Register^MyApp.RegisterUtil("BFF2_BFF_APP","https://webgw.localdomain/myapp2/#/logout-bff",$LB("https://webgw.localdomain/myapp2/#/home","http://webgw.localdomain:4200/myapp2/#/home"))
+        #; Read OAuth2 related config file
+        Set op=$system.Util.GetEnviron("OP") If op="" { Set op="iris" }
+        Set config={}.%FromJSONFile("/ISC/config/"_op_".json")
+        Set ^config=config.%ToJSON()
+
+        Set HOSTNAME=##class(%SYSTEM.INetInfo).LocalHostName()
+
+        #; Register clients
+        Set iter = config.apps.%GetIterator()
+        while iter.%GetNext(.key, .value, .type ) {
+            Set clientname=key, app=value
+            Set fclouri=$REPLACE(app.fclouri,"{{{HOSTNAME}}}",HOSTNAME)
+            Set postlorediruris=$LISTFROMSTRING(app.postlorediruris," ")
+            Do Register^MyApp.RegisterUtil(clientname,fclouri,postlorediruris)
+        }
+
+        If config.OP="azure" {
+            #; IRIS(OP)使用時はビルド時に生成していたが、Azure AD(OP)使用時は動的登録が使用できないため、ここで作成。
+            Set home="/home/irisowner/"
+            Do CreateEnvFile(home,"bffapi","true","production","https://webgw.localdomain/myapp/#/callback-bff","https://webgw.localdomain/myapp/#/home","environment.prod.ts")
+            Do CreateEnvFile(home,"bff2api","true","production2","https://webgw.localdomain/myapp2/#/callback-bff","https://webgw.localdomain/myapp2/#/home","environment.prod2.ts")
+            #; for debug (ng serve)
+            Do CreateEnvFile(home,"bffapi","false","debug","http://webgw.localdomain:4200/myapp/#/callback-bff","http://webgw.localdomain:4200/myapp/#/home","environment.ts")
+        }
 
     } Catch(e) {
         Set tSC=e.AsStatus()
         zw tSC
     }
+}
+
+CreateEnvFile(home,bffendpoint,isProd,env,redirectUri,plogoutredir,filename) public {
+    Set op=$system.Util.GetEnviron("OP") If op="" { Set op="iris" }
+
+    #; OPがazure(非IRIS)の場合のAngular用の環境ファイル
+    Set bff={"BFFServer":("/"_##class(%SYSTEM.INetInfo).LocalHostName()_"/csp/"_bffendpoint),"redirectUri":(redirectUri)}
+    Set auth={
+    "OP":(op),
+    "clientId":"xxxxxxx",
+    "authUri":"xxx",
+    "logoutUri":"xxx",
+    "tokenUri":"xxx",
+    "userinfoUri":"xxx",
+    "redirectUri":"xxx",
+    "scope":"xxx",
+    "frontchannel_logout_uri":"xxx",
+    "post_logout_redirect_uri":(plogoutredir)
+    }
+    Set rsc={
+    "resourceServerUri":"https://webgw.localdomain/irisrsc/csp/myrsc/private",
+    "resourceServer2Uri":"https://webgw.localdomain/irisrsc2/csp/myrsc/private"
+    }
+    Set iam={"resourceServerInfo":"","resourceServerUri":"","resourceServer2Uri":""}
+
+    Set j1={"production":(isProd),"env":(env),"auth":(auth),"rsc":(rsc),"iam":(iam),"bff":(bff)}
+
+    Set file=home_filename o file:"nws" u file
+    Set formatter = ##class(%JSON.Formatter).%New()
+    Set json="" Do formatter.FormatToString(j1,.json) 
+    w "export const environment = ",!,json,! c file    
 }

@@ -1,0 +1,6 @@
+ROUTINE OP.Config
+LoadConfig() public {
+    Set op=$system.Util.GetEnviron("OP") If op="" { Set op="iris" }
+    Set config={}.%FromJSONFile("/ISC/config/"_op_".json")
+    Set ^config=config.%ToJSON()
+}

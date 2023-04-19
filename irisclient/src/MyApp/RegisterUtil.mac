@@ -1,64 +1,85 @@
 ROUTINE MyApp.RegisterUtil
 #include %occStatus
+#include MyApp.common
 Register(AppName,fclouri,postlorediruris) public {
     new $namespace
-    set $namespace="%sys"
 
     Try {
+    #; Read OAuth2 related config file
+    Set config={}.%FromJSON(^config)
+
+    Set $namespace="%sys"
 
         #; Avoid duplication
-        Set ApplicationName=AppName
-        if $ISOBJECT(##class(OAuth2.Client).Open(ApplicationName)) {
-            Write ApplicationName_" is already registered. Skipping it.",!
+        if $ISOBJECT(##class(OAuth2.Client).Open(AppName)) {
+            Write AppName_" is already registered. Skipping it.",!
             Return 
         }
 
         #dim server as OAuth2.ServerDefinition=""
-        Set issuerEndpoint="https://webgw.localdomain/irisauth/authserver/oauth2"
+        Set issuerEndpoint=config.issuerEndpoint
         Set sslConfiguration="client"
         Set tSC=##class(%SYS.OAuth2.Registration).Discover(issuerEndpoint,sslConfiguration,.server)
         Set tSC=server.%Save()
         $$$ThrowOnError(tSC)
 
         Set c=##class(OAuth2.Client).%New()
-        Set c.ApplicationName=ApplicationName
+        Set c.ApplicationName=AppName
         Set c.Description="csp based client "_AppName
         Set c.SSLConfiguration="client"
         Set c.AuthenticationType="basic"
         Set c.ClientType="confidential"
         Set c.ServerDefinition=server
+        If config.OP="azure" {
+            Set c.AcceptNonStandardImplicitIdToken=1
+        }
         Set endpoint=##class(OAuth2.Endpoint).%New()
         Set endpoint.Host = "webgw.localdomain"
         Set endpoint.Port = ""
-        Set endpoint.Prefix = "irisclient"
+        Set endpoint.Prefix = ##class(%SYSTEM.INetInfo).LocalHostName()
         Set endpoint.UseSSL = 1    
         Set c.RedirectionEndpoint=endpoint
         Set c.Metadata."grant_types" = $lb("authorization_code","jwt_authorization","refresh_token")
         Set c.Metadata."client_name" = AppName
-        Set c.Metadata."client_uri" = "https://webgw.localdomain/"
-        Set c.Metadata."tos_uri" = "https://webgw.localdomain/service.html"
-        Set c.Metadata."policy_uri" = "https://webgw.localdomain/policy.html"
-        Set c.Metadata."logo_uri" = "https://webgw.localdomain/intersystems.png"
+        if config.OP="iris" {
+            Set c.Metadata."client_uri" = "https://webgw.localdomain/about.html"
+            Set c.Metadata."tos_uri" = "https://webgw.localdomain/service.html"
+            Set c.Metadata."policy_uri" = "https://webgw.localdomain/policy.html"
+            Set c.Metadata."logo_uri" = "https://webgw.localdomain/intersystems.png"
+        }
         Set c.Metadata."response_types" = $lb("code")
         Set c.Metadata."token_endpoint_auth_method" = "client_secret_basic"
-        Set c.Metadata."token_endpoint_auth_signing_alg" = "RS512"
-        Set c.Metadata."access_token_signed_response_alg" = "RS512"
-        Set c.Metadata."id_token_signed_response_alg" = "RS512"
+        if config.OP="iris" {
+            Set c.Metadata."token_endpoint_auth_signing_alg" = "RS512"
+            Set c.Metadata."access_token_signed_response_alg" = "RS512"
+            Set c.Metadata."id_token_signed_response_alg" = "RS512"
+        }
+        Elseif config.OP="azure" {
+            Set c.Metadata."token_endpoint_auth_signing_alg" = "RS256"
+            Set c.Metadata."access_token_signed_response_alg" = "RS256"
+            Set c.Metadata."id_token_signed_response_alg" = "RS256"
+        }
         Set c.Metadata."frontchannel_logout_uri" = fclouri
         Set c.Metadata."frontchannel_logout_session_required" = 1 
         Set c.Metadata."post_logout_redirect_uris" = postlorediruris
+        if config.OP="azure" {
+            Set c.ClientId=config.apps.%Get(AppName).ClientId
+            Set c.ClientSecret=config.apps.%Get(AppName).ClientSecret
+        }
         Set tSC=c.%Save()
         $$$ThrowOnError(tSC)
 
-        Set tSC=##class(%SYS.OAuth2.Registration).RegisterClient(c.ApplicationName)
-        $$$ThrowOnError(tSC)
+        if config.OP="iris" {
+            Set tSC=##class(%SYS.OAuth2.Registration).RegisterClient(c.ApplicationName)
+            $$$ThrowOnError(tSC)
+        }
 
         #; Open client instance just created by RegisterClient()
-        Set cli=##class(OAuth2.Client).%OpenId(c.ApplicationName)
+        Set c=##class(OAuth2.Client).%OpenId(c.ApplicationName)
         #; Save a client id and a secret into a json file. 
-        Set j1={"client_id":(cli.ClientId),"client_secret":(cli.ClientSecret),"issuer_uri":(issuerEndpoint)}
-        Set file="/home/irisowner/credentials_"_cli.ApplicationName_".json" o file:"nws" u file w j1.%ToJSON() c file
-        Set file="/home/irisowner/clientid_"_cli.ApplicationName_".txt" o file:"nws" u file w c.ClientId,! c file
+        Set j1={"client_id":(c.ClientId),"client_secret":(c.ClientSecret),"issuer_uri":(issuerEndpoint)}
+        Set file="/home/irisowner/credentials_"_c.ApplicationName_".json" o file:"nws" u file w j1.%ToJSON() c file
+        Set file="/home/irisowner/clientid_"_c.ApplicationName_".txt" o file:"nws" u file w c.ClientId,! c file
 
     } Catch(e) {
         Set tSC=e.AsStatus()

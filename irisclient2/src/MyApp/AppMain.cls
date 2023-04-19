@@ -11,8 +11,6 @@ Parameter SSLCONFIG = "client";
 
 Parameter SCOPES = "openid profile scope1";
 
-Parameter host = "irisclient2";
-
 ClassMethod OnPage() As %Status
 {
 
@@ -38,12 +36,18 @@ h4 { color:#2080E0 ;}
         #;
         #; lougout
         #;
-        Set ns=$ZCVT($NAMESPACE,"L") Set fclouri="https://webgw.localdomain/irisclient2/csp/"_ns_"/MyApp.AppMain.cls"
+        Set ns=$ZCVT($NAMESPACE,"L") Set fclouri="https://webgw.localdomain/"_$$$HOSTNAME_"/csp/"_ns_"/MyApp.AppMain.cls"
         Set url=##class(%SYS.OAuth2.Authorization).GetLogoutEndpoint($$$APP,fclouri)
         #; このURLは、WebGWのpathを考慮していない。本例では/irisclient（もしくは/irisclient2）が必要なので追加する。
-        Set url=$REPLACE(url,"/csp/sys/","/"_..#host_"/csp/sys/")
+        Set url=$REPLACE(url,"/csp/sys/","/"_$$$HOSTNAME_"/csp/sys/")
 
         Write "<a href="_url_">ログアウト</a>",!
+
+        #;
+        #; Refresh
+        #;
+        Write "<a href=MyApp.AppMain.cls?refresh=1>トークン更新</a>",!
+        Write "</br>",!
 
         &html<
         <table border="1">
@@ -56,6 +60,9 @@ h4 { color:#2080E0 ;}
         </tr>
         <tr>
             <td>IDT</td><td>#(idtoken)#</td>
+        </tr>
+        <tr>
+            <td>RefreshToken</td><td>#(responseProperties("refresh_token"))#</td>
         </tr>
         <tr>
             <td>SessionId</td><td>#(%session.SessionId)#</td>
@@ -104,6 +111,8 @@ h4 { color:#2080E0 ;}
         if 'isSigned="" { 
             write "署名されていません !<br>",!
         }
+        // ToDo:
+        // 署名の種類の確認
 
         // Optionally, Call the introspection endpoint and display result -- see RFC 7662.
         set sc=##class(%SYS.OAuth2.AccessToken).GetIntrospection($$$APP,accessToken,.jsonObject)
@@ -195,6 +204,11 @@ h4 { color:#2080E0 ;}
 
 ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
 {
+    if $get(%request.Data("refresh",1))=1 {
+        Set tSC=##class(%ZSYS.OAuth2.Authorization).GetAccessTokenRefreshById($$$APP,, .refreshed, .error) 
+        $$$ThrowOnError(tSC)
+        Set %response.Redirect="MyApp.AppMain.cls"
+    }
     Return $$$OK
 }
 

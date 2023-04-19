@@ -5,7 +5,7 @@ services:
     build: 
       context: ./irisauth
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.226.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisauth
     ports:
@@ -16,13 +16,13 @@ services:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
     volumes:
-    - .:/ISC    
+    - .:/ISC
 
   irisrsc:
     build: 
       context: ./irisrsc
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.226.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisrsc
     ports:
@@ -32,13 +32,13 @@ services:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
     volumes:
-    - .:/ISC    
+    - .:/ISC
 
   irisrsc2:
     build: 
       context: ./irisrsc
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.226.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisrsc2
     ports:
@@ -48,15 +48,13 @@ services:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
     volumes:
-    - .:/ISC    
-    # https://webgw.localdomain/iris-on-fhir/launch.html?iss=https://webgw.localdomain/fhir/r4
-    #- $PWD/irisrsc/iris-on-fhir/src/csp:/usr/irissys/csp/user
+    - .:/ISC
 
   irisclient:
     build: 
       context: ./irisclient
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.226.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisclient
     ports:
@@ -65,14 +63,15 @@ services:
     environment:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    - OP=iris
     volumes:
-    - .:/ISC    
+    - .:/ISC
 
   irisclient2:
     build: 
       context: ./irisclient2
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.226.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisclient2
     ports:
@@ -81,8 +80,26 @@ services:
     environment:
     - TZ=JST-9
     - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    - OP=iris
     volumes:
-    - .:/ISC    
+    - .:/ISC
+
+  irisclient3:
+    build: 
+      context: ./irisclient
+      args:
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        COMMIT_ID: ${COMMIT_ID}
+    hostname: irisclient3
+    ports:
+    - 52878:52773
+    command: --ISCAgent false --monitorCPF false
+    environment:
+    - TZ=JST-9
+    - ISC_CPF_MERGE_FILE=/ISC/cpf/merge1.cpf
+    - OP=azure
+    volumes:
+    - .:/ISC
 
   webgw:
     build: 

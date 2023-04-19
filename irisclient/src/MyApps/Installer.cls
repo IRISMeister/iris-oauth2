@@ -7,7 +7,7 @@ XData setup [ XMLNamespace = INSTALLER ]
   <Namespace Name="USER" Create="no">
     <Import File="${SRCDIR}/API/" Flags="ck" Recurse="true"/>
     <Import File="${SRCDIR}/MyApp/" Flags="ck" Recurse="true"/>
-    <Import File="${SRCDIR}/BFF/" Flags="ck" Recurse="true"/>
+    <Import File="${SRCDIR}/OP/" Flags="ck" Recurse="true"/>
   </Namespace>
 
   <Namespace Name="USER2" Create="yes" Code="USER2" Ensemble="0" Data="USER2">
@@ -17,6 +17,7 @@ XData setup [ XMLNamespace = INSTALLER ]
 
     <Import File="${SRCDIR}/API/" Flags="ck" Recurse="true"/>
     <Import File="${SRCDIR}/MyApp/" Flags="ck" Recurse="true"/>
+    <Import File="${SRCDIR}/OP/" Flags="ck" Recurse="true"/>
   </Namespace>
 
   <Namespace Name="BFF" Create="yes" Code="BFF" Ensemble="0" Data="BFF">
@@ -26,6 +27,7 @@ XData setup [ XMLNamespace = INSTALLER ]
 
     <Import File="${SRCDIR}/API/" Flags="ck" Recurse="true"/>
     <Import File="${SRCDIR}/BFF/" Flags="ck" Recurse="true"/>
+    <Import File="${SRCDIR}/OP/" Flags="ck" Recurse="true"/>
   </Namespace>
 
   <Namespace Name="BFF2" Create="yes" Code="BFF2" Ensemble="0" Data="BFF2">
@@ -35,6 +37,7 @@ XData setup [ XMLNamespace = INSTALLER ]
 
     <Import File="${SRCDIR}/API/" Flags="ck" Recurse="true"/>
     <Import File="${SRCDIR}/BFF/" Flags="ck" Recurse="true"/>
+    <Import File="${SRCDIR}/OP/" Flags="ck" Recurse="true"/>
   </Namespace>
 
   <!-- need DP-421492 -->
@@ -63,7 +66,7 @@ ClassMethod setup(ByRef tVars) As %Status
     Do ##class(Security.Users).UnExpireUserPasswords("*")
 
     #; Accept /irisclient/ as CSP path.
-    Do ##class(%SYSTEM.CSP).SetConfig("CSPConfigName","irisclient")
+    Do ##class(%SYSTEM.CSP).SetConfig("CSPConfigName","irisclient,irisclient3")
 
     #; SSL/TLS Configuration
     Kill props

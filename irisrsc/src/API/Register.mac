@@ -3,7 +3,13 @@ ROUTINE API.Register
 Register() public {
     #; OpenID Connect Discovery and Dynamic Client Registration
     new $namespace
-    set $namespace="%sys"
+
+    #; Read OAuth2 related config file
+    Set config="" If $D(^config) {
+        Set config={}.%FromJSON(^config)
+    }
+
+    Set $namespace="%sys"
 
     #; Avoid duplication
     Set ApplicationName=$$$APP
@@ -13,9 +19,13 @@ Register() public {
     }
 
     #dim server as OAuth2.ServerDefinition=""
-    Set issuerEndpoint="https://webgw.localdomain/irisauth/authserver/oauth2"
+    Set issuerEndpoint=config.issuerEndpoint ;"https://webgw.localdomain/irisauth/authserver/oauth2"
     Set sslConfiguration="resserver"
+    Set server=""
     Set tSC=##class(%SYS.OAuth2.Registration).Discover(issuerEndpoint,sslConfiguration,.server)
+    If config.OP="azure" {
+        Set server.IssuerEndpoint="https://sts.windows.net/"_config.tenantID_"/"  // known MS issue...
+    } 
     Set tSC=server.%Save()
 
     Set c=##class(OAuth2.Client).%New()
@@ -26,7 +36,13 @@ Register() public {
     Set c.ServerDefinition=server
     Set c.Metadata."client_name" = "RESSERVER_Client"
     Set c.Metadata."response_types" = $lb("code","id_token","id_token token","token") ; this one is not reflected to auth server...
+    If config.OP="azure" {
+        Set c.ClientId=config.rsc.%Get(ApplicationName).ClientId
+        Set c.ClientSecret=config.rsc.%Get(ApplicationName).ClientSecret
+    }
     Set tSC=c.%Save()
 
-    Set tSC=##class(%SYS.OAuth2.Registration).RegisterClient(c.ApplicationName)
+    If config.OP="iris" {
+        Set tSC=##class(%SYS.OAuth2.Registration).RegisterClient(c.ApplicationName)
+    }
 }

@@ -21,6 +21,7 @@ configRsc1=irisrsc
 configRsc2=irisrsc2
 configClient=irisclient
 configClient2=irisclient2
+configClient3=irisclient3
 port=${SERVER_PORT-51773}
 username=${USERNAME-CSPSystem}
 password=${PASSWORD-SYS}
@@ -36,6 +37,7 @@ password=${PASSWORD-SYS}
 ./cvtcfg setparameter "CSP.ini" "[SYSTEM_INDEX]" "$configRsc2" "Enabled"
 ./cvtcfg setparameter "CSP.ini" "[SYSTEM_INDEX]" "$configClient" "Enabled"
 ./cvtcfg setparameter "CSP.ini" "[SYSTEM_INDEX]" "$configClient2" "Enabled"
+./cvtcfg setparameter "CSP.ini" "[SYSTEM_INDEX]" "$configClient3" "Enabled"
 
 # [Auth server]
 ./cvtcfg setparameter "CSP.ini" "[${configAuth}]" "Ip_Address" "$configAuth"
@@ -67,6 +69,12 @@ password=${PASSWORD-SYS}
 ./cvtcfg setparameter "CSP.ini" "[${configClient2}]" "Username" "$username"
 ./cvtcfg setparameter "CSP.ini" "[${configClient2}]" "Password" "$password"
 
+# [CSP based Client3 App server]
+./cvtcfg setparameter "CSP.ini" "[${configClient3}]" "Ip_Address" "$configClient3"
+./cvtcfg setparameter "CSP.ini" "[${configClient3}]" "TCP_Port" "$port"
+./cvtcfg setparameter "CSP.ini" "[${configClient3}]" "Username" "$username"
+./cvtcfg setparameter "CSP.ini" "[${configClient3}]" "Password" "$password"
+
 # [APP_PATH_INDEX]
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH_INDEX]" "/" "Disabled"
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH_INDEX]" "/csp" "Disabled"
@@ -79,6 +87,7 @@ password=${PASSWORD-SYS}
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH_INDEX]" "/$configRsc2" "Enabled"
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH_INDEX]" "/$configClient" "Enabled"
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH_INDEX]" "/$configClient2" "Enabled"
+./cvtcfg setparameter "CSP.ini" "[APP_PATH_INDEX]" "/$configClient3" "Enabled"
 
 # [APP_PATH:/]
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH:/]" "Default_Server" "LOCAL"
@@ -101,6 +110,8 @@ password=${PASSWORD-SYS}
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH:/$configClient]" "Default_Server" "$configClient"
 # [APP_PATH:/irisclient2]
 ./cvtcfg setparameter "CSP.ini" "[APP_PATH:/$configClient2]" "Default_Server" "$configClient2"
+# [APP_PATH:/irisclient3]
+./cvtcfg setparameter "CSP.ini" "[APP_PATH:/$configClient3]" "Default_Server" "$configClient3"
 
 popd
 
