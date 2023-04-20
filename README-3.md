@@ -178,7 +178,7 @@ git pull
 
 [こちら](https://learn.microsoft.com/ja-jp/azure/active-directory/develop/quickstart-register-app)の内容に沿って作業を進めます。
 
-## アプリの登録
+## アプリケーションの登録
 ```
 アプリケーションの名前: myapp
 サポートされているアカウントの種類: この組織ディレクトリのみに含まれるアカウント (MSFT のみ - シングル テナント)
@@ -304,7 +304,9 @@ azure.jsonでの名称: BFF2_BFF_APP
 
 ![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/rsc.png)
 
-ClientId, ClientSecretをazure.jsonの"RESSERVER_APP"下に反映しておきます。
+アプリケーションと同様に、ClientId, ClientSecretの値をazure.jsonの"RESSERVER_APP"下に反映しておきます。
+
+# azure.jsonの完成形
 
 伏字だらけで分かりにくいですが、全てを埋めたazure.jsonは下記のようになります。
 
@@ -343,6 +345,13 @@ ClientId, ClientSecretをazure.jsonの"RESSERVER_APP"下に反映しておきま
 	}
 }
 ```
+
+このファイルを用意することが、下記の操作を行ったことになります。
+- IRIS(RP)にサーバデスクリプションを登録
+- IRIS(RP)にサーバデスクリプション/クライアントを登録
+- IRIS(リソースサーバ)にサーバデスクリプションを登録
+- IRIS(リソースサーバ)にサーバデスクリプション/クライアントを登録
+
 
 # ビルド
 
