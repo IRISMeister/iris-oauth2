@@ -395,7 +395,7 @@ cd angular-oauth2-client
 ![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/login.png)
 
 ### エラー
-下記エラーが出た場合、サーバ環境が古いままです。
+下記エラーが出た場合、IRISサーバ環境が古いままです。
 
 ```
 $ ./build_and_deploy.sh
