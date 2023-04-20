@@ -9,7 +9,7 @@ Parameter RESOURCEROOT = "https://webgw.localdomain/";
 
 Parameter SSLCONFIG = "client";
 
-Parameter SCOPES = "openid profile email offline_access ";
+Parameter SCOPES = "openid profile offline_access ";
 
 Parameter SESSIONCOOKIE = "sessionid";
 

@@ -9,7 +9,7 @@ Parameter RSCURL2 = "https://webgw.localdomain/irisrsc2/csp/myrsc";
 
 Parameter SSLCONFIG = "client";
 
-Parameter SCOPES = "openid profile email offline_access ";
+Parameter SCOPES = "openid profile offline_access ";
 
 ClassMethod OnPage() As %Status
 {

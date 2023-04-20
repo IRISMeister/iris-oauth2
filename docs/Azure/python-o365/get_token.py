@@ -14,22 +14,13 @@ TOKEN_PATH='.'
 TENANT_ID = 'xxxxx'
 CLIENT_ID = 'yyyyy'
 CLIENT_SECRET = 'zzzzz'
+SCOPES = ['openid','profile','offline_access','api://xxx-xxx-xxx-xxx-xxx/scope1']
+#SCOPES = ['openid','profile','offline_access','User.Read']
 
 AUTH_FLOW='authorization'
-SCOPES = ['openid','profile','offline_access','api://xxx-xxx-xxx-xxx-xxx/scope1']
 token_backend = FileSystemTokenBackend(token_path=TOKEN_PATH, token_filename=TOKEN_FILENAME)
 credentials=(CLIENT_ID, CLIENT_SECRET)
 account = Account(credentials=credentials, scopes=SCOPES, token_backend=token_backend, auth_flow_type=AUTH_FLOW, tenant_id=TENANT_ID)
-
-def refresh():
-    if not account.is_authenticated:
-      print('Not authenticated yet')
-    else:
-      account.connection.refresh_token()
-      print('Refreshed!')
-      with open('access_token', mode='w') as f:
-        f.write(token_backend.get_token()['access_token'])
-      return token_backend.get_token()['access_token']
 
 if __name__ == '__main__':
     if not account.is_authenticated:

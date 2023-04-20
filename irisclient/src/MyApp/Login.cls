@@ -3,7 +3,7 @@ Include MyApp.common
 Class MyApp.Login Extends %CSP.Page
 {
 
-Parameter SCOPES = "openid profile email offline_access ";
+Parameter SCOPES = "openid profile offline_access ";
 
 ClassMethod OnPage() As %Status
 {

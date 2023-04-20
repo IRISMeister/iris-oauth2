@@ -22,13 +22,23 @@
 
   そもそもSLOが無ければ、Revoke(アプリケーション単独でのログアウトに使用)を用意する意味はありませんので、これも断念しました。
 
-- Userinfoのエンドポイントが独自
+- Userinfoのエンドポイント
 
-  IDトークンに同じ内容が含まれているので、それらを使うよう[推奨](https://learn.microsoft.com/ja-jp/azure/active-directory/develop/userinfo#consider-using-an-id-token-instead)されています。
+  IDトークンに同じ内容が含まれているので、それらを使うよう[推奨](https://learn.microsoft.com/ja-jp/azure/active-directory/develop/userinfo#consider-using-an-id-token-instead)されています。Azure AD使用時は、ユーザの情報(名前)をIDトークンから取得するよう変更しました。
 
   >ID トークンの情報は、UserInfo エンドポイントで入手できる情報のスーパーセットです。 UserInfo エンドポイントを呼び出すトークンを取得すると、同時に ID トークンを取得できます。このため、UserInfo エンドポイントを呼び出す代わりに、トークンからユーザーの情報を取得することをお勧めします。
 
-  UserInfoエンドポイントも実際に試してみましたが、エラーが発生しました。このエンドポイントだけが	https://graph.microsoft.com/oidc/userinfo となっていることと関係あるのかもしれません。IDトークンから取得するよう変更しました。
+  UserInfoエンドポイントへのアクセスも実際に試してみましたが、エラーが発生しました。どうやらこのエンドポイントにアクセスするには、今回のような独自API(リソースサーバ)用ではなく、Graph API用のアクセストークンが要るようです。
+
+  ```
+  $ export access_token=...SCOPE['openid','profile','offline_access','api://xxxxx/scope1']で発行されたトークン...
+  $ curl --insecure -H "Authorization: Bearer ${access_token}" -H 'Content-Type:application/json;charset=utf-8' https://graph.microsoft.com/oidc/userinfo 
+  {"error":{"code":"InvalidAuthenticationToken","message":"Access token validation failure. Invalid audience.","innerError":{"date":"2023-04-20T01:33:53","request-id":"40c464e2-e83f-43e7-bbf5-ec50a9ea3b79","client-request-id":"40c464e2-e83f-43e7-bbf5-ec50a9ea3b79"}}}
+
+  $ export access_token=...SCOPE['openid','profile','offline_access']で発行されたトークン...
+  $ curl --insecure -H "Authorization: Bearer ${access_token}" -H 'Content-Type:application/json;charset=utf-8' https://graph.microsoft.com/oidc/userinfo 
+  {"sub":"dwHvjtAK6XlYA1VJatjT2GY7dWBBXjhAv8ctUlcUcUE","name":"Alex Wilber","family_name":"Wilber","given_name":"Alex","picture":"https://graph.microsoft.com/v1.0/me/photo/$value","email":"AlexW@xxxxx.onmicrosoft.com"}
+  ```
 
 - Introspectionをサポートしていない
 
@@ -44,11 +54,22 @@
 
 - 暗黙のSCOPE
 
-  要求に明示的に"openid profile email offline_access"を含めても、トークンエンドポイントから取得したアクセストークンのSCOPEにはこれらを含まないようです。クライアントディスクリプション作成時に下記を指定することで対応可能です。
+  独自(カスタム)のAPI(今回の例ではscope1)が要求時のSCOPEに含まれる場合、要求に明示的に"openid profile offline_access"を含めても、トークンエンドポイントから取得したアクセストークンのSCOPEにはこれらを含まないようです。クライアントディスクリプション作成時に下記を指定することで対応可能です。
 
   ```
   Set c.AcceptNonStandardImplicitIdToken=1
   ```
+
+  独自のAPIとMS Graph API用のSCOPEを混在させることは出来ないようです。MS Graph APIが優先されてしまいます。例えば
+  ```
+  SCOPE['openid','profile','offline_access','User.Read']の場合 
+  => scp": "openid profile User.Read email","aud": "00000003-0000-0000-c000-000000000000"
+  SCOPE['openid','profile','offline_access','api://xxxxx/scope1']の場合 
+  => "scp": "scope1","aud": "api://xxxxx",
+  SCOPE['openid','profile','offline_access','User.Read','api://xxxxx/scope1']の場合 
+  => "scp": "openid profile User.Read email","aud": "00000003-0000-0000-c000-000000000000"
+  ```
+  Azure ADはAPI(リソースサーバ)ごとに、アクセストークンを使い分けるという設計思想のようです。アプリケーションが、MS Graph APIと独自APIの[両方使いたかったらどうするのか](https://authguidance.com/azure-ad-troubleshooting/)、という話もありますが、今回は独自APIだけ(Userinfoのエンドポイント使用は除外したので)なので、良しとしました。
 
 - アクセストークン,IDトークンで同一クレーム名に異なる値が設定される
 
@@ -134,7 +155,7 @@ Office365の一通りのアプリケーションの管理作業を行えるよ�
 
 # 最新のソースコードの取得
 ## サーバ環境
-以前に、git clone実行されている方は、再度git pullをお願いします。始めて実行される方は、サーバ編をご覧ください。
+以前に、git clone実行されている方は、再度git pullをお願いします。始めて実行される方は、[サーバ編](https://jp.community.intersystems.com/node/539046)をご覧ください。
 
 ```
 cd iris-oauth2
@@ -142,7 +163,7 @@ git pull
 ```
 
 ## クライアント環境
-以前に、git clone実行されている方は、再度git pullをお願いします。始めて実行される方は、クライアント編をご覧ください。
+以前に、git clone実行されている方は、再度git pullをお願いします。始めて実行される方は、[クライアント編](https://jp.community.intersystems.com/node/539491)をご覧ください。
 
 ```
 cd angular-oauth2-client
@@ -174,7 +195,7 @@ pythonコードでテスト実行をしたいので、2個目のリダイレク�
 
 ![](docs/Azure/images/app3.png)
 
-以下のような情報を取得します。CLIENT_SECRET値は作成時にしか見れませんので、このタイミングで必ず書き留めます。
+以下のような情報を取得します。CLIENT_SECRET値はクライアントシークレット作成時にしか見れませんので、このタイミングで必ず書き留めます。
 ```
 TENANT_ID = 'd8f44xxx-xxxx-xxxx-xxxx-xxxxxx2c5416' <=[アプリの登録]/[概要]ページの基本で見れる、ディレクトリ (テナント) ID
 CLIENT_ID = "f7d8xxx-xxx-xxx-xxx-xxx" <= [アプリの登録]/[概要]ページの基本で見れる、アプリケーション (クライアント) ID
@@ -195,15 +216,16 @@ Azure AD側の設定が正しく行えているかの事前確認として、Pyt
 
 [こちらの記事](https://blog.cles.jp/item/12633)を参考にさせていただきました。
 
-get_token.pyの下記を取得した値に変更して実行します。表示されたURLをブラウザで開くとログイン画面が出ますので、さきほど取得したアカウント(iwamoto@xyz.onmicrosoft.com)でログインします。
+get_token.pyの下記を取得した値に変更して実行します。
 ```
 TENANT_ID = 'd8f44xxx-xxxx-xxxx-xxxx-xxxxxx2c5416'
 CLIENT_ID = "f7d8xxx-xxx-xxx-xxx-xxx"
 CLIENT_SECRET = "xxxxxxxxxxxxx" 
 
-SCOPES = ['openid','profile','api://f7d8xxx-xxx-xxx-xxx-xxx/scope1']
+SCOPES = ['openid','profile','offline_access','api://f7d8xxx-xxx-xxx-xxx-xxx/scope1']
+
 ```
-URLが表示されるので、ブラウザにペーストします。(初回実行時は)ログイン実行を促されますので、ログインします。リダイレクトされて空白ページに移動しますので、そのURLをpythonのプロンプトにペーストして処理を終了します。
+実行するとURLが表示されるので、ブラウザにペーストします。(初回実行時は)ログイン実行を促されますので、さきほど取得したアカウント(私の場合、iwamoto@xyz.onmicrosoft.com)でログインします。リダイレクトされて空白ページに移動しますので、そのURLをpythonのプロンプトにペーストして処理を終了します。
 
 ```
 C:\git\iris-o365>python get_token.py
@@ -218,8 +240,12 @@ C:\git\iris-o365>
 ```
 token.jsonというファイルが出来ますので、access_token, id_tokenを[jwt.io](https://jwt.io/)等でデコードして内容を確認します。出来ていなければ、何かがおかしいので、設定を見直してください。これが成功しないと、以降の操作も成功しません。
 
->Azureはscopeにopenid, profileを要求しても、応答のscopeにopenid(やprofile)を返さない事がわかります。  
->IDTokenの"iss","aud"値がATのそれらと値が異なる事がわかります。
+>jwt.ioによるとscp値は下記でした。
+>```
+>  "scp": "scope1",
+>```
+
+>IDTokenの"iss","aud"値がATのそれらと値が異なる事がわかります。これはRP内でATとIDトークンの両方をチェックしようとすると良からぬ影響が出ます。今回はRPではIDトークンのバリデーションだけを行うことで対応しています。
 
 ## 全てのアプリケーションを登録
 
@@ -243,22 +269,22 @@ Azure ADへの登録内容とazure.jsonへの反映箇所の関係
 アプリケーションの名前: myapp (今までの作業で登録済みです)
 リダイレクトURI: Web, https://webgw.localdomain/irisclient3/csp/sys/oauth2/OAuth2.Response.cls
 フロントチャネルのログアウト URLに(https://webgw.localdomain/irisclient3/csp/user/MyApp.Logout.cls)
-azure.json: USER_CLIENT_APP
+azure.jsonでの名称: USER_CLIENT_APP
 
 アプリケーションの名前: myapp2
 リダイレクトURI: Web, https://webgw.localdomain/irisclient3/csp/sys/oauth2/OAuth2.Response.cls
 フロントチャネルのログアウト URLに(https://webgw.localdomain/irisclient3/csp/user2/MyApp.Logout.cls)
-azure.json: USER2_CLIENT_APP
+azure.jsonでの名称: USER2_CLIENT_APP
 
 アプリケーションの名前: bff
 リダイレクトURI: Web, https://webgw.localdomain/irisclient3/csp/sys/oauth2/OAuth2.Response.cls
 フロントチャネルのログアウト URLに(https://webgw.localdomain/myapp/#/logout-bff)
-azure.json: BFF_BFF_APP
+azure.jsonでの名称: BFF_BFF_APP
 
 アプリケーションの名前: bff2
 リダイレクトURI: Web, https://webgw.localdomain/irisclient3/csp/sys/oauth2/OAuth2.Response.cls
 フロントチャネルのログアウト URLに(https://webgw.localdomain/myapp2/#/logout-bff)
-azure.json: BFF2_BFF_APP
+azure.jsonでの名称: BFF2_BFF_APP
 ```
 
 # Azure(OP)にリソースサーバを登録
@@ -272,18 +298,51 @@ azure.json: BFF2_BFF_APP
 
 同様に新しいクライアント シークレットを追加します。
 
+![](docs/Azure/images/rsc.png)
+
 ClientId, ClientSecretをazure.jsonの"RESSERVER_APP"下に反映しておきます。
 
-# サーバデスクリプション, サーバデスクリプション/クライアントの登録
+伏字だらけで分かりにくいですが、全てを埋めたazure.jsonは下記のようになります。
 
-クライアントアプリケーション(RP)に認可サーバの情報およびクライアントアプリケーション自身の情報を登録する作業です。[MyApp.RegisterUtil.mac](irisclient/src/MyApp/RegisterUtil.mac)にスクリプト化してあります。
+```
+{
+	"OP": "azure",
+	"tenantID":"d8f44e7a-xxx-xxx-xxx-xxx",
+	"issuerEndpoint":"https://login.microsoftonline.com/d8f44e7a-xxx-xxx-xxx-xxx/v2.0",
+	"apps":{
+		"USER_CLIENT_APP":{
+			"ClientId":"e20dd7f3-xxx-xxx-xxx-xxx",
+			"ClientSecret":"3bU8Q~9g8xLaAi81WshoTLZuh3rWwDO7NUaDKaa_",
+			"SCOPES":"api://e20dd7f3-xxx-xxx-xxx-xxx/scope1"
+		},
+		"USER2_CLIENT_APP":{
+			"ClientId":"53bb346c-xxx-xxx-xxx-xxx",
+			"ClientSecret":"oNe8Q~J-5iPyAj_zHd8r3axXxl9ffJRWrVZ0Sa~N",
+			"SCOPES":"api://53bb346c-xxx-xxx-xxx-xxx/scope1"
+		},
+		"BFF_BFF_APP":{
+			"ClientId":"a4ef08b0-xxx-xxx-xxx-xxx",
+			"ClientSecret":"D2A8Q~CuxCGHYeXmUAqD7wjtY-gucdQU44Yj4b-U",
+			"SCOPES":"api://a4ef08b0-xxx-xxx-xxx-xxx/scope1"
+		},
+		"BFF2_BFF_APP":{
+			"ClientId":"dc04f6cd-xxx-xxx-xxx-xxx",
+			"ClientSecret":"5Br8Q~h~CzkJW1z2NSWii0uAq0HuPvoW46cvhaKj",
+			"SCOPES":"api://dc04f6cd-xxx-xxx-xxx-xxx/scope1"
+		}
+	},
+	"rsc":{
+		"RESSERVER_APP": {
+			"ClientId":"9842ba63-xxx-xxx-xxx-xxx",
+			"ClientSecret":"7vJ8Q~PS7wFw_15SY.V3whxU2p3STBuvAUkTydjH"
+		}
+	}
+}
+```
 
-# ソースコードへの反映とビルド
-サーバ環境、クライアント共に最新のソースコードの取得が必要です。
+# ビルド
 
 ## サーバ環境
-
-config/azure.jsonを修正済みであることを確認した上で下記を実行してください。
 
 ```
 cd iris-oauth2
@@ -298,6 +357,7 @@ cp webgateway* iris-webgateway-example/
 # 実行
 
 ## サーバ環境
+config/azure.jsonを修正済みであることを確認した上で下記を実行してください。
 
 ```
 ./up-azure.sh
@@ -314,12 +374,23 @@ Angular based clien App | https://webgw.localdomain/myapp/ https://webgw.localdo
 ```
 
 ## クライアント
+サーバ環境が起動した事を確認の上、実行します。
 
 ```
 cd angular-oauth2-client
 ./build_and_deploy.sh
+あるいは
+./ng-start.sh (デバッグ実行)
 ```
+### 操作方法
 
+[クライアント編](https://jp.community.intersystems.com/node/539491)と同じです。[Webアプリケーション](https://webgw.localdomain/irisclient3/csp/user/MyApp.Login.cls)、[SPA+BFF](https://webgw.localdomain/myapp/)を実行できます。
+
+前回と異なり、ログインを実行すると、Azure ADのログイン画面が表示されますので、Microsoft 365開発者サブスクリプションで作成されたユーザでログイン(adelev@xxxxx.onmicrosoft.com等)します。
+
+![](docs/Azure/images/login.png)
+
+### エラー
 下記エラーが出た場合、サーバ環境が古いままです。
 
 ```
