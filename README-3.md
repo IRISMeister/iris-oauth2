@@ -1,11 +1,11 @@
 # Azure ADをOPとして利用する
 
-# 相違点
-
 元のタイトルから外れますがAzure ADをOPとした場合に、Wepアプリケーション(CSP)とSPA+BFF形式のRPにどのような修正が必要かを調べました。  
 ある程度の差異は想定はしていましたが、思っていたより違うな、という印象を受けました。RP、リソースサーバ側でこれらの差異を吸収する必要がありました。
 
 > 個人調べです。誤りがあるかもしれませんが、その際はご容赦ください。また、状況は刻々と変わる可能性があります。
+
+# 相違点
 
 - frontchannel_logout_session_supportedをサポートしていない
 
@@ -110,6 +110,8 @@
 
 [Microsoft 365開発者サブスクリプション](https://learn.microsoft.com/ja-jp/office/developer-program/microsoft-365-developer-program) を有効化して使用しました。
 
+> 開発者向けの無償のサブスクリプションです。余談ですが、Exchange Online上のメールの受信(pop3+oAuth2認証)テストにもこの環境を使用しました。
+
 主な選択肢は下記のようにしました。
 ```
 Set up a new Microsoft 365 developer sandboxを選択。
@@ -129,7 +131,7 @@ Password: xxxxxx
 
 Office365の一通りのアプリケーションの管理作業を行えるようになっています。また、ダミーの[ユーザ](https://portal.azure.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/AllUsers)が作成されていますので、後でログインユーザとして使用します。一番下に自分が登録されています。
 
-![](docs/Azure/images/users.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/users.png)
 
 付与されたアカウント(私の場合はiwamoto@xyz.onmicrosoft.com)で[Azure Portal](https://portal.azure.com)にログインします。
 
@@ -181,19 +183,19 @@ git pull
 リダイレクトURI: Web, https://webgw.localdomain/irisclient3/csp/sys/oauth2/OAuth2.Response.cls
 ```
 
-![](docs/Azure/images/app1.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app1.png)
 
 ## リダイレクト URI, フロントチャネルのログアウト URL追加
 pythonコードでテスト実行をしたいので、2個目のリダイレクト先(https://login.microsoftonline.com/common/oauth2/nativeclient)を追加します。  
 フロントチャネルのログアウト URLに(https://webgw.localdomain/irisclient3/csp/user/MyApp.Logout.cls)を指定します。
 
-![](docs/Azure/images/app2.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app2.png)
 
 ## 証明書またはシークレットの追加
 
 新しいクライアント シークレットを追加します。
 
-![](docs/Azure/images/app3.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app3.png)
 
 以下のような情報を取得します。CLIENT_SECRET値はクライアントシークレット作成時にしか見れませんので、このタイミングで必ず書き留めます。
 ```
@@ -208,7 +210,7 @@ CLIENT_SECRET = "xxxxxxxxxxxxx"  <=クライアントシークレット作成時
 
 「APIの公開」画面で「Scopeの追加」を押してscope1を追加します。既定ではapi://xxxxxというプリフィックスが付きます。
 
-![](docs/Azure/images/app4.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app4.png)
 
 ## Python + o365 でテスト
 
@@ -298,7 +300,7 @@ azure.jsonでの名称: BFF2_BFF_APP
 
 同様に新しいクライアント シークレットを追加します。
 
-![](docs/Azure/images/rsc.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/rsc.png)
 
 ClientId, ClientSecretをazure.jsonの"RESSERVER_APP"下に反映しておきます。
 
@@ -388,7 +390,7 @@ cd angular-oauth2-client
 
 前回と異なり、ログインを実行すると、Azure ADのログイン画面が表示されますので、Microsoft 365開発者サブスクリプションで作成されたユーザでログイン(adelev@xxxxx.onmicrosoft.com等)します。
 
-![](docs/Azure/images/login.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/login.png)
 
 ### エラー
 下記エラーが出た場合、サーバ環境が古いままです。
