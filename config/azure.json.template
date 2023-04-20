@@ -6,22 +6,26 @@
 		"USER_CLIENT_APP":{
 			"ClientId":"xxx-xxx-xxx-xxx-xxx",
 			"ClientSecret":"xxxxxxxxxxxxxx",
-			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/{{{HOSTNAME}}}/csp/user/MyApp.Logout.cls"
 		},
 		"USER2_CLIENT_APP":{
 			"ClientId":"xxx-xxx-xxx-xxx-xxx",
 			"ClientSecret":"xxxxxxxxxxxxxx",
-			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/{{{HOSTNAME}}}/csp/user2/MyApp.Logout.cls"
 		},
 		"BFF_BFF_APP":{
 			"ClientId":"xxx-xxx-xxx-xxx-xxx",
 			"ClientSecret":"xxxxxxxxxxxxxx",
-			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/myapp/#/logout-bff"
 		},
 		"BFF2_BFF_APP":{
 			"ClientId":"xxx-xxx-xxx-xxx-xxx",
 			"ClientSecret":"xxxxxxxxxxxxxx",
-			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/myapp2/#/logout-bff"
 		}
 	},
 	"rsc":{

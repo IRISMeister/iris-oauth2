@@ -308,7 +308,7 @@ azure.jsonでの名称: BFF2_BFF_APP
 
 # azure.jsonの完成形
 
-伏字だらけで分かりにくいですが、全てを埋めたazure.jsonは下記のようになります。
+伏字だらけで少し分かりにくいですが、全てを埋めたazure.jsonは下記のようになります。
 
 ```
 {
@@ -319,22 +319,26 @@ azure.jsonでの名称: BFF2_BFF_APP
 		"USER_CLIENT_APP":{
 			"ClientId":"e20dd7f3-xxx-xxx-xxx-xxx",
 			"ClientSecret":"3bU8Q~9g8xLaAi81WshoTLZuh3rWwDO7NUaDKaa_",
-			"SCOPES":"api://e20dd7f3-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://e20dd7f3-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/{{{HOSTNAME}}}/csp/user/MyApp.Logout.cls"
 		},
 		"USER2_CLIENT_APP":{
 			"ClientId":"53bb346c-xxx-xxx-xxx-xxx",
 			"ClientSecret":"oNe8Q~J-5iPyAj_zHd8r3axXxl9ffJRWrVZ0Sa~N",
-			"SCOPES":"api://53bb346c-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://53bb346c-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/{{{HOSTNAME}}}/csp/user2/MyApp.Logout.cls"
 		},
 		"BFF_BFF_APP":{
 			"ClientId":"a4ef08b0-xxx-xxx-xxx-xxx",
 			"ClientSecret":"D2A8Q~CuxCGHYeXmUAqD7wjtY-gucdQU44Yj4b-U",
-			"SCOPES":"api://a4ef08b0-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://a4ef08b0-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/myapp/#/logout-bff"
 		},
 		"BFF2_BFF_APP":{
 			"ClientId":"dc04f6cd-xxx-xxx-xxx-xxx",
 			"ClientSecret":"5Br8Q~h~CzkJW1z2NSWii0uAq0HuPvoW46cvhaKj",
-			"SCOPES":"api://dc04f6cd-xxx-xxx-xxx-xxx/scope1"
+			"SCOPES":"api://dc04f6cd-xxx-xxx-xxx-xxx/scope1",
+			"fclouri":"https://webgw.localdomain/myapp2/#/logout-bff"
 		}
 	},
 	"rsc":{
