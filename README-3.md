@@ -5,6 +5,8 @@
 
 > 個人調べです。誤りがあるかもしれませんが、その際はご容赦ください。また、状況は刻々と変わる可能性があります。
 
+<!--break-->
+
 # 相違点
 
 - frontchannel_logout_session_supportedをサポートしていない
@@ -18,7 +20,7 @@
 
 - "revocation_endpoint"をサポートしていない
 
-  [OpenId Connectディスカバリー](docs/Azure/openid-configuration.json)に"revocation_endpoint"がありません(つまりサポートしていません)。
+  [OpenId Connectディスカバリー](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/openid-configuration.json)に"revocation_endpoint"がありません(つまりサポートしていません)。
 
   そもそもSLOが無ければ、Revoke(アプリケーション単独でのログアウトに使用)を用意する意味はありませんので、これも断念しました。
 
@@ -54,7 +56,7 @@
 
 - 暗黙のSCOPE
 
-  独自(カスタム)のAPI(今回の例ではscope1)が要求時のSCOPEに含まれる場合、要求に明示的に"openid profile offline_access"を含めても、トークンエンドポイントから取得したアクセストークンのSCOPEにはこれらを含まないようです。クライアントディスクリプション作成時に下記を指定することで対応可能です。
+  独自(カスタム)API、今回の例ではscope1、が要求時のSCOPEクレームに含まれる場合、明示的に"openid profile offline_access"を含めても、トークンエンドポイントから取得したアクセストークンのSCOPEにはこれらを含まないようです。クライアントディスクリプション作成時に下記を指定することで対応可能です。
 
   ```
   Set c.AcceptNonStandardImplicitIdToken=1
@@ -131,7 +133,7 @@ Password: xxxxxx
 
 Office365の一通りのアプリケーションの管理作業を行えるようになっています。また、ダミーの[ユーザ](https://portal.azure.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/~/AllUsers)が作成されていますので、後でログインユーザとして使用します。一番下に自分が登録されています。
 
-![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/users.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/users.png)
 
 付与されたアカウント(私の場合はiwamoto@xyz.onmicrosoft.com)で[Azure Portal](https://portal.azure.com)にログインします。
 
@@ -183,19 +185,19 @@ git pull
 リダイレクトURI: Web, https://webgw.localdomain/irisclient3/csp/sys/oauth2/OAuth2.Response.cls
 ```
 
-![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app1.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/app1.png)
 
 ## リダイレクト URI, フロントチャネルのログアウト URL追加
 pythonコードでテスト実行をしたいので、2個目のリダイレクト先(https://login.microsoftonline.com/common/oauth2/nativeclient)を追加します。  
 フロントチャネルのログアウト URLに(https://webgw.localdomain/irisclient3/csp/user/MyApp.Logout.cls)を指定します。
 
-![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app2.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/app2.png)
 
 ## 証明書またはシークレットの追加
 
 新しいクライアント シークレットを追加します。
 
-![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app3.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/app3.png)
 
 以下のような情報を取得します。CLIENT_SECRET値はクライアントシークレット作成時にしか見れませんので、このタイミングで必ず書き留めます。
 ```
@@ -210,7 +212,7 @@ CLIENT_SECRET = "xxxxxxxxxxxxx"  <=クライアントシークレット作成時
 
 「APIの公開」画面で「Scopeの追加」を押してscope1を追加します。既定ではapi://xxxxxというプリフィックスが付きます。
 
-![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/app4.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/app4.png)
 
 ## Python + o365 でテスト
 
@@ -300,7 +302,7 @@ azure.jsonでの名称: BFF2_BFF_APP
 
 同様に新しいクライアント シークレットを追加します。
 
-![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/rsc.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/rsc.png)
 
 ClientId, ClientSecretをazure.jsonの"RESSERVER_APP"下に反映しておきます。
 
@@ -390,7 +392,7 @@ cd angular-oauth2-client
 
 前回と異なり、ログインを実行すると、Azure ADのログイン画面が表示されますので、Microsoft 365開発者サブスクリプションで作成されたユーザでログイン(adelev@xxxxx.onmicrosoft.com等)します。
 
-![](https://raw.githubusercontent.com/irismeister/iris-oauth2/devazure/docs/Azure/images/login.png)
+![](https://raw.githubusercontent.com/irismeister/iris-oauth2/main/docs/Azure/images/login.png)
 
 ### エラー
 下記エラーが出た場合、サーバ環境が古いままです。
