@@ -8,6 +8,11 @@ XData setup [ XMLNamespace = INSTALLER ]
     <Import File="${SRCDIR}/API/" Flags="ck" Recurse="true"/>
     <Import File="${SRCDIR}/MyApp/" Flags="ck" Recurse="true"/>
   </Namespace>
+
+  <Namespace Name="%SYS" Create="no">
+    <Import File="${SRCDIR}/ZSYS/" Flags="ck" Recurse="true"/>
+  </Namespace>  
+
 </Manifest>
 }
 

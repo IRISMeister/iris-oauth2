@@ -188,7 +188,7 @@ ClassMethod setup(ByRef tVars) As %Status
     Set scope="openid profile scope1"
     Set resourceServerUri=origin_"irisrsc/csp/myrsc/private"
     Set resourceServer2Uri=origin_"irisrsc2/csp/myrsc/private"
-    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
+    Set auth={"OP":"iris","clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
     Set rsc={"resourceServerUri":(resourceServerUri),"resourceServer2Uri":(resourceServer2Uri)}
 
     #; ++このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく++
@@ -208,7 +208,7 @@ ClassMethod setup(ByRef tVars) As %Status
 
     #; for debug (ng serve)
     Set redirectUri=dbgorigin_"myapp/#/callback"
-    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":"http://webgw.localdomain:4200/myapp/#/logout","post_logout_redirect_uri":"http://webgw.localdomain:4200/myapp/#/home"}
+    Set auth={"OP":"iris","clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":"http://webgw.localdomain:4200/myapp/#/logout","post_logout_redirect_uri":"http://webgw.localdomain:4200/myapp/#/home"}
     Set bff={"BFFServer":"/irisclient/csp/bffapi","redirectUri":"http://webgw.localdomain:4200/myapp/#/callback-bff"}
     Set j1={"production":"false","auth":(auth),"rsc":(rsc),"iam":(iam),"bff":(bff)}
     Set file=home_"environment.ts" o file:"nws" u file
@@ -256,7 +256,7 @@ ClassMethod setup(ByRef tVars) As %Status
     Set scope="openid profile scope1"
     Set resourceServerUri=origin_"irisrsc/csp/myrsc/private"
     Set resourceServer2Uri=origin_"irisrsc2/csp/myrsc/private"
-    Set auth={"clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
+    Set auth={"OP":"iris","clientId":(c.ClientId),"authUri":(authUri),"logoutUri":(logoutUri),"tokenUri":(tokenUri),"userinfoUri":(userinfoUri),"redirectUri":(redirectUri),"scope":(scope),"frontchannel_logout_uri":(c.Metadata."frontchannel_logout_uri" ),"post_logout_redirect_uri":($LIST(c.Metadata."post_logout_redirect_uris",1))}
     Set rsc={"resourceServerUri":(resourceServerUri),"resourceServer2Uri":(resourceServer2Uri)}
 
     #; ++このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく++

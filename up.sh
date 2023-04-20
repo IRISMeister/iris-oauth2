@@ -38,3 +38,7 @@ docker compose exec irisauth cat environment.ts > client/environment.ts
 
 ./endpoints.sh
 
+# wsl2がcpu 100%で応答が無くなる状況が頻発。wsl --shutdownも利かない。
+# https://github.com/microsoft/WSL/issues/6982
+# powershell taskkill -IM "wslservice.exe" /F
+

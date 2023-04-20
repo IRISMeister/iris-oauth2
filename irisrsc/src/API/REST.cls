@@ -53,13 +53,24 @@ ClassMethod GetDeals(pType As %String) As %Status
 				set reason=..#HTTP401UNAUTHORIZED
 				throw ##class(%Exception.General).%New("NoAccessToken","5001","GetDeals")
 			}
+			
+			Set config="" If $D(^config) {
+        		Set config={}.%FromJSON(^config)
+    		}
 
+			// Azure(OP)の場合、ATの"aud"クレームには送信元のRPのAppId(クライアントID)のみが格納されているので
+			// 自分宛てに発行されたかどうかの確認にならないため、チェックしない。
+			If config.OP="azure"{
+				Set aud=""
+			}
+			else {
+				Set aud=..#AUD
+			}
 			// validate signed access token (JWT)
-			if '(##class(%SYS.OAuth2.Validation).ValidateJWT($$$APP,accessToken,,..#AUD,.jsonObjectJWT,.securityParameters,.tSC)) {
+			if '(##class(%SYS.OAuth2.Validation).ValidateJWT($$$APP,accessToken,,aud,.jsonObjectJWT,.securityParameters,.tSC)) {
 				set reason=..#HTTP401UNAUTHORIZED
 				$$$ThrowOnError(tSC)
 			}
-
 			// 署名の有無の確認
 			Set sigalg=$G(securityParameters("sigalg"))
 			if sigalg="" { 
@@ -68,7 +79,14 @@ ClassMethod GetDeals(pType As %String) As %Status
 			}
 
 			// check whether the request is asking for proper scope for this service
-			if '(jsonObjectJWT.scope_" "["scope1 ") { set reason=..#HTTP404NOTFOUND throw }
+			// MS's scope is "scp"
+			If config.OP="azure" {
+				Set scope=jsonObjectJWT.%Get("scp")
+			}
+			Else {
+				Set scope=jsonObjectJWT.%Get("scope")
+			}
+			if '(scope_" "["scope1 ") { set reason=..#HTTP404NOTFOUND throw }
 
 			// irisauthへの通信を伴うGetIntrospection()実行は、opaqueなトークンであれば必須だがJWTの場合は任意。
 #if 0
@@ -102,6 +120,7 @@ ClassMethod GetDeals(pType As %String) As %Status
 		write info.%ToJSON()
 	} catch (e) {
 		set tSC=..ReportHttpStatusCode(reason,e.AsStatus())	
+		Do e.Log()
 	}
 	return $$$OK
 }

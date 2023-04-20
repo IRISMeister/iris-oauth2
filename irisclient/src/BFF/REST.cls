@@ -9,7 +9,7 @@ Parameter RESOURCEROOT = "https://webgw.localdomain/";
 
 Parameter SSLCONFIG = "client";
 
-Parameter SCOPES = "scope1 scope2";
+Parameter SCOPES = "openid profile offline_access ";
 
 Parameter SESSIONCOOKIE = "sessionid";
 
@@ -17,8 +17,6 @@ Parameter SESSIONCOOKIE = "sessionid";
 Parameter SECURECOOKIE = 0;
 
 Parameter COOKIEPATH;
-
-Parameter host = "irisclient";
 
 Parameter CONTENTTYPE = "application/json";
 
@@ -51,10 +49,12 @@ ClassMethod GetServerInfo() As %Status
 	Set tSC='$$$OK
 	Set resp={}
 	Set ServerInfo={}
+    Set config={}.%FromJSON(^config)
 
 	Try {
 		Set sessionid=%request.GetCookie(..#SESSIONCOOKIE)
-		Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,..#SCOPES,.accessToken,.idtoken,.responseProperties,.error)
+		Set scopes=config.apps.%Get($$$APP).SCOPES
+		Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error)
 
 		Set ServerInfo.isAuthorized=isAuthorized
 		Set ServerInfo.NameSpace=$NAMESPACE
@@ -65,6 +65,7 @@ ClassMethod GetServerInfo() As %Status
 		Set ServerInfo.Counter=$INCREMENT(%session.Data("COUNTER"))
 		Set ServerInfo.AT=accessToken
 		Set ServerInfo.IDT=idtoken
+		Set ServerInfo.RFT=$G(responseProperties("refresh_token"),"none")
 		Set resp.ServerInfo=ServerInfo
 		Set tSC=$$$OK
 	}
@@ -81,6 +82,7 @@ ClassMethod GetUserInfo() As %Status
 {
 	Set tSC='$$$OK
 	Set resp={}
+    Set config={}.%FromJSON(^config)
 
 	Try {
 		Set sessionid=%request.GetCookie(..#SESSIONCOOKIE)
@@ -88,19 +90,37 @@ ClassMethod GetUserInfo() As %Status
 			Do ..ReportHttpStatusCode(401)
 			Return $$$OK
 		}
-		Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,..#SCOPES,.accessToken,.idtoken,.responseProperties,.error)
+		If config.OP="iris" { Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES } Elseif config.OP="azure" {Set scopes=config.apps.%Get($$$APP).SCOPES}
+
+		Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error)
 		If 'isAuthorized {
 			Do ..ReportHttpStatusCode(401)
 			Return $$$OK
 		}
 
-        Set tSC=##class(%SYS.OAuth2.AccessToken).GetUserinfo(
-            $$$APP,
-            accessToken,,
-            .jsonObject)
-		$$$ThrowOnError(tSC)
+		If config.OP="iris" {
+			Set tSC=##class(%SYS.OAuth2.AccessToken).GetUserinfo(
+				$$$APP,
+				accessToken,,
+				.jsonObject)
+			$$$ThrowOnError(tSC)
+			Set resp.Userinfo=jsonObject
+		}
+		Elseif config.OP="azure" {
+			Set expectedaud=config.apps.%Get($$$APP).ClientId
+            Set valid=##class(%SYS.OAuth2.Validation).ValidateIDToken(
+                $$$APP,
+                idtoken,
+                accessToken,
+                scopes,
+                expectedaud, 
+                .jsonObject,
+                .securityParameters,
+                .sc)
 
-		Set resp.Userinfo=jsonObject
+			#; ID Tokenに含まれるクレームから取得する。
+			Set resp.Userinfo=jsonObject
+		}
 		Set tSC=$$$OK
 	}
 	Catch(e) {
@@ -116,14 +136,15 @@ ClassMethod IsAuthorized() As %Status
 {
 	Set tSC='$$$OK
 	Set resp={}
-
+    Set config={}.%FromJSON(^config)
 	Try {
 		Set sessionid=%request.GetCookie(..#SESSIONCOOKIE)
 		If sessionid="" {
 			Set resp.IsAuthorized=0
 		}
 		Else {
-			Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,..#SCOPES,.accessToken,.idtoken,.responseProperties,.error)
+			If config.OP="iris" { Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES } Elseif config.OP="azure" {Set scopes=config.apps.%Get($$$APP).SCOPES}
+			Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error)
 			Set resp.IsAuthorized=isAuthorized
 		}
 		Set tSC=$$$OK
@@ -141,6 +162,7 @@ ClassMethod CallResourceServer() As %Status
 {
 	Set tSC='$$$OK
 	Set resp={}
+    Set config={}.%FromJSON(^config)
 
 	Try {
 		Set content=%request.Content.Read()
@@ -152,7 +174,8 @@ ClassMethod CallResourceServer() As %Status
 			Return $$$OK
 		}
 
-		Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,..#SCOPES,.accessToken,.idtoken,.responseProperties,.error)
+		If config.OP="iris" { Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES } Elseif config.OP="azure" {Set scopes=config.apps.%Get($$$APP).SCOPES}
+		Set isAuthorized=##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error)
 		If 'isAuthorized {
 			Do ..ReportHttpStatusCode(401)
 			Return $$$OK
@@ -196,8 +219,8 @@ ClassMethod DoRefreshToken() As %Status
 {
 	Set tSC='$$$OK
 	Set resp={}
+    Set config={}.%FromJSON(^config)
 	Try {
-		Set scope="openid profile "_..#SCOPES
 		Set sessionid=%request.GetCookie(..#SESSIONCOOKIE)
 		If sessionid="" {
 			Do ..ReportHttpStatusCode(401)
@@ -205,9 +228,15 @@ ClassMethod DoRefreshToken() As %Status
 		}
 
 		Set refreshed=0,error=""
+		If config.OP="iris" { Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES } Elseif config.OP="azure" {Set scopes=config.apps.%Get($$$APP).SCOPES}
+		if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error) {
 
-		if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scope,.accessToken,.idtoken,.responseProperties,.error) {
-			Set tSC=##class(%ZSYS.OAuth2.Authorization).GetAccessTokenRefreshById($$$APP, sessionid, .refreshed, .error) 
+			If config.OP="iris" {
+				Set tSC=##class(%ZSYS.OAuth2.Authorization).GetAccessTokenRefreshById($$$APP,sessionid, .refreshed, .error) 
+			}
+			ElseIf config.OP="azure" {
+				Set tSC=##class(%ZSYS.OAuth2.Authorization).GetAccessTokenRefreshByIdAzure($$$APP,sessionid,scopes, .refreshed, .error) 
+			}        
 			$$$ThrowOnError(tSC)
 		}
 		Else {
@@ -229,8 +258,9 @@ ClassMethod DoRevoke() As %Status
 {
 	Set tSC='$$$OK
 	Set resp={}
+    Set config={}.%FromJSON(^config)
 	Try {
-		Set scope="openid profile "_..#SCOPES
+		If config.OP="iris" { Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES } Elseif config.OP="azure" {Set scopes=config.apps.%Get($$$APP).SCOPES}
 		Set sessionid=%request.GetCookie(..#SESSIONCOOKIE)
 		If sessionid="" {
 			Do ..ReportHttpStatusCode(401)
@@ -240,7 +270,7 @@ ClassMethod DoRevoke() As %Status
 
 		Set error=""
 
-		if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scope,.accessToken,.idtoken,.responseProperties,.error) {
+		if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error) {
 			Set tSC=##class(%SYS.OAuth2.AccessToken).RevokeToken($$$APP, accessToken) 
 			$$$ThrowOnError(tSC)
 		}
@@ -263,7 +293,9 @@ ClassMethod GetAuthorizationCodeEndpoint() As %Status
 {
 	Set tSC='$$$OK
 	Set resp={}
+    Set config={}.%FromJSON(^config)
 	Try {	
+
 		Set content=%request.Content.Read()
 		Set contentJSON = {}.%FromJSON(content)
 		Set redirectURI = contentJSON.redirectURI
@@ -280,16 +312,16 @@ ClassMethod GetAuthorizationCodeEndpoint() As %Status
 		Set authURL=""
 		Set IsAuthorized=0
 		Set url=""
-		set scope="openid profile "_..#SCOPES
+		Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES
 
-		if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scope,.accessToken,.idtoken,.responseProperties,.error) {
+		if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error) {
 			Set IsAuthorized=1
 		}
 		Else {
 			Set sessionid=##class(%OAuth2.Utils).Base64UrlEncode($system.Encryption.GenCryptRand(12))  // 要変更
 			set authURL=##class(%SYS.OAuth2.Authorization).GetAuthorizationCodeEndpoint(
 				$$$APP,
-				scope,
+				scopes,
 				redirectURI,
 				.properties,
 				.isAuthorized,
@@ -315,6 +347,7 @@ ClassMethod GetLOEndpoint() As %Status
 {
 	Set tSC='$$$OK
 	Set resp={}
+    Set config={}.%FromJSON(^config)
 	Try {
 		Set sessionid=%request.GetCookie(..#SESSIONCOOKIE)
 		If sessionid="" {
@@ -328,13 +361,13 @@ ClassMethod GetLOEndpoint() As %Status
 
 		Set IsAuthorized=0
 		Set url=""
-		Set scope="openid profile "_..#SCOPES
+		If config.OP="iris" { Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES } Elseif config.OP="azure" {Set scopes=config.apps.%Get($$$APP).SCOPES}
 
-		If ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scope,.accessToken,.idtoken,.responseProperties,.error) {
+		If ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,sessionid,scopes,.accessToken,.idtoken,.responseProperties,.error) {
 			Set IsAuthorized=1
 			Set url=##class(%ZSYS.OAuth2.Authorization).GetLogoutEndpoint($$$APP,postLogoutRedirectURI,sessionid) ;; need DP-421492
         	#; このURLは、WebGWのpathを考慮していない。本例では/irisclient（もしくは/irisclient2）が必要なので追加する。
-        	Set url=$REPLACE(url,"/csp/sys/","/"_..#host_"/csp/sys/")
+        	Set url=$REPLACE(url,"/csp/sys/","/"_##class(%SYSTEM.INetInfo).LocalHostName()_"/csp/sys/")
 
 			#; ユーザエージェントのcookieからsessionidを削除
 			Do %response.SetCookie(..#SESSIONCOOKIE,"","Thr, 1 Jan 1970 00:00:00 GMT",..#COOKIEPATH,,..#SECURECOOKIE,1) ;secure, httponly

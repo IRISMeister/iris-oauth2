@@ -1,0 +1,33 @@
+{
+	"OP": "azure",
+	"tenantID":"xxx-xxx-xxx-xxx-xxx",
+	"issuerEndpoint":"https://login.microsoftonline.com/xxx-xxx-xxx-xxx-xxx/v2.0",
+	"apps":{
+		"USER_CLIENT_APP":{
+			"ClientId":"xxx-xxx-xxx-xxx-xxx",
+			"ClientSecret":"xxxxxxxxxxxxxx",
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+		},
+		"USER2_CLIENT_APP":{
+			"ClientId":"xxx-xxx-xxx-xxx-xxx",
+			"ClientSecret":"xxxxxxxxxxxxxx",
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+		},
+		"BFF_BFF_APP":{
+			"ClientId":"xxx-xxx-xxx-xxx-xxx",
+			"ClientSecret":"xxxxxxxxxxxxxx",
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+		},
+		"BFF2_BFF_APP":{
+			"ClientId":"xxx-xxx-xxx-xxx-xxx",
+			"ClientSecret":"xxxxxxxxxxxxxx",
+			"SCOPES":"api://xxx-xxx-xxx-xxx-xxx/scope1"
+		}
+	},
+	"rsc":{
+		"RESSERVER_APP": {
+			"ClientId":"xxx-xxx-xxx-xxx-xxx",
+			"ClientSecret":"xxxxxxxxxxxxxx",
+		}
+	}
+}

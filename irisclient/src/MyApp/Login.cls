@@ -3,7 +3,7 @@ Include MyApp.common
 Class MyApp.Login Extends %CSP.Page
 {
 
-Parameter SCOPES = "scope1";
+Parameter SCOPES = "openid profile offline_access ";
 
 ClassMethod OnPage() As %Status
 {
@@ -52,12 +52,13 @@ ClassMethod OnPage() As %Status
   <p>InterSystems IRIS 認証および認可サーバを呼び出して、別の InterSystems IRIS サーバに格納されているデータへのアクセスをアプリケーションに許可します。 
 >
   
-  set scope="openid profile "_..#SCOPES
+  Set config={}.%FromJSON(^config)
+  Set scope=..#SCOPES_config.apps.%Get($$$APP).SCOPES
   Set ns=$ZCVT($NAMESPACE,"L") 
   set url=##class(%SYS.OAuth2.Authorization).GetAuthorizationCodeEndpoint(
     $$$APP,
     scope,
-    "https://webgw.localdomain/irisclient/csp/"_ns_"/MyApp.AppMain.cls",
+    "https://webgw.localdomain/"_##class(%SYSTEM.INetInfo).LocalHostName()_"/csp/"_ns_"/MyApp.AppMain.cls",
     .properties,
     .isAuthorized,
     .sc)
@@ -74,8 +75,11 @@ ClassMethod OnPage() As %Status
 
 ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
 {
+  Set config={}.%FromJSON(^config)
+
   #dim %response as %CSP.Response
-  set scope="openid profile "_..#SCOPES
+
+  Set scope=..#SCOPES_config.apps.%Get($$$APP).SCOPES
   if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,,scope,.accessToken,.idtoken,.responseProperties,.error) {
     set %response.Redirect="MyApp.AppMain.cls"
   }

@@ -1,0 +1,31 @@
+{
+	"OP": "iris",
+	"issuerEndpoint":"https://webgw.localdomain/irisauth/authserver/oauth2",
+	"apps":{
+		"USER_CLIENT_APP":{
+			"SCOPES":"scope1",
+			"fclouri":"https://webgw.localdomain/{{{HOSTNAME}}}/csp/user/MyApp.Logout.cls",
+			"postlorediruris":"https://webgw.localdomain/index.html",
+			"_postlorediruris":"https://webgw.localdomain/{{{HOSTNAME}}}/csp/user/MyApp.Login.cls"
+		},
+		"USER2_CLIENT_APP":{
+			"SCOPES":"scope1",
+			"fclouri":"https://webgw.localdomain/{{{HOSTNAME}}}/csp/user2/MyApp.Logout.cls",
+			"postlorediruris":"https://webgw.localdomain/index.html"
+		},
+		"BFF_BFF_APP":{
+			"SCOPES":"scope1",
+			"fclouri":"https://webgw.localdomain/myapp/#/logout-bff",
+			"postlorediruris":"https://webgw.localdomain/myapp/#/home http://webgw.localdomain:4200/myapp/#/home"
+		},
+		"BFF2_BFF_APP":{
+			"SCOPES":"scope1",
+			"fclouri":"https://webgw.localdomain/myapp2/#/logout-bff",
+			"postlorediruris":"https://webgw.localdomain/myapp2/#/home http://webgw.localdomain:4200/myapp2/#/home"
+		}
+	},
+	"rsc":{
+		"RESSERVER_APP": {
+		}
+	}
+}

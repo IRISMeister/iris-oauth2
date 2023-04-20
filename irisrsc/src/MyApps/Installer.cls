@@ -15,7 +15,8 @@ XData setup [ XMLNamespace = INSTALLER ]
     </Configuration>
 
     <CSPApplication Url="/csp/${Namespace}" Directory="${CSPDIR}${Namespace}" Resource=""/>
-    <Import File="${SRCDIR}" Flags="ck" Recurse="true"/>
+    <Import File="${SRCDIR}/API/" Flags="ck" Recurse="true"/>
+    <Import File="${SRCDIR}/OP/" Flags="ck" Recurse="true"/>
   </Namespace>
 
   <Log Text="End Creating namespace ${Namespace}" Level="0"/>
@@ -37,7 +38,7 @@ ClassMethod setup(ByRef tVars) As %Status
 
     If '$D(tVars("Namespace")) { Set tVars("Namespace")=Namespace }
     If '$D(tVars("appuserpwd")) { Set tVars("appuserpwd")="sys" }
-    If '$D(tVars("SRCDIR")) { Set tVars("SRCDIR")="/home/irisowner/src/API/" }
+    If '$D(tVars("SRCDIR")) { Set tVars("SRCDIR")="/home/irisowner/src" }
 
     #; specify database dir
     If '$D(tVars("DBDIR")) { Set tVars("DBDIR")="/home/irisowner/" }

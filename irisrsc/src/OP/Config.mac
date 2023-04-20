@@ -1,0 +1,11 @@
+ROUTINE OP.Config
+LoadConfigAzure() public {
+    #; Read azure related config file
+    Set config={}.%FromJSONFile("/ISC/config/azure.json")
+    Set ^config=config.%ToJSON()
+}
+LoadConfigIRIS() public {
+    #; Read azure related config file
+    Set config={}.%FromJSONFile("/ISC/config/iris.json")
+    Set ^config=config.%ToJSON()
+}
