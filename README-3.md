@@ -433,7 +433,7 @@ IRISでのSAMLのサポートはoAuth2に対するそれほどは手厚くあり
 ## 実行方法
 
 実行用の[CSPアプリケーション](https://webgw.localdomain/irisclient3/csp/user/SAML.MyApp.cls)を表示。
-![](docs/Azure/images/saml-app1.png)
+![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/Azure/images/saml-app1.png)
 
 
 AD>エンタープライズ アプリケーション>すべてのアプリケーション>+新しいアプリケーション>独自のアプリケーションの作成を選択。
@@ -442,7 +442,7 @@ AD>エンタープライズ アプリケーション>すべてのアプリケー
 ギャラリーに見つからないその他のアプリケーションを統合します (ギャラリー以外)
 「作成」を押下。
 
-![](docs/Azure/images/saml1.png)
+![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/Azure/images/saml1.png)
 
 シングルサインオンの設定「作業の開始」>シングル サインオン方式の選択で「SAML」を選択。
 
@@ -454,7 +454,7 @@ AD>エンタープライズ アプリケーション>すべてのアプリケー
 
 [保存]を押下。
 
-![](docs/Azure/images/saml2.png)
+![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/Azure/images/saml2.png)
 
 > 識別子はユニークであれば何でも良い。上記はアプリ内で生成した固定文字列"https://intersystems.com/saml/"+GUID。
 
