@@ -469,17 +469,17 @@ AD>エンタープライズ アプリケーション>すべてのアプリケー
 証明書 (未加工):  myapp-saml(1).cer  
 フェデレーション メタデータ XML:  myapp-saml.xml  
 
-「ユーザとグループ」で「ユーザまたはグループの追加」を押し、ログインするユーザ(誰でも良い。AlexW@0j66b.onmicrosoft.com)を追加。「割り当て」を押下して追加を完了する。
+「ユーザとグループ」で「ユーザまたはグループの追加」を押し、ログインするユーザ(誰でも良い。AlexW@xxxx.onmicrosoft.com)を追加。「割り当て」を押下して追加を完了する。
 
 アプリで「ファイルを選択」を押し、先ほどダウンロードしたメタデータファイル(フェデレーション メタデータXML)を選択し「適用」を押す。
 成功するとIdentity providerの情報やSAML要求の内容が表示される。画面最下の「Login」押下すると、Azureの「アカウントを選択する」画面が表示される。
-先ほど追加したユーザ(AlexW@0j66b.onmicrosoft.com)で、ログイン。
+先ほど追加したユーザ(AlexW@xxxx.onmicrosoft.com)で、ログイン。
 
 ログインすると、画面にSAMLResponseの内容が表示される。
 
 ```
 Validation: Success
-NameID: AlexW@0j66b.onmicrosoft.com
+NameID: AlexW@xxxx.onmicrosoft.com
 ```
 と表示されていればログイン成功です。
 
