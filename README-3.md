@@ -422,7 +422,7 @@ Error: src/app/display-info-bff/display-info-bff.component.ts:44:26 - error TS23
 
 # (番外編)SAML認証
 
-同じAD環境を使用して、コミュニティ記事(https://community.intersystems.com/post/work-saml-iris)のSAML認証をAzureで試してみました。
+同じAD環境を使用して、[コミュニティ記事](https://community.intersystems.com/post/work-saml-iris)のSAML認証をAzureで試してみました。
 
 > ngrok は必要ありません。
 
