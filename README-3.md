@@ -419,3 +419,91 @@ Error: src/app/display-info-bff/display-info-bff.component.ts:44:26 - error TS23
 44     if (environment.auth.OP==='iris') {
                             ~~
 ```
+
+# (番外編)SAML認証
+
+同じAD環境を使用して、コミュニティ記事(https://community.intersystems.com/post/work-saml-iris)のSAML認証をAzureで試してみました。
+
+> ngrok は必要ありません。
+
+IRISでのSAMLのサポートはoAuth2に対するそれほどは手厚くありません。下記コマンドでSAML応答(XML)の署名を確認して、その正当性を確認しています。
+
+>    Set tSC = ##class(Ens.Util.XML.SecuritySignature).ValidateSAML(tSAML, tValSpec, X509File.Filename, tClockSkew)
+
+## 実行方法
+
+実行用の[CSPアプリケーション](https://webgw.localdomain/irisclient3/csp/user/SAML.MyApp.cls)を表示。
+![](docs/Azure/images/saml-app1.png)
+
+
+AD>エンタープライズ アプリケーション>すべてのアプリケーション>+新しいアプリケーション>独自のアプリケーションの作成を選択。
+
+お使いのアプリの名前は何ですか?: myapp-saml
+ギャラリーに見つからないその他のアプリケーションを統合します (ギャラリー以外)
+「作成」を押下。
+
+![](docs/Azure/images/saml1.png)
+
+シングルサインオンの設定「作業の開始」>シングル サインオン方式の選択で「SAML」を選択。
+
+下記の必須項目に、アプリに表示されている内容をそのまま使用する。
+
+基本的な SAML 構成  
+識別子: https://intersystems.com/saml/E106172E-DB35-11ED-B731-0242C0A82802  
+応答URL: https://webgw.localdomain/irisclient3/csp/user/SAML.MyApp.cls   
+
+[保存]を押下。
+
+![](docs/Azure/images/saml2.png)
+
+> 識別子はユニークであれば何でも良い。上記はアプリ内で生成した固定文字列"https://intersystems.com/saml/"+GUID。
+
+「属性とクレーム」で「編集」を押し、詳細設定 => SAML クレームの詳細オプション 編集
+属性名の形式を含める:有効 <=有効にする
+[保存]
+
+> この作業は不要(今回のケースでは無意味)かもしれない。
+
+「SAML 証明書」から下記を全部ダウンロードする。  
+証明書 (Base64):  myapp-saml.cer  
+証明書 (未加工):  myapp-saml(1).cer  
+フェデレーション メタデータ XML:  myapp-saml.xml  
+
+「ユーザとグループ」で「ユーザまたはグループの追加」を押し、ログインするユーザ(誰でも良い。AlexW@0j66b.onmicrosoft.com)を追加。「割り当て」を押下して追加を完了する。
+
+アプリで「ファイルを選択」を押し、先ほどダウンロードしたメタデータファイル(フェデレーション メタデータXML)を選択し「適用」を押す。
+成功するとIdentity providerの情報やSAML要求の内容が表示される。画面最下の「Login」押下すると、Azureの「アカウントを選択する」画面が表示される。
+先ほど追加したユーザ(AlexW@0j66b.onmicrosoft.com)で、ログイン。
+
+ログインすると、画面にSAMLResponseの内容が表示される。
+
+```
+Validation: Success
+NameID: AlexW@0j66b.onmicrosoft.com
+```
+と表示されていればログイン成功です。
+
+オリジナル記事にもあるように、このアプリケーションは、ログインユーザの情報を取得(および署名のチェック)するだけで、アプリケーションのユーザとしての認証の仕組みは備えていません。必要に応じて、上記で得たNameIDを使用して、なんらかの方法でIRISのユーザとして認証してください。
+
+## オリジナル(GCP対応)からの修正点
+
+オリジナル(GCP対応)を修正しています。
+Azure発行のフェデレーション メタデータ XMLにnameIDFormat属性が含まれていなかったため、決め打ちで設定しています。
+
+フォーマットについて、[ドキュメント](https://learn.microsoft.com/ja-jp/azure/active-directory/hybrid/how-to-connect-fed-saml-idp#required-attributes)
+には、下記のように書いてあるが、emailAddressが返却されたのでemailAddressを採用。
+> 現在 Azure AD では、次の SAML 2.0 のNameID フォーマット URI をサポートしています: urn:oasis:names:tc:SAML:2.0:nameid-format:persistent。
+
+```
+;Azure AD includes no NameIDFormat attribute. So nameIDFormat becomes null.
+If $D(nameIDFormat)=0 {
+  Set @..#SettingsGN@("nameIDFormat") = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  #;Set @..#SettingsGN@("nameIDFormat") = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+  
+}
+Else {
+  Set @..#SettingsGN@("nameIDFormat") = nameIDFormat
+}
+```
+
+

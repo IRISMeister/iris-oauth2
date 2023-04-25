@@ -8,6 +8,7 @@ XData setup [ XMLNamespace = INSTALLER ]
     <Import File="${SRCDIR}/API/" Flags="ck" Recurse="true"/>
     <Import File="${SRCDIR}/MyApp/" Flags="ck" Recurse="true"/>
     <Import File="${SRCDIR}/OP/" Flags="ck" Recurse="true"/>
+    <Import File="${SRCDIR}/SAML/" Flags="ck" Recurse="true"/>
   </Namespace>
 
   <Namespace Name="USER2" Create="yes" Code="USER2" Ensemble="0" Data="USER2">
