@@ -1,0 +1,1 @@
+docker compose -p iam -f docker-compose-iam.yml exec irisauth bash -c 'iris session iris "display^API.Util" ; cat /var/tmp/oauth2_auth_server.log'

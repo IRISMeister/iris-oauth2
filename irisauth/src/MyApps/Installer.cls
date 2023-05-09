@@ -192,9 +192,9 @@ ClassMethod setup(ByRef tVars) As %Status
     Set rsc={"resourceServerUri":(resourceServerUri),"resourceServer2Uri":(resourceServer2Uri)}
 
     #; ++このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく++
-    Set iamresourceServerInfo=iamorigin_"MYAPP/"
-    Set iamresourceServerUri=iamorigin_"MYAPP/public"
-    Set iamresourceServer2Uri=iamorigin_"MYAPP2/public"
+    Set iamresourceServerInfo=iamorigin_"myrsc/"
+    Set iamresourceServerUri=iamorigin_"myrsc/private"
+    Set iamresourceServer2Uri=iamorigin_"myrsc2/private"
     Set iam={"resourceServerInfo":(iamresourceServerInfo),"resourceServerUri":(iamresourceServerUri),"resourceServer2Uri":(iamresourceServer2Uri)}
     #; --このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく--
 
@@ -260,9 +260,9 @@ ClassMethod setup(ByRef tVars) As %Status
     Set rsc={"resourceServerUri":(resourceServerUri),"resourceServer2Uri":(resourceServer2Uri)}
 
     #; ++このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく++
-    Set iamresourceServerInfo=iamorigin_"MYAPP/"
-    Set iamresourceServerUri=iamorigin_"MYAPP/public"
-    Set iamresourceServer2Uri=iamorigin_"MYAPP/public"
+    Set iamresourceServerInfo=iamorigin_"myrsc/"
+    Set iamresourceServerUri=iamorigin_"myrsc/private"
+    Set iamresourceServer2Uri=iamorigin_"myrsc2/private"
     Set iam={"resourceServerInfo":(iamresourceServerInfo),"resourceServerUri":(iamresourceServerUri),"resourceServer2Uri":(iamresourceServer2Uri)}
     #; --このエントリは現在未使用だが、無いとAngularアプリが落ちるので、残しておく--
 
@@ -273,6 +273,30 @@ ClassMethod setup(ByRef tVars) As %Status
     Set formatter = ##class(%JSON.Formatter).%New()
     Set json="" Do formatter.FormatToString(j1,.json) 
     w "export const environment = ",!,json,! c file
+
+    #; client description for IAM/OpenID connect plugin.
+    Set c=##class(OAuth2.Server.Client).%New()
+    Set c.ClientCredentials = ""
+    Set c.ClientType = "confidential"
+    Set c.DefaultScope = ""
+    Set c.Description = "IAM demo"
+    Set c.LaunchURL = ""
+    Set c.Metadata."grant_types" = $lb("authorization_code","jwt_authorization","refresh_token")
+    Set c.Metadata."response_types" = $lb("code","id_token","id_token token","token")
+    Set c.Metadata."token_endpoint_auth_method" = "client_secret_basic"
+    Set c.Metadata."token_endpoint_auth_signing_alg" = "RS512"
+    Set c.Metadata."access_token_signed_response_alg" = "RS512"
+    Set c.Metadata."id_token_signed_response_alg" = "RS512"
+    Set c.Metadata."post_logout_redirect_uris" = $LB("https://webgw.localdomain:8443/myapp/#/home")
+    Set c.Name = "IAM"
+    Do c.RedirectURL.SetAt("https://webgw.localdomain:8443/myapp/#/info-iam","1")
+    #;Do c.RedirectURL.SetAt("http://webgw.localdomain:4200/myapp/#/info-iam","2")
+    Set tSC=c.%Save()
+    #; Save a client id and a secret into a json file. (mimics Google's json)
+    Set issueruri="https://"_issuer.Host_"/"_issuer.Prefix_"/oauth2"
+    Set j1={"client_id":(c.ClientId),"client_secret":(c.ClientSecret),"issuer_uri":(issueruri)}
+    Set file="/home/irisowner/credentials_iam.json" o file:"nws" u file w j1.%ToJSON() c file
+    Set file="/home/irisowner/clientid_iam.txt" o file:"nws" u file w c.ClientId,! c file
 
 
     #; (irisauthが存在しない)ビルド時には実行できないため、CSPベースのWebAppやIRISベースのリソースサーバはOpenID Connect Discovery and Dynamic Client Registrationを使用して登録する。
@@ -306,6 +330,24 @@ ClassMethod setup(ByRef tVars) As %Status
     kill prop Set tSC=##class(Security.Users).Get(username,.prop)
     Set prop("EmailAddress")=username_"@examples.com"
     Set tSC=##class(Security.Users).Modify(username,.prop)
+
+    ;
+    ; For production release only.
+    ;
+    ; Enable IAM Account
+    kill prop Set tSC=##class(Security.Users).Get("IAM",.prop)
+    If (prop("Enabled")=1) { halt } ; If enabled already, Durable Sys has been already setup.
+    Set prop("Enabled")=1
+    Set prop("Password")="SYS"
+    Set tSC=##class(Security.Users).Modify("IAM",.prop)
+    If 'tSC {zw tSC}
+
+    ; Enable IAM apis
+    kill prop Set tSC=##class(Security.Applications).Get("/api/iam",.prop)
+    Set prop("Enabled")=1
+    Set tSC=##class(Security.Applications).Modify("/api/iam",.prop)
+    If 'tSC {zw tSC}
+
 
     Set $NAMESPACE=oldns
 
