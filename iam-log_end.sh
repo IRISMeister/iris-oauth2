@@ -1,0 +1,1 @@
+docker compose exec -p iam -f docker-compose-iam.yml irisauth iris session iris "set^API.Util(0)"
