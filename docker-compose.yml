@@ -1,11 +1,9 @@
-version: '3.7'
-
 services: 
   irisauth:
     build: 
       context: ./irisauth
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisauth
     ports:
@@ -22,7 +20,7 @@ services:
     build: 
       context: ./irisrsc
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisrsc
     ports:
@@ -38,7 +36,7 @@ services:
     build: 
       context: ./irisrsc
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisrsc2
     ports:
@@ -54,7 +52,7 @@ services:
     build: 
       context: ./irisclient
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisclient
     ports:
@@ -71,7 +69,7 @@ services:
     build: 
       context: ./irisclient2
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisclient2
     ports:
@@ -88,7 +86,7 @@ services:
     build: 
       context: ./irisclient
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisclient3
     ports:
@@ -120,4 +118,3 @@ services:
     - $PWD/ssl/web/server.key:/usr/local/apache2/conf/server.key
     - $PWD/ssl/web/caint.crt:/usr/local/apache2/conf/server-ca.crt
     - $PWD/webgateway.conf:/opt/webgateway/apache/webgateway.conf
-

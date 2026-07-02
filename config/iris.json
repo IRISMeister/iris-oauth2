@@ -1,6 +1,6 @@
 {
 	"OP": "iris",
-	"issuerEndpoint":"https://webgw.localdomain/irisauth/authserver/oauth2",
+	"issuerEndpoint":"https://webgw.localdomain/irisauth/oauth2",
 	"apps":{
 		"USER_CLIENT_APP":{
 			"SCOPES":"scope1",

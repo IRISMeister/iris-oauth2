@@ -32,7 +32,7 @@ h4 { color:#2080E0 ;}
     #; Read OAuth2 config
     Set config={}.%FromJSON(^config)
     If config.OP="iris" {
-        Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES
+        Set scopes=..#SCOPES //_config.apps.%Get($$$APP).SCOPES
         Set expectedaud=..#RSCURL1 // リソースサーバのURL
     }
     ElseIf config.OP="azure" {
@@ -222,7 +222,7 @@ h4 { color:#2080E0 ;}
         write "<br>",!
 
     } else {
-        write "認証されていません!<p>",!
+        write "認証されていません!!!<p>",!
         write "<a href='MyApp.Login.cls'>認証を行う</a>"
     }    
     &html<</body></html>>
@@ -234,7 +234,7 @@ ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
     #; Read OAuth2 config
     Set config={}.%FromJSON(^config)
     If config.OP="iris" {
-        Set scopes=..#SCOPES_config.apps.%Get($$$APP).SCOPES
+        Set scopes=..#SCOPES //_config.apps.%Get($$$APP).SCOPES
     }
     ElseIf config.OP="azure" {
         Set scopes=config.apps.%Get($$$APP).SCOPES

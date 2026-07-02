@@ -15,7 +15,7 @@ Register(AppName,fclouri,postlorediruris) public {
         }
 
         #dim server as OAuth2.ServerDefinition=""
-        Set issuerEndpoint="https://webgw.localdomain/irisauth/authserver/oauth2"
+        Set issuerEndpoint="https://webgw.localdomain/irisauth/oauth2"
         Set sslConfiguration="client"
         Set tSC=##class(%SYS.OAuth2.Registration).Discover(issuerEndpoint,sslConfiguration,.server)
         Set tSC=server.%Save()

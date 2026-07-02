@@ -198,7 +198,7 @@ set url=##class(%SYS.OAuth2.Authorization).GetAuthorizationCodeEndpoint(
 
 返却されるURLは次のような内容になります。いわゆる[承認リクエスト](https://tex2e.github.io/rfc-translater/html/rfc6749.html#4-1-1--Authorization-Request)です。
 ```
-https://webgw.localdomain/irisauth/authserver/oauth2/authorize
+https://webgw.localdomain/irisauth/oauth2/authorize
   ?response_type=code
   &client_id=01yJ2zW0K9XQqrroIB4b7PLci3NkJBegm0b_kBcFhgw
   &redirect_uri=https%3A//webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.Response.cls
@@ -317,7 +317,7 @@ https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.PostLogoutRedirect.cl
 このURLをGETすると、さらに認可サーバのlogoutエンドポイントへのURLにリダイレクトされます。[RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html#RPLogout)のためのエンドポイントです。
 
 ```
- https://webgw.localdomain/irisauth/authserver/oauth2/logout
+ https://webgw.localdomain/irisauth/oauth2/logout
   ?id_token_hint=eyJ0eXAiO.....
   &post_logout_redirect_uri=https://webgw.localdomain/irisclient/csp/sys/oauth2/OAuth2.PostLogoutRedirect.cls
   &state=Pc73yDQFouYO1Y-a0PioOI3qRtw
@@ -568,7 +568,7 @@ DOS窓上にサーバから得た情報が出力されているはずです。
 C:\git\python-oauth2-client>python request.py
 
 ***** auth_url *****
-https://webgw.localdomain/irisauth/authserver/oauth2/authorize?response_type=code&client_id=EKj6Bww0yiFgeuYUxtkyzfge84-keMy20uE5xTmlWPk&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=openid+profile+scope1+scope2&state=aiq21soYtKWlzomgChYUlzVgjpby1v&code_challenge=AIu6-HIPnl1MKWIxImJ3Earg0ezfcUbNF75hLljXSmM&code_challenge_method=S256
+https://webgw.localdomain/irisauth/oauth2/authorize?response_type=code&client_id=EKj6Bww0yiFgeuYUxtkyzfge84-keMy20uE5xTmlWPk&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=openid+profile+scope1+scope2&state=aiq21soYtKWlzomgChYUlzVgjpby1v&code_challenge=AIu6-HIPnl1MKWIxImJ3Earg0ezfcUbNF75hLljXSmM&code_challenge_method=S256
 
 ***** headers *****
 {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -591,7 +591,7 @@ https://webgw.localdomain/irisauth/authserver/oauth2/authorize?response_type=cod
 
 ```python
   # Logout 
-  logout_url='https://webgw.localdomain/irisauth/authserver/oauth2/logout?id_token_hint='+id_token+'&post_logout_redirect_uri=http://localhost:8080/fclogout&state='+state
+  logout_url='https://webgw.localdomain/irisauth/oauth2/logout?id_token_hint='+id_token+'&post_logout_redirect_uri=http://localhost:8080/fclogout&state='+state
   open_new(logout_url)
 ```
 
@@ -669,8 +669,8 @@ $ ./curl.sh
   "TimeStamp": "04/04/2023 17:25:57",
   "exp": "1680600357(2023-04-04 18:25:57)",
   "debug": {
-    "jti": "https://webgw.localdomain/irisauth/authserver/oauth2.A20EIIXeenDpM6oK_At6ZEtCcKY",
-    "iss": "https://webgw.localdomain/irisauth/authserver/oauth2",
+    "jti": "https://webgw.localdomain/irisauth/oauth2.A20EIIXeenDpM6oK_At6ZEtCcKY",
+    "iss": "https://webgw.localdomain/irisauth/oauth2",
     "sub": "_SYSTEM",
     "exp": 1680600357,
     "aud": [

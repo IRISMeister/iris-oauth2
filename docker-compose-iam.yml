@@ -1,11 +1,9 @@
-version: '3.7'
-
 services: 
   irisauth:
     build: 
       context: ./irisauth
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris:2024.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisauth
     ports:
@@ -22,7 +20,7 @@ services:
     build: 
       context: ./irisrsc
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisrsc
     ports:
@@ -38,7 +36,7 @@ services:
     build: 
       context: ./irisrsc
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisrsc2
     ports:
@@ -54,7 +52,7 @@ services:
     build: 
       context: ./irisclient
       args:
-        IMAGE: containers.intersystems.com/intersystems/iris-community:2023.1.0.229.0
+        IMAGE: containers.intersystems.com/intersystems/iris-community:2026.1
         COMMIT_ID: ${COMMIT_ID}
     hostname: irisclient
     ports:

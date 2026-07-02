@@ -64,7 +64,7 @@ ClassMethod setup(ByRef tVars) As %Status
     Set cnf.GenerateTokenClass = "%OAuth2.Server.JWT"
     Set issuer=##class(OAuth2.Endpoint).%New()
     Set issuer.Host = "webgw.localdomain"
-    Set issuer.Prefix = "irisauth/authserver"
+    Set issuer.Prefix = "irisauth"
     Set issuer.UseSSL = 1
     Set cnf.IssuerEndpoint = issuer
     Set cnf.JWKSFromCredentials = 0
@@ -180,10 +180,10 @@ ClassMethod setup(ByRef tVars) As %Status
     Set file=home_"clientid_angular.txt" o file:"nws" u file w c.ClientId,! c file
 
     #; Export Angular environment.ts just for convenience
-    Set authUri=origin_"irisauth/authserver/oauth2/authorize"
-    Set logoutUri=origin_"irisauth/authserver/oauth2/logout"
-    Set tokenUri=origin_"irisauth/authserver/oauth2/token"
-    Set userinfoUri=origin_"irisauth/authserver/oauth2/userinfo"
+    Set authUri=origin_"irisauth/oauth2/authorize"
+    Set logoutUri=origin_"irisauth/oauth2/logout"
+    Set tokenUri=origin_"irisauth/oauth2/token"
+    Set userinfoUri=origin_"irisauth/oauth2/userinfo"
     Set redirectUri=origin_"myapp/#/callback"
     Set scope="openid profile scope1"
     Set resourceServerUri=origin_"irisrsc/csp/myrsc/private"
@@ -248,10 +248,10 @@ ClassMethod setup(ByRef tVars) As %Status
     Set file=home_"clientid_angular2.txt" o file:"nws" u file w c.ClientId,! c file
 
     #; Export Angular environment.ts just for convenience
-    Set authUri=origin_"irisauth/authserver/oauth2/authorize"
-    Set logoutUri=origin_"irisauth/authserver/oauth2/logout"
-    Set tokenUri=origin_"irisauth/authserver/oauth2/token"
-    Set userinfoUri=origin_"irisauth/authserver/oauth2/userinfo"
+    Set authUri=origin_"irisauth/oauth2/authorize"
+    Set logoutUri=origin_"irisauth/oauth2/logout"
+    Set tokenUri=origin_"irisauth/oauth2/token"
+    Set userinfoUri=origin_"irisauth/oauth2/userinfo"
     Set redirectUri=origin_"myapp2/#/callback"
     Set scope="openid profile scope1"
     Set resourceServerUri=origin_"irisrsc/csp/myrsc/private"
@@ -303,22 +303,7 @@ ClassMethod setup(ByRef tVars) As %Status
     #; コンテナ起動時に下記コードを実行する。
     #; 実装コード: irisrsc/src/API/Register.mac
 
-    #; ADD REST End point for authorization server 
-    #; User Cookie Scopeをlaxに変更する
-    kill props
-    Set props("AutheEnabled")=64
-    Set props("Description")="OAuth 2.0 Authorization Server."
-    Set props("DispatchClass")="OAuth2.Server.REST"
-    Set props("Enabled")=1
-    Set props("MatchRoles")=":%All"
-    Set props("NameSpace")="%SYS"
-    Set props("Type")=2
-    Set props("UserCookieScope")=1
-    Set tSC = ##Class(Security.Applications).Create("/authserver/oauth2",.props)
-    $$$ThrowOnError(tSC)
-
     #; Add sample users
-
     Set username="test"
     Set tSC=##class(Security.Users).Create(username,,username,"テスト太郎",,,,0,1,"sample user",,"01234567",,,1,1)
     kill prop Set tSC=##class(Security.Users).Get(username,.prop)

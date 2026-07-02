@@ -36,7 +36,7 @@ fi
 # https://webgw.localdomain:8443/myapp/#/home
 # https://webgw.localdomain:8443/#/callback
 # https://webgw.localdomain:8443/#/info-iam
-# https://webgw.localdomain:8443/irisauth/authserver/oauth2/authorize
+# https://webgw.localdomain:8443/irisauth/oauth2/authorize
 # 
 # See this why this is needed
 # https://infi.nl/nieuws/spa-necromancy/
@@ -113,7 +113,7 @@ fi
 
 result=$(curl -s -X POST \
     -d "name=openid-connect" \
-    -d "config.issuer=https://$HOST_NAME/irisauth/authserver/oauth2/.well-known/openid-configuration" \
+    -d "config.issuer=https://$HOST_NAME/irisauth/oauth2/.well-known/openid-configuration" \
     -d "config.client_id=$client_id_iam" \
     -d "config.client_secret=$client_secret_iam" \
     -d "config.auth_methods=authorization_code" \
@@ -124,7 +124,7 @@ result=$(curl -s -X POST \
     -d "config.logout_revoke=true" \
     -d "config.ssl_verify=false" \
     -d "config.redirect_uri=https://$HOST_NAME:8443/myapp/#/info-iam" \
-    -d "config.authorization_endpoint=https://$HOST_NAME/irisauth/authserver/oauth2/authorize" \
+    -d "config.authorization_endpoint=https://$HOST_NAME/irisauth/oauth2/authorize" \
     -d "config.consumer_optional=true" \
     -d "config.scopes=openid+profile+scope1" \
     -d "config.upstream_access_token_jwk_header=x_access_token_jwk" \
@@ -151,7 +151,7 @@ fi
 
 result=$(curl -s -X POST \
     -d "name=openid-connect" \
-    -d "config.issuer=https://$HOST_NAME/irisauth/authserver/oauth2/.well-known/openid-configuration" \
+    -d "config.issuer=https://$HOST_NAME/irisauth/oauth2/.well-known/openid-configuration" \
     -d "config.client_id=$client_id_iam" \
     -d "config.client_secret=$client_secret_iam" \
     -d "config.auth_methods=authorization_code" \
@@ -162,7 +162,7 @@ result=$(curl -s -X POST \
     -d "config.logout_revoke=true" \
     -d "config.ssl_verify=false" \
     -d "config.redirect_uri=https://$HOST_NAME:8443/myapp/#/info-iam" \
-    -d "config.authorization_endpoint=https://$HOST_NAME/irisauth/authserver/oauth2/authorize" \
+    -d "config.authorization_endpoint=https://$HOST_NAME/irisauth/oauth2/authorize" \
     -d "config.consumer_optional=true" \
     -d "config.scopes=openid+profile+scope1" \
     -d "config.upstream_access_token_jwk_header=x_access_token_jwk" \

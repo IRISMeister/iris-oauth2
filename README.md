@@ -97,7 +97,7 @@ Client: Docker Engine - Community
 
   この時点で下記をLinuxで実行し、OpenIDプロバイダーのメタデータを取得できる事を確認してください。[こちら](https://github.com/IRISMeister/iris-oauth2/blob/main/docs/openid-configuration.json)のような出力が得られるはずです。
   ```bash
-  curl http://localhost/irisauth/authserver/oauth2/.well-known/openid-configuration
+  curl http://localhost/irisauth/oauth2/.well-known/openid-configuration
   ```
 
 - 以下はWindowsで実行します。
@@ -274,7 +274,7 @@ up時に表示される下記のようなjsonは、後々、pythonなどの非IR
 {
   "client_id": "trwAtbo5DKYBqpjwaBu9NnkQeP4PiNUgnbWU4YUVg_c",
   "client_secret": "PeDUMmFKq3WoCfNfi50J6DnKH9KlTM6kHizLj1uAPqDzh5iPItU342wPvUbXp2tOwhrTCKolpg2u1IarEVFImw",
-  "issuer_uri": "https://webgw.localdomain/irisauth/authserver/oauth2"
+  "issuer_uri": "https://webgw.localdomain/irisauth/oauth2"
 }
 ```
 
@@ -338,8 +338,8 @@ https://webgw.localdomain/irisclient/csp/user/MyApp.Login.cls
 
   ```
   {
-    "jti":"https://webgw.localdomain/irisauth/authserver/oauth2.UQK89uY7wBdysNvG-fFh44AxFu8",
-    "iss":"https://webgw.localdomain/irisauth/authserver/oauth2",
+    "jti":"https://webgw.localdomain/irisauth/oauth2.UQK89uY7wBdysNvG-fFh44AxFu8",
+    "iss":"https://webgw.localdomain/irisauth/oauth2",
     "sub":"test",
     "exp":1680156948,
     "aud":[
@@ -429,7 +429,7 @@ python +--> ブラウザ           --> 認可サーバ
 CSPOAuth2Sessionの値は、発行されるIDトークンの"sid"クレームに含まれます。
 ```
 {
-  "iss":"https://webgw.localdomain/irisauth/authserver/oauth2",
+  "iss":"https://webgw.localdomain/irisauth/oauth2",
   "sub":"test",
   "exp":1679629322,
   "auth_time":1679625721,
@@ -594,7 +594,7 @@ oAUth2/OIDC関連の設定(クライアントの動的登録)は、irisclient用
 
 > これらは[register_oauth2_client.sh](https://github.com/IRISMeister/iris-oauth2/blob/master/register_oauth2_client.sh)により、コンテナ起動後に実行されます。
 
-これらの設定は、[クライアント用サーバ](http://webgw.localdomain/irisclient/csp/sys/sec/%25CSP.UI.Portal.OAuth2.Client.Configuration.zen?PID=USER_CLIENT_APP&IssuerEndpointID=1&IssuerEndpoint=https%3A%2F%2Fwebgw.localdomain%2Firisauth%2Fauthserver%2Foauth2#0)で確認できます。
+これらの設定は、[クライアント用サーバ](http://webgw.localdomain/irisclient/csp/sys/sec/%25CSP.UI.Portal.OAuth2.Client.Configuration.zen?PID=USER_CLIENT_APP&IssuerEndpointID=1&IssuerEndpoint=https%3A%2F%2Fwebgw.localdomain%2Firisauth%2Foauth2#0)で確認できます。
 
 ![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/images/client-config.png)
 
@@ -639,7 +639,7 @@ oAUth2/OIDC関連の設定(クライアントの動的登録)は、[Register.mac
 
 > これらは[register_oauth2_client.sh](https://github.com/IRISMeister/iris-oauth2/blob/master/register_oauth2_client.sh)により、コンテナ起動後に実行されます。
 
-これらの設定は、[リソースサーバ](http://webgw.localdomain/irisrsc/csp/sys/sec/%25CSP.UI.Portal.OAuth2.Client.Configuration.zen?PID=RESSERVER_APP&IssuerEndpointID=1&IssuerEndpoint=https%3A%2F%2Fwebgw.localdomain%2Firisauth%2Fauthserver%2Foauth2#0)で確認できます。
+これらの設定は、[リソースサーバ](http://webgw.localdomain/irisrsc/csp/sys/sec/%25CSP.UI.Portal.OAuth2.Client.Configuration.zen?PID=RESSERVER_APP&IssuerEndpointID=1&IssuerEndpoint=https%3A%2F%2Fwebgw.localdomain%2Firisauth%2Foauth2#0)で確認できます。
 
 ![](https://raw.githubusercontent.com/IRISMeister/iris-oauth2/main/docs/images/rsc-config.png)
 
@@ -673,7 +673,7 @@ PrivateJWKSの内容だけを見やすいように整形すると[こちら](htt
 これで、このトークンはkid:3で署名されていることがわかります。
 この時点で、Signature Verifiedと表示されていますが、これはkid:3の公開鍵を使用して署名の確認がとれたことを示しています。
 
-> 公開鍵は[公開エンドポイント](https://webgw.localdomain/irisauth/authserver/oauth2/jwks)から取得されています
+> 公開鍵は[公開エンドポイント](https://webgw.localdomain/irisauth/oauth2/jwks)から取得されています
 
 次に、エンコード処理(データへのJWSの付与)を確認するために、ペーストしたトークンの水色の部分(直前のピリオドも)をカットします。Invalid Signatureに変わります。
 

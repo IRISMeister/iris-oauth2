@@ -3,12 +3,12 @@
 # oAuth Client定義でdiscovery(IRISコンテナからhttps://webgw.localdomain/にアクセスする)の実行を成功させるために必要。
 source ./params.sh
 docker compose up -d irisauth
-docker compose exec -T irisauth bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Cloud/ICM/waitISC.sh '' 120"
+docker compose exec -T irisauth bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Container/waitReady.sh -m 120"
 docker compose up -d webgw irisrsc irisrsc2 irisclient irisclient2
-docker compose exec -T irisrsc bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Cloud/ICM/waitISC.sh '' 120"
-docker compose exec -T irisrsc2 bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Cloud/ICM/waitISC.sh '' 120"
-docker compose exec -T irisclient bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Cloud/ICM/waitISC.sh '' 120"
-docker compose exec -T irisclient2 bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Cloud/ICM/waitISC.sh '' 120"
+docker compose exec -T irisrsc bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Container/waitReady.sh -m 120"
+docker compose exec -T irisrsc2 bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Container/waitReady.sh -m 120"
+docker compose exec -T irisclient bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Container/waitReady.sh -m 120"
+docker compose exec -T irisclient2 bash -c "\$ISC_PACKAGE_INSTALLDIR/dev/Container/waitReady.sh -m 120"
 
 echo "Setting up an oAuth client for resource servers."
 ./register_oauth2_client.sh

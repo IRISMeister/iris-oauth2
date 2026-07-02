@@ -53,7 +53,7 @@ ClassMethod OnPage() As %Status
 >
   
   Set config={}.%FromJSON(^config)
-  Set scope=..#SCOPES_config.apps.%Get($$$APP).SCOPES
+  Set scope=..#SCOPES //_config.apps.%Get($$$APP).SCOPES
   Set ns=$ZCVT($NAMESPACE,"L") 
   set url=##class(%SYS.OAuth2.Authorization).GetAuthorizationCodeEndpoint(
     $$$APP,
@@ -79,7 +79,7 @@ ClassMethod OnPreHTTP() As %Boolean [ ServerOnly = 1 ]
 
   #dim %response as %CSP.Response
 
-  Set scope=..#SCOPES_config.apps.%Get($$$APP).SCOPES
+  Set scope=..#SCOPES //_config.apps.%Get($$$APP).SCOPES
   if ##class(%SYS.OAuth2.AccessToken).IsAuthorized($$$APP,,scope,.accessToken,.idtoken,.responseProperties,.error) {
     set %response.Redirect="MyApp.AppMain.cls"
   }

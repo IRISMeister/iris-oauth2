@@ -19,7 +19,7 @@ Register() public {
     }
 
     #dim server as OAuth2.ServerDefinition=""
-    Set issuerEndpoint=config.issuerEndpoint ;"https://webgw.localdomain/irisauth/authserver/oauth2"
+    Set issuerEndpoint=config.issuerEndpoint ;"https://webgw.localdomain/irisauth/oauth2"
     Set sslConfiguration="resserver"
     Set server=""
     Set tSC=##class(%SYS.OAuth2.Registration).Discover(issuerEndpoint,sslConfiguration,.server)
